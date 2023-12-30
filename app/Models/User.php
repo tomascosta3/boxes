@@ -16,6 +16,7 @@ class User extends Model
         'last_name',
         'phone_number',
         'email',
+        'password',
         'access_level',
         'verified',
         'verified_at',

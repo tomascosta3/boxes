@@ -37,7 +37,7 @@
 
                     <div class="box">
 
-                        {{-- <form action="{{ route('auth.login.user') }}" method="post"> --}}
+                        <form action="{{ route('auth.login.user') }}" method="post">
                             @csrf
                             <div class="field pt-2">
                                 <label class="label">Correo electrónico</label>
@@ -88,12 +88,12 @@
                                         <button type="submit" class="button is-link">Iniciar sesión</button>
                                     </div>
                                     <div class="control">
-                                        {{-- <a href="{{ route('auth.register') }}"><button type="button" class="button is-link is-light">Registrarse</button></a> --}}
+                                        <a href="{{ route('auth.register') }}"><button type="button" class="button is-link is-light">Registrarse</button></a>
                                     </div>
                                 </div>
                             </div>
 
-                        {{-- </form> --}}
+                        </form>
 
                     </div>
 
