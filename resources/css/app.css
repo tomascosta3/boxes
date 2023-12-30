@@ -1,0 +1,9 @@
+/**
+ * Import Bulma css framework, installed by npm. 
+ */
+ @import '../../node_modules/bulma/css/bulma.css';
+
+ /**
+  * Import Box Icons modules, installed by npm.
+  */
+@import '../../node_modules/boxicons/css/boxicons.css';
