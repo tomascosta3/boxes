@@ -1,4 +1,4 @@
-@extends('components.layouts.app')
+@extends('components.layouts.nav')
 
 @section('title')
     Inicio
@@ -6,6 +6,6 @@
 
 @section('main-content')
 
-<h1>HOME</h1>
-    
+
+
 @endsection
