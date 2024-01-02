@@ -7,3 +7,582 @@
   * Import Box Icons modules, installed by npm.
   */
 @import '../../node_modules/boxicons/css/boxicons.css';
+
+
+:root {
+  /* Colors */
+  --body-color: rgba(0,0,0,.09);
+  --sidebar-color: #fff;
+  --primary-color: #0089d8;
+  --primary-color-light: #f6f5ff;
+  --toggle-color: #ddd;
+  --text-color: #707070;
+  --secondary-color: #707070;
+
+  /* Dark mode colors */
+  --dark-mode-body-color: #d8d3e6;
+  --dark-mode-sidebar-color: #363638;
+  --dark-mode-primary-color: #c20770;
+  --dark-mode-secondary-color: #eceaf3;
+  --dark-mode-text-color: #faf8f9;
+
+  /* Transition */
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
+
+  /* Heights */
+  --top-header-height: calc(8vh + 24px * 2);
+  --main-content-height: calc(100vh - var(--top-header-height));
+  --top-nav-bar-height: 60%;
+
+  /* Full calendar */
+  --fc-small-font-size: .85em;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: #f5f4f8;
+  --fc-neutral-text-color: #808080;
+  --fc-border-color: var(--dark-mode-text-color);
+
+  --fc-button-text-color: #fff;
+  --fc-button-bg-color: var(--dark-mode-sidebar-color);
+  --fc-button-border-color: var(--dark-mode-sidebar-color);
+  --fc-button-hover-bg-color: var(--dark-mode-primary-color);
+  --fc-button-hover-border-color: var(--dark-mode-sidebar-color);
+  --fc-button-active-bg-color: var(--dark-mode-sidebar-color);
+  --fc-button-active-border-color: var(--dark-mode-sidebar-color);
+
+  --fc-event-bg-color: #3788d8;
+  --fc-event-border-color: #3788d8;
+  --fc-event-text-color: #fff;
+  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+
+  --fc-more-link-bg-color: #d0d0d0;
+  --fc-more-link-text-color: inherit;
+
+  --fc-event-resizer-thickness: 8px;
+  --fc-event-resizer-dot-total-width: 8px;
+  --fc-event-resizer-dot-border-width: 1px;
+
+  --fc-non-business-color: rgba(215, 215, 215, 0.3);
+  --fc-bg-event-color: rgb(143, 223, 130);
+  --fc-bg-event-opacity: 0.3;
+  --fc-highlight-color: rgba(188, 232, 241, 0.085);
+  --fc-today-bg-color: #8080801a;
+  --fc-now-indicator-color: red;
+}
+
+div.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+div.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+div.full-height {
+  height: 100vh;
+}
+
+div.scrollable {
+  overflow-y: auto;
+  max-height: 70vh;
+  width: 100%;
+  border: 2px solid #ccc;
+  padding: 10px 10px 5px 10px;
+  border-radius: 10px;
+}
+
+/* General */
+hr {
+  height: 0;
+  border: 0;
+  width: 95%;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.full-height-allowed {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.three-quarters-width {
+  width: 75%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.border-right {
+  border-right: 1px solid rgba(0,0,0,.15);
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.max-height-allowed {
+  height: 100%;
+}
+
+.discreet-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 100%;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: larger;
+}
+
+/* Body */
+body {
+  height: 100vh;
+  background: var(--body-color);
+}
+
+body.dark-mode {
+  background-color: var(--dark-mode-sidebar-color);
+}
+
+/* Vertical Navbar */
+body.dark-mode .vertical-nav-bar {
+  background-color: var(--dark-mode-sidebar-color);
+}
+
+/* Principal page */
+
+body.dark-mode .principal-page {
+  background-color: var(--dark-mode-body-color);
+}
+
+/*
+ * Main content. 
+ */
+ .main-content {
+  padding-left: 13vw;
+}
+
+div.main-page {
+  /* Fix height */
+  padding-top: 12px;
+}
+
+/*
+ * Vertial nav bar boxes. 
+ */
+
+.invisible-box {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .invisible-box {
+  color: #faf8f9;
+}
+
+/* Styles when hovering over the invisible-box */
+.invisible-box:hover  {
+  background-color: rgba(0,0,0,.04);
+}
+
+body.dark-mode .invisible-box:hover {
+  background-color: #c20770;
+}
+
+.invisible-box.active {
+  background-color: rgba(0,0,0,.04);
+}
+
+body.dark-mode .invisible-box.active {
+  background-color: var(--dark-mode-primary-color);
+}
+
+.nav-icon {
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SolidoCS logo */
+.solidocs-logo {
+  height: 8vh;
+  width: auto;
+  display: block; 
+  margin-top: 12px;
+}
+
+/* Top nav bar */
+.top-header {
+  height: var(--top-header-height);
+}
+
+.top-nav-bar {
+  height: var(--top-nav-bar-height);
+  /* background-color: rgb(214, 209, 209); */
+}
+
+.user-icon {
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon {
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+div.separator {
+  border-right: 1px solid rgba(0,0,0,.15); 
+  margin-bottom: 5px;
+  height: 45px;
+  width: 0;
+}
+
+.hidden-button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit; 
+  font-size: inherit; 
+  color: inherit;
+}
+
+/* Contact channels */
+.channels {
+  height: calc(100% - var(--top-nav-bar-height));
+  background-color: var(--dark-mode-primary-color);
+}
+
+.channels p, .channels li{
+  color: white;
+}
+
+.channel-link {
+  display: flex;
+  align-items: center;
+  background-color: #e2e2e2;
+  border-radius: 10px;
+  padding: 7px 20px;
+  transition: background-color 0.3s;
+}
+
+body.dark-mode .channel-link {
+  background-color: var(--dark-mode-sidebar-color);
+}
+
+.channel-link p {
+  color: #4a4a4a;
+}
+
+body.dark-mode .channel-link p {
+  color: var(--dark-mode-text-color);
+}
+
+.channel-link:hover {
+  background-color: #e5e5e5; 
+}
+
+body.dark-mode .channel-link:hover {
+  background-color: var(--dark-mode-secondary-color);
+}
+
+body.dark-mode .channel-link:hover p {
+  color: var(--dark-mode-sidebar-color);
+}
+
+.channel-logo {
+  height: 30px;
+}
+
+/* Main Content Divs */
+.categories {
+  background-color: var(--dark-mode-secondary-color);
+}
+
+body.dark-mode .categories {
+  background-color: var(--dark-mode-sidebar-color);
+}
+
+body.dark-mode .categories p {
+  color: var(--dark-mode-text-color);
+}
+
+/* File inputs */
+body.dark-mode .file-field span.file-cta {
+  background-color: var(--dark-mode-sidebar-color);
+  color: var(--dark-mode-text-color);
+  transition: background-color 0.3s;
+  border: none;
+}
+
+body.dark-mode .file-field span.file-cta:hover  {
+  background-color: var(--dark-mode-primary-color);
+}
+
+body.dark-mode .file-field span.file-name {
+  background-color: white;
+  color: var(--dark-mode-sidebar-color);
+  border: none;
+}
+
+/* List items */
+.list-item {
+  background-color: var(--dark-mode-text-color);
+}
+
+body.dark-mode .list-item {
+  background-color: var(--dark-mode-text-color);
+}
+
+/* Search div */
+.search {
+  background-color: var(--dark-mode-text-color);
+}
+
+body.dark-mode .search {
+  background-color: var(--dark-mode-text-color);
+}
+
+/* Secondary background */
+.secondary-background {
+  background-color: var(--primary-color-light);
+}
+body.dark-mode .secondary-background {
+  background-color: var(--dark-mode-secondary-color);
+}
+
+/* Requests Date */
+.days-number {
+  font-size: 90px;
+}
+
+/* Buttons */
+body.dark-mode .button-scs {
+  background-color: var(--dark-mode-sidebar-color);
+  color: var(--dark-mode-text-color);
+  transition: background-color 0.3s;
+  border: none;
+}
+
+body.dark-mode .button-scs:hover {
+  background-color: var(--dark-mode-primary-color);
+}
+
+/* Select */
+body.dark-mode .select-scs {
+  border: none;
+}
+
+/* Requests history */
+.requests-history {
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Request text box */
+.request-textarea {
+  height: 200px !important;
+  max-height: 200px !important;
+  overflow-y: auto;
+}
+
+/* Chat messages */
+.chat-messages {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-bottom: 1em;
+}
+
+/* Counter span */
+.pending-counter-span {
+  background-color: #ffff00 !important;
+  color: var(--dark-mode-sidebar-color) !important;
+}
+
+body.dark-mode .pending-counter-span {
+  background-color: #ffff00;
+  color: var(--dark-mode-sidebar-color);
+}
+
+.approved-counter-span {
+  background-color: #00ff00 !important;
+  color: var(--dark-mode-sidebar-color) !important;
+}
+
+body.dark-mode .approved-counter-span {
+  background-color: #00ff00;
+  color: var(--dark-mode-sidebar-color);
+}
+
+.rejected-counter-span {
+  background-color: #cc0000 !important;
+  color: var(--dark-mode-text-color) !important;
+}
+
+body.dark-mode .rejected-counter-span {
+  background-color: #cc0000;
+  color: var(--dark-mode-text-color);
+}
+
+/* Calendar */
+.main-content-calendar {
+  height: var(--main-content-height);
+}
+
+.calendar .fc-daygrid-day-events {
+  display: none;
+}
+
+body.dark-mode .fc-daygrid-day-top a {
+  color: #808080;
+}
+
+body.dark-mode .fc-list-day-cushion a {
+  color: var(--dark-mode-sidebar-color);
+}
+
+.fc-scrollgrid-sync-inner a {
+  color: #c4027a9c;
+}
+
+body.dark-mode .fc-scrollgrid-sync-inner a {
+  color: #808080;
+}
+
+body.dark-mode .fc-scrollgrid-section {
+  background-color: #ffff;
+}
+
+.fc-header-toolbar, .fc-toolbar{
+  margin-bottom: 10px !important;
+}
+
+.fc-toolbar-title {
+  font-size: 20px !important;
+}
+
+.fc-day-grid .fc-row .fc-content-skeleton td {
+  height: 40px !important; /* Ajusta a la altura deseada */
+}
+
+.fc-day-number {
+  line-height: 40px !important; /* Asegúrate de que coincida con la altura de la celda */
+}
+
+.calendar-box {
+  height: 100%;
+}
+
+body.dark-mode .calendar-box {
+  height: 100%;
+  background-color: var(--dark-mode-secondary-color);
+}
+
+.calendar {
+  width: 100%;
+  height: 70%;
+}
+
+.main-calendar {
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-column {
+  height: var(--main-content-height);
+}
+
+.calendar .level-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar table {
+  background-color: inherit;
+}
+
+.calendar .table, 
+.calendar .table thead, 
+.calendar .table tbody, 
+.calendar .table tr, 
+.calendar .table td, 
+.calendar .table th {
+  background-color: transparent !important;
+  border: none;
+}
+
+.calendar-list {
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+.create-icon {
+  color: rgb(14, 237, 14);
+}
+
+/* Groups */
+.add-button {
+  height: 20%;
+  width: 20%;
+  background-color: var(--dark-mode-secondary-color);
+}
+
+.add-button i {
+  color: var(--dark-mode-sidebar-color);
+}
+
+.groups-list {
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.select-role {
+  border: none !important;
+  background-color: var(--dark-mode-sidebar-color) !important;
+  color: var(--dark-mode-text-color) !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+}
+
+/* Choices */
+.choices__list--multiple .choices__item {
+  background-color: var(--dark-mode-sidebar-color) !important;
+  border: none !important;
+  color: var(--dark-mode-text-color) !important;
+  font-size: 95% !important;
+}
+
+/* User creation */
+.user-create-scrollable {
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.allow-scroll-document {
+  overflow-y: auto;
+  max-height: 75vh;
+}
