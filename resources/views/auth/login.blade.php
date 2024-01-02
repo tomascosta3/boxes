@@ -1,4 +1,4 @@
-@extends('components.layout.app')
+@extends('components.layouts.app')
 
 @section('title')
     Iniciar sesión    
