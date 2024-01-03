@@ -56,5 +56,15 @@ Route::middleware('auth')->group(function() {
 
         // Client index.
         Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+
+        // Clients routes.
+        Route::name('clients.')->group(function () {
+
+            // Create client.
+            Route::get('/clients/create', [ClientController::class, 'create'])->name('create');
+
+            // Client store
+            Route::post('/clients/store', [ClientController::class, 'store'])->name('store');
+        });
     });
 });

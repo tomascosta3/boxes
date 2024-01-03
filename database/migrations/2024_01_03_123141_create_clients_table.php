@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            
+
             $table->id();
 
             $table->unsignedBigInteger('user_id')->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration
 
             $table->string('phone_number');
 
-            $table->string('email');
+            $table->string('email')->nullable();
 
             $table->string('cuit')->nullable();
 
