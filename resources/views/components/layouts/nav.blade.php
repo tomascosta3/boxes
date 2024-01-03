@@ -26,34 +26,25 @@
             <a href="#">
                 <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'users') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-group nav-icon"></i>
-                        <span class="pl-3">Usuarios</span>
+                        <i class="bx bx-search-alt-2 nav-icon"></i>
+                        <span class="pl-3">Buscar</span>
                     </div>
                 </div>
             </a>
 
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bxs-business nav-icon"></i>
-                    <span class="pl-3">Organizaciones</span>
+                    <i class="bx bx-file-blank nav-icon"></i>
+                    <span class="pl-3">Nueva orden</span>
                 </div>
             </div>
 
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-wallet-alt nav-icon"></i>
-                    <span class="pl-3">Facturas y comprobantes</span>
+                    <i class="bx bx-spreadsheet nav-icon"></i>
+                    <span class="pl-3">Reparaciones</span>
                 </div>
             </div>
-
-            <a href="#">
-                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'documents') ? 'active' : '' }}">
-                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-folder-open nav-icon"></i>
-                        <span class="pl-3">Documentos</span>
-                    </div>
-                </div>
-            </a>
 
             {{-- <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
@@ -67,26 +58,26 @@
             <a href="#">
                 <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-calendar nav-icon"></i>
-                        <span class="pl-3">Agenda</span>
+                        <i class="bx bx-group nav-icon"></i>
+                        <span class="pl-3">Clientes</span>
                     </div>
                 </div>
             </a>
 
             <a href="#">
-                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'requests') ? 'active' : '' }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-paper-plane"></i>
-                        <span class="px-3">Licencias</span>
-                        @if (isset($pending_requests) && $pending_requests >= 0)
-                        <span class="tag pending-counter-span mx-1">{{ $pending_requests }}</span>
-                        @endif
-                        @if (isset($approved_requests) && $approved_requests >= 0)
-                        <span class="tag approved-counter-span mx-1">{{ $approved_requests }}</span>
-                        @endif
-                        @if (isset($rejected_requests) && $rejected_requests >= 0)
-                        <span class="tag rejected-counter-span mx-1">{{ $rejected_requests }}</span>
-                        @endif
+                        <i class="bx bx-desktop nav-icon"></i>
+                        <span class="pl-3">Equipos</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-package nav-icon"></i>
+                        <span class="pl-3">Stock</span>
                     </div>
                 </div>
             </a>
