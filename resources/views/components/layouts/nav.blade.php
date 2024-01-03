@@ -48,8 +48,8 @@
 
             <hr class="centered">
 
-            <a href="#">
-                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
+            <a href="{{ route('clients') }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'clients') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-group nav-icon"></i>
                         <span class="pl-3">Clientes</span>

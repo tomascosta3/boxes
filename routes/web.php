@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -35,4 +36,20 @@ Route::name('auth.')->group(function () {
     Route::get('/register', [RegisterController::class, 'view'])->name('register');
     Route::post('/register', [RegisterController::class, 'create'])->name('register.user');
     // Route::get('/verification/{token}', [RegisterController::class, 'verify'])->name('verify');
+});
+
+
+/**
+ * Routes that only authenticated users can access.
+ */
+Route::middleware('auth')->group(function() {
+
+    /**
+     * Only allow access to users that have technician permissions or superior.
+     */
+    Route::middleware(['is.technician'])->group(function() {
+
+        // Client index.
+        Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+    });
 });
