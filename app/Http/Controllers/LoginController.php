@@ -55,4 +55,24 @@ class LoginController extends Controller
         // Redirect back to the login page with the error message.
         return to_route('auth.login');
     }
+
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        // Log the user out.
+        Auth::logout();
+
+        // Invalidate the session and regenerate the CSRF token.
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect to the login page.
+        return to_route('auth.login');
+    }
 }

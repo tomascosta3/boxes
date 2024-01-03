@@ -45,6 +45,11 @@ Route::name('auth.')->group(function () {
 Route::middleware('auth')->group(function() {
 
     /**
+     * Logout.
+     */
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    /**
      * Only allow access to users that have technician permissions or superior.
      */
     Route::middleware(['is.technician'])->group(function() {

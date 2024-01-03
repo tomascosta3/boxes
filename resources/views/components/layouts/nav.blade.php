@@ -86,7 +86,7 @@
 
             <hr class="centered">
 
-            <a href="#">
+            <a href="{{ route('logout') }}">
                 <div class="box p-2 mb-4 invisible-box">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-log-out nav-icon"></i>
@@ -170,7 +170,7 @@
 
                             {{-- Logout button --}}
                             <div class="column is-1 pt-1">
-                                <a href="#">
+                                <a href="{{ route('logout') }}">
                                     <div class="navbar-item has-text-centered is-flex is-align-items-center">
                                         <i class="bx bx-log-out nav-icon"></i>
                                         <span class="pl-3">Salir</span>
