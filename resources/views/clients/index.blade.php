@@ -11,7 +11,7 @@
 
             <div class="columns is-vcentered is-centered">
 
-                <div class="column">
+                <div class="column is-9">
                     <div class="box secondary-background">
                         <div class="columns is-vcentered is-centered">
                             <div class="column p-0">
@@ -25,7 +25,8 @@
             
                         {{-- Search form --}}
                         <div class="box is-shadowless p-3 mb-3 search">
-                            <form action="#" method="get">
+                            <form action="{{ route('clients') }}" method="get">
+                                @csrf
                                 <div class="columns is-vcentered is-centered">
                                     <div class="column is-6">
                                         <div class="field has-addons">
@@ -42,13 +43,8 @@
                                             <div class="control">
                                                 <div class="select">
                                                     <select name="search_option" id="search_option">
-                                                        <option value="last_name"
-                                                        @if (session('search_option') == "last_name")
-                                                            selected
-                                                        @endif
-                                                        >Apellido</option>
-                                                        <option value="first_name"
-                                                        @if (session('search_option') == "first_name")
+                                                        <option value="name"
+                                                        @if (session('search_option') == "name")
                                                             selected
                                                         @endif
                                                         >Nombre</option>
@@ -62,6 +58,11 @@
                                                             selected
                                                         @endif
                                                         >Correo</option>
+                                                        <option value="company"
+                                                        @if (session('search_option') == "company")
+                                                            selected
+                                                        @endif
+                                                        >Empresa</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -89,10 +90,7 @@
             
                         <div class="box p-2 mb-2 is-shadowless categories">
                             <div class="columns is-vcentered">
-                                <div class="column is-2">
-                                    <p>Apellido</p>
-                                </div>
-                                <div class="column is-2">
+                                <div class="column is-3">
                                     <p>Nombre</p>
                                 </div>
                                 <div class="column is-2">
@@ -122,11 +120,8 @@
                         <a href="#">
                             <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
-                                    <div class="column is-2">
-                                        <p class="is-clipped">{{ $client->last_name }}</p>
-                                    </div>
-                                    <div class="column is-2">
-                                        <p class="is-clipped">{{ $client->first_name }}</p>
+                                    <div class="column is-3">
+                                        <p class="is-clipped">{{ $client->last_name . ' ' . $client->first_name}}</p>
                                     </div>
                                     <div class="column is-2">
                                         <p class="is-clipped">{{ $client->phone_number }}</p>
@@ -142,7 +137,11 @@
                                     </div>
                                     <div class="column">
                                         <p class="is-clipped">
-                                            EMPRESA
+                                            @if ($client->company)
+                                                {{ $client->company->name }}
+                                            @else
+                                                Cliente final
+                                            @endif
                                         </p>
                                     </div>
                                 </div>
