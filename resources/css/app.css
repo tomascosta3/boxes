@@ -149,6 +149,11 @@ hr {
   font-size: larger;
 }
 
+.hero-body {
+  overflow-y: auto;
+  max-height: 85vh;
+}
+
 /* Body */
 body {
   height: 100vh;
