@@ -14,8 +14,8 @@ class LoginController extends Controller
      * 
      * @return Illuminate\Contracts\View\View
      */
-    public function view() : View {
-
+    public function view() : View
+    {
         return view('auth.login');
     }
 
@@ -26,8 +26,8 @@ class LoginController extends Controller
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(Request $request) : RedirectResponse{
-
+    public function login(Request $request) : RedirectResponse
+    {
         // Validate the incoming request data.
         $credentials = $request->validateWithBag('login', [
             'email' => ['required', 'email'],

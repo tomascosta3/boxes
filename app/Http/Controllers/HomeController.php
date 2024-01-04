@@ -12,7 +12,8 @@ class HomeController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function index() : View {
+    public function index() : View
+    {
 
         return view('home.home');
     }

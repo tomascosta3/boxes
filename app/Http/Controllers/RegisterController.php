@@ -20,8 +20,8 @@ class RegisterController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function view() : View {
-
+    public function view() : View
+    {
         return view('auth.register');
     }
 
@@ -32,8 +32,8 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request) : RedirectResponse {
-
+    public function create(Request $request) : RedirectResponse
+    {
         /**
          * Validate form inputs.
          * If there is an error, returns back with the errors.

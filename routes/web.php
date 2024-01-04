@@ -63,8 +63,11 @@ Route::middleware('auth')->group(function() {
             // Create client.
             Route::get('/clients/create', [ClientController::class, 'create'])->name('create');
 
-            // Client store
+            // Client store.
             Route::post('/clients/store', [ClientController::class, 'store'])->name('store');
+
+            // Client view.
+            Route::get('/clients/{id}', [ClientController::class, 'show'])->name('show');
         });
     });
 });

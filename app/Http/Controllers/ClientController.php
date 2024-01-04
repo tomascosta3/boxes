@@ -16,7 +16,8 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Request $request): View {
+    public function index(Request $request): View
+    {
         // Get search parameters from the request.
         $search = $request->input('search');
         $search_option = $request->input('search_option');
@@ -40,7 +41,8 @@ class ClientController extends Controller
      * @param  string  $search_option
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function search_clients($search, $search_option) {
+    private function search_clients($search, $search_option)
+    {
         // Initialize clients variable.
         $clients = collect();
 
@@ -70,7 +72,8 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function get_all_active_clients() {
+    private function get_all_active_clients()
+    {
         // Retrieve all active clients.
         return Client::where('active', true)
             ->orderBy('last_name', 'asc')
@@ -83,7 +86,8 @@ class ClientController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function create() : View {
+    public function create() : View 
+    {
 
         return view('clients.create');
     }
@@ -161,4 +165,28 @@ class ClientController extends Controller
         }
     }
 
+
+    /**
+     * Display the details of a specific client.
+     *
+     * @param int $id The ID of the client.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show($id)
+    {
+        // Find the client by ID.
+        $client = Client::findOrFail($id);
+
+        // If the client doesn't exist, show an error message.
+        if (!$client) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el cliente');
+
+            // Redirect to the clients index route.
+            return to_route('clients');
+        }
+
+        // Return the clients view with the client's data.
+        return view('clients.show')->with(['client' => $client]);
+    }
 }
