@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function() {
 
             // Client view.
             Route::get('/clients/{id}', [ClientController::class, 'show'])->name('show');
+
+            // Edit client info.
+            Route::post('/clients/edit/{id}', [ClientController::class, 'edit'])->name('edit');
         });
     });
 });

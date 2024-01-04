@@ -163,6 +163,10 @@ class ClientController extends Controller
             $client->subscribed_client = true;
             $client->end_client = false;
             $client->save();
+        } else {
+            $client->subscribed_client = false;
+            $client->end_client = true;
+            $client->save();
         }
     }
 
@@ -192,7 +196,14 @@ class ClientController extends Controller
     }
 
 
-    public function edit(Request $request, $user_id) : RedirectResponse
+    /**
+     * Edit the details of a client based on the provided request data.
+     *
+     * @param \Illuminate\Http\Request $request The request instance containing the form data.
+     * @param int $id The ID of the client to be edited.
+     * @return \Illuminate\Http\RedirectResponse A redirect response after editing the client.
+     */
+    public function edit(Request $request, $id) : RedirectResponse
     {
         // Validate form inputs. If there is an error, return back with the errors.
         $validated = $request->validateWithBag('edit', [
@@ -202,5 +213,52 @@ class ClientController extends Controller
             'email' => ['required', 'email'],
         ]);
 
+        // Find the client by ID.
+        $client = Client::find($id);
+
+        // If the client doesn't exist, show an error message.
+        if (!$client) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el cliente');
+
+            // Redirect to the clients index route.
+            return to_route('clients');
+        }
+
+        // Update client.
+        $this->update_client($client, $request);
+
+        // Update client type based on the request.
+        $this->update_client_type($client, $request);
+
+        // Flash a success message for the session.
+        session()->flash('success', 'Cliente actualizado!');
+
+        // Redirect to the client details page.
+        return to_route('clients.show', ['id' => $id]);
     }
+
+
+    /**
+     * Update the basic information of a client.
+     *
+     * @param \App\Models\Client $client The client instance.
+     * @param \Illuminate\Http\Request $request The request instance.
+     * @return void
+     */
+    private function update_client(Client $client, Request $request): void
+    {
+        $client->update([
+            'first_name' => mb_convert_case($request->input('first_name'), MB_CASE_TITLE, "UTF-8"),
+            'last_name' => mb_convert_case($request->input('last_name'), MB_CASE_TITLE, "UTF-8"),
+            'phone_number' => $request->input('phone_number'),
+            'email' => strtolower($request->input('email')),
+            'address' => mb_convert_case($request->input('address'), MB_CASE_TITLE, "UTF-8"),
+            'locality' => mb_convert_case($request->input('locality'), MB_CASE_TITLE, "UTF-8"),
+            'province' => mb_convert_case($request->input('province'), MB_CASE_TITLE, "UTF-8"),
+            'postal_code' => $request->input('postal_code'),
+            'cuit' => $request->input('cuit'),
+        ]);
+    }
+
 }

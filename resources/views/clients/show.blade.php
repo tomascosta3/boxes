@@ -34,7 +34,7 @@
                     @endif
 
                     <div class="box has-background-light">
-                        <form action="#" method="post">
+                        <form action="{{ route('clients.edit', ['id' => $client->id]) }}" method="post">
                             @csrf
 
                             <div class="columns">
