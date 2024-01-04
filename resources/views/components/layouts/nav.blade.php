@@ -269,7 +269,7 @@
             document.body.classList.add('dark-mode');
             sunIcon.style.display = 'none';
             moonIcon.style.display = 'inline-block';
-            logo.src = "{{ asset('storage/images/solidocs-white-logo.png') }}"; 
+            logo.src = "{{ asset('images/solidocs-white-logo.png') }}"; 
         } else {
             sunIcon.style.display = 'inline-block';
             moonIcon.style.display = 'none';

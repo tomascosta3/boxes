@@ -173,10 +173,10 @@ class ClientController extends Controller
      * @param int $id The ID of the client.
      * @return \Illuminate\Contracts\View\View
      */
-    public function show($id) : View
+    public function show($id)
     {
         // Find the client by ID.
-        $client = Client::findOrFail($id);
+        $client = Client::find($id);
 
         // If the client doesn't exist, show an error message.
         if (!$client) {
