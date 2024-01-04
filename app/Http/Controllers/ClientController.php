@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class ClientController extends Controller
      * @param  string  $search_option
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function search_clients($search, $search_option)
+    private function search_clients($search, $search_option) : Collection
     {
         // Initialize clients variable.
         $clients = collect();
@@ -72,7 +73,7 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function get_all_active_clients()
+    private function get_all_active_clients() : Collection
     {
         // Retrieve all active clients.
         return Client::where('active', true)
@@ -134,7 +135,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \App\Models\Client
      */
-    private function create_client(Request $request)
+    private function create_client(Request $request) : Client
     {
         return Client::create([
             'first_name' => mb_convert_case($request->input('first_name'), MB_CASE_TITLE, "UTF-8"),
@@ -156,7 +157,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    private function update_client_type(Client $client, Request $request)
+    private function update_client_type(Client $client, Request $request) : void
     {
         if ($request->input('subscribed_client') == true) {
             $client->subscribed_client = true;
@@ -172,7 +173,7 @@ class ClientController extends Controller
      * @param int $id The ID of the client.
      * @return \Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show($id) : View
     {
         // Find the client by ID.
         $client = Client::findOrFail($id);
