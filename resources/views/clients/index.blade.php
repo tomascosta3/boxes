@@ -121,7 +121,7 @@
                             <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
                                     <div class="column is-3">
-                                        <p class="is-clipped">{{ $client->last_name . ' ' . $client->first_name}}</p>
+                                        <p class="is-clipped">{{ "{$client->last_name} {$client->first_name}"}}</p>
                                     </div>
                                     <div class="column is-2">
                                         <p class="is-clipped">{{ $client->phone_number }}</p>

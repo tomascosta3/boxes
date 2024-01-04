@@ -128,7 +128,7 @@
                                         <div class="control has-icons-left">
                                             <input class="input" type="text" name="address" id="address" placeholder="Escriba aquí la dirección...">
                                             <span class="icon is-small is-left">
-                                                <i class="bx bxs-id-card"></i>
+                                                <i class="bx bx-home-alt"></i>
                                             </span>
                                         </div>
                                         @if ($errors->create->first('address'))
@@ -142,7 +142,7 @@
                                         <div class="control has-icons-left">
                                             <input class="input" type="text" name="locality" id="locality" placeholder="Escriba aquí la localidad del cliente...">
                                             <span class="icon is-small is-left">
-                                                <i class="bx bxs-id-card"></i>
+                                                <i class="bx bxs-city"></i>
                                             </span>
                                         </div>
                                         @if ($errors->create->first('locality'))
@@ -159,7 +159,7 @@
                                         <div class="control has-icons-left">
                                             <input class="input" type="text" name="province" id="province" placeholder="Escriba aquí la provincia...">
                                             <span class="icon is-small is-left">
-                                                <i class="bx bxs-id-card"></i>
+                                                <i class="bx bx-buildings"></i>
                                             </span>
                                         </div>
                                         @if ($errors->create->first('province'))
@@ -171,9 +171,9 @@
                                     <div class="field">
                                         <label class="label" for="postal_code">Código Postal</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" name="postal_code" id="postal_code" placeholder="Escriba aquí la localidad del cliente...">
+                                            <input class="input" type="text" name="postal_code" id="postal_code" placeholder="Escriba aquí el código postal cliente...">
                                             <span class="icon is-small is-left">
-                                                <i class="bx bxs-id-card"></i>
+                                                <i class="bx bx-envelope-open"></i>
                                             </span>
                                         </div>
                                         @if ($errors->create->first('postal_code'))
@@ -188,7 +188,7 @@
                                 <div class="control has-icons-left">
                                     <input class="input" type="text" name="cuit" id="cuit" placeholder="Escriba aquí el CUIT del cliente...">
                                     <span class="icon is-small is-left">
-                                        <i class="bx bx-envelope"></i>
+                                        <i class="bx bx-id-card"></i>
                                     </span>
                                 </div>
                                 @if ($errors->create->first('cuit'))
