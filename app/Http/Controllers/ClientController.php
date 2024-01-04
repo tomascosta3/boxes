@@ -107,7 +107,7 @@ class ClientController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'phone_number' => ['required'],
-            'email' => ['nullable', 'email'],
+            'email' => ['required', 'email'],
         ]);
 
         // Create a new client with the provided data.

@@ -81,6 +81,9 @@
                                     <span class="icon is-small is-left">
                                         <i class="bx bx-phone"></i>
                                     </span>
+                                    <span class="icon is-small is-right">
+                                        <i class='bx bx-error-circle'></i>
+                                    </span>
                                 </div>
                                 @if ($errors->edit->first('phone_number'))
                                     <small style="color: red">{{ $errors->edit->first('phone_number') }} </small>
@@ -238,4 +241,10 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script src="{{ asset('js/clients/client_type_checkbox.js') }}"></script>  
 @endsection

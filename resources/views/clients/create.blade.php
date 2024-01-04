@@ -91,10 +91,13 @@
 
                             <div class="field">
                                 <label class="label" for="email">Correo electrónico</label>
-                                <div class="control has-icons-left">
+                                <div class="control has-icons-left has-icons-right">
                                     <input class="input" type="email" name="email" id="email" placeholder="correo@midominio.com">
                                     <span class="icon is-small is-left">
                                         <i class="bx bx-envelope"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class='bx bx-error-circle'></i>
                                     </span>
                                 </div>
                                 @if ($errors->create->first('email'))
@@ -242,27 +245,5 @@
 @section('scripts')
     @parent
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get references to the "Subscribed Client" and "End Client" checkboxes.
-            const subscribedClientCheckbox = document.getElementById('subscribed_client');
-            const endClientCheckbox = document.getElementById('end_client');
-    
-            // Event listener for the "Subscribed Client" checkbox.
-            subscribedClientCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    // If "Subscribed Client" is selected, uncheck "End Client".
-                    endClientCheckbox.checked = false;
-                }
-            });
-    
-            // Event listener for the "End Client" checkbox.
-            endClientCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    // If "End Client" is selected, uncheck "Subscribed Client".
-                    subscribedClientCheckbox.checked = false;
-                }
-            });
-        });
-    </script>    
+    <script src="{{ asset('js/clients/client_type_checkbox.js') }}"></script>  
 @endsection
