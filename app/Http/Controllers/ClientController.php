@@ -190,4 +190,17 @@ class ClientController extends Controller
         // Return the clients view with the client's data.
         return view('clients.show')->with(['client' => $client]);
     }
+
+
+    public function edit(Request $request, $user_id) : RedirectResponse
+    {
+        // Validate form inputs. If there is an error, return back with the errors.
+        $validated = $request->validateWithBag('edit', [
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'phone_number' => ['required'],
+            'email' => ['required', 'email'],
+        ]);
+
+    }
 }

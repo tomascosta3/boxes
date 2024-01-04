@@ -237,43 +237,11 @@
 @endsection
 
 @section('scripts')
-<script>
-    var toggleButton = document.getElementById('theme-toggle');
-    var logo = document.getElementById('logo');
+    {{-- Define the logo source for dark mode --}}
+    <script>
+        var logoSrc = "{{ asset('images/solidocs-white-logo.png') }}"
+    </script>
 
-    var sunIcon = toggleButton.querySelector('.bx-sun');
-    var moonIcon = toggleButton.querySelector('.bx-moon');
-
-    toggleButton.addEventListener('click', function() {
-        var body = document.body;
-        var lightLogo = logo.getAttribute('data-light');
-        var darkLogo = logo.getAttribute('data-dark');
-
-        if(body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode');
-            sunIcon.style.display = 'inline-block';
-            moonIcon.style.display = 'none';
-            logo.src = lightLogo;
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.classList.add('dark-mode');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'inline-block';
-            logo.src = darkLogo;
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'inline-block';
-            logo.src = "{{ asset('images/solidocs-white-logo.png') }}"; 
-        } else {
-            sunIcon.style.display = 'inline-block';
-            moonIcon.style.display = 'none';
-        }
-    });
-</script>
+    {{-- Include the navbar functionality --}}
+    <script src="{{ asset('js/components/layouts/navbar/navbar.js') }}"></script>
 @endsection
