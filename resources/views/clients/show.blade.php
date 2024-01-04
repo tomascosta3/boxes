@@ -5,6 +5,10 @@
 @endsection
 
 @section('main-content')
+
+{{-- Delete confirmation modal --}}
+@include('clients.delete_modal')
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -219,12 +223,10 @@
                                         </a>
                                     </div>
                                     <div class="control">
-                                        <a href="#">
-                                            <button type="button" class="button is-link is-danger">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
-                                        </a>
-                                    </div>
+                                        <button type="button" class="button is-danger" id="openDeleteConfirmationModal">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </div>                                    
                                     <div class="control">
                                         <button type="submit" class="button is-success">
                                             <i class="bx bx-save"></i>
@@ -245,6 +247,6 @@
 
 @section('scripts')
     @parent
-
     <script src="{{ asset('js/clients/client_type_checkbox.js') }}"></script>  
+    <script src="{{ asset('js/clients/delete_modal.js') }}"></script>
 @endsection

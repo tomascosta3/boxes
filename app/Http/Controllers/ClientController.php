@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -259,6 +260,34 @@ class ClientController extends Controller
             'postal_code' => $request->input('postal_code'),
             'cuit' => $request->input('cuit'),
         ]);
+    }
+
+
+    /**
+     * Soft delete a client by setting the 'active' field to false.
+     *
+     * @param int $id The ID of the client to be soft deleted.
+     * @return \Illuminate\Http\RedirectResponse A redirect response after soft deleting the client.
+     */
+    public function delete($id): RedirectResponse
+    {
+        try {
+            // Find the client by ID or throw an exception.
+            $client = Client::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el cliente seleccionado.');
+            return to_route('clients');
+        }
+
+        // Soft delete the client by setting the 'active' field to false.
+        $client->update(['active' => false]);
+
+        // Flash a success message for the session.
+        session()->flash('success', 'Cliente eliminado.');
+
+        // Redirect to the clients index route.
+        return to_route('clients');
     }
 
 }

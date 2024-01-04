@@ -71,6 +71,9 @@ Route::middleware('auth')->group(function() {
 
             // Edit client info.
             Route::post('/clients/edit/{id}', [ClientController::class, 'edit'])->name('edit');
+
+            // Soft delete client.
+            Route::get('/clients/delete/{id}', [ClientController::class, 'delete'])->name('delete');
         });
     });
 });
