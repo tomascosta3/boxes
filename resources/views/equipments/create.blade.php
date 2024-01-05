@@ -160,5 +160,5 @@
 
 @section('scripts')
     @parent
-    <script src="{{ asset('js/equipments/create.js') }}"></script>
+    <script src="{{ asset('js/equipments/type.js') }}"></script>
 @endsection
