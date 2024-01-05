@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('path')->unique();
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
