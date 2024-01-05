@@ -100,7 +100,7 @@
                                     <p>Correo electrónico</p>
                                 </div>
                                 <div class="column">
-                                    <p>Empresa</p>
+                                    <p>Tipo de cliente</p>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +137,8 @@
                                     </div>
                                     <div class="column">
                                         <p class="is-clipped">
-                                            @if ($client->company)
-                                                {{ $client->company->name }}
+                                            @if ($client->subscribed_client)
+                                                Cliente abonado
                                             @else
                                                 Cliente final
                                             @endif
