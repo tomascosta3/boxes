@@ -17,6 +17,7 @@ class Equipment extends Model
         'brand_id',
         'model_id',
         'serial_number',
+        'observations',
         'created_by',
         'active'
     ];

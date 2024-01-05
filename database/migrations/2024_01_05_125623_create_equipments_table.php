@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('model_id');
             $table->foreign('model_id')->references('id')->on('models');
             $table->string('serial_number', 20)->unique();
+            $table->text('observations')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->boolean('active')->default(true);
