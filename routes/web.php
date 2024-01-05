@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -75,5 +76,8 @@ Route::middleware('auth')->group(function() {
             // Soft delete client.
             Route::get('/clients/delete/{id}', [ClientController::class, 'delete'])->name('delete');
         });
+
+        // Equipment index.
+        Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipments');
     });
 });

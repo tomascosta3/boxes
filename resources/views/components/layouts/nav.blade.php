@@ -57,8 +57,8 @@
                 </div>
             </a>
 
-            <a href="#">
-                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
+            <a href="{{ route('equipments') }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'equipments') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-desktop nav-icon"></i>
                         <span class="pl-3">Equipos</span>
