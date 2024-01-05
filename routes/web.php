@@ -79,5 +79,11 @@ Route::middleware('auth')->group(function() {
 
         // Equipment index.
         Route::get('/equipment', [EquipmentController::class, 'index'])->name('equipments');
+
+        // Equipments routes.
+        Route::name('equipments.')->group(function () {
+            // Create client.
+            Route::get('/equipments/create', [EquipmentController::class, 'create'])->name('create');
+        });
     });
 });
