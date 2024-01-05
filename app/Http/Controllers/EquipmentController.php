@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipment;
+use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -64,5 +65,22 @@ class EquipmentController extends Controller
         return Equipment::where('active', true)
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+
+    /**
+     * Display equipment creation view.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function create() : View 
+    {
+        // Retrieve all active types from the database.
+        $types = Type::where('active', true)
+            ->orderBy('type', 'asc')
+            ->get();
+
+        // Pass the active types to the equipment creation view.
+        return view('equipments.create')->with(['types' => $types]);
     }
 }

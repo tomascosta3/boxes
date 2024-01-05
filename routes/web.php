@@ -5,6 +5,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +85,12 @@ Route::middleware('auth')->group(function() {
         Route::name('equipments.')->group(function () {
             // Create client.
             Route::get('/equipments/create', [EquipmentController::class, 'create'])->name('create');
+        });
+
+        // Types routes.
+        Route::name('types.')->group(function() {
+            // Save type.
+            Route::post('/types/save', [TypeController::class, 'save_type'])->name('save');
         });
     });
 });
