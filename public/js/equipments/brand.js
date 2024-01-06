@@ -16,11 +16,31 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addBrandModal').classList.remove('is-active');
     });
     
+    // Wait for the document to be fully loaded
+    $(document).ready(function() {
+        // Get the value of the type selected by default in the dropdown
+        var defaultTypeId = $('#type-dropdown').val();
+
+        // Make an AJAX request to get the brands associated with the default type
+        $.ajax({
+            url: '/brands/get-by-type/' + defaultTypeId,
+            method: 'GET',
+            success: function(response) {
+                // Update the brand dropdown with the obtained options
+                updateBrandSelect(response.brands);
+            },
+            error: function(error) {
+                // Handle errors if necessary
+                console.error(error);
+            }
+        });
+    });
+
     // Event listener for change in the type dropdown
     document.getElementById('type-dropdown').addEventListener('change', function() {
         // Get the selected value from the type dropdown
         var selectedTypeId = this.value;
-        
+
         // Make an AJAX request to retrieve brands associated with the selected type
         $.ajax({
             url: '/brands/get-by-type/' + selectedTypeId,
