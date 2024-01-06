@@ -110,5 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
             option.text = brand.brand;
             select.appendChild(option);
         });
+        
+        // Disable or enable the brand dropdown based on whether brands are empty
+        var brandsEmpty = brands.length == 0;
+        $('#brand-dropdown').prop('disabled', brandsEmpty);
     }
 });
