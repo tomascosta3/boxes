@@ -12,6 +12,7 @@
 
 @include('equipments.modals.create_type')
 @include('equipments.modals.create_brand')
+@include('equipments.modals.create_model')
 
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
@@ -49,9 +50,11 @@
                                     <div class="control has-icons-left">
                                         <div class="select is-fullwidth">
                                             <select name="type" id="type-dropdown">
-                                                @foreach ($types as $type)
-                                                    <option value="{{ $type->id }}">{{ $type->type }}</option>
-                                                @endforeach
+                                                @if (isset($types))
+                                                    @foreach ($types as $type)
+                                                        <option value="{{ $type->id }}">{{ $type->type }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-desktop"></i>
@@ -76,10 +79,10 @@
                                         <div class="select is-fullwidth">
                                             <select name="brand" id="brand-dropdown">
                                                 @if (isset($brands))
-                                                @foreach ($brands as $brand)
-                                                    <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
-                                                @endforeach
-                                            @endif
+                                                    @foreach ($brands as $brand)
+                                                        <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-desktop"></i>
@@ -97,26 +100,34 @@
                                 <small style="color: red">{{ $errors->create->first('brand') }} </small>
                             @endif
 
-                            <div class="field">
-                                <label class="label" for="model">Modelo</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <div class="select is-fullwidth">
-                                        <select name="model" id="model-dropdown">
-                                            @if (isset($brands))
-                                                @foreach ($models as $model)
-                                                    <option value="{{ $model->id }}">{{ $model->model }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        <span class="icon is-small is-left">
-                                            <i class="bx bx-desktop"></i>
-                                        </span>
+                            <label class="label" for="model">Modelo</label>
+                            <div class="field is-grouped">
+                                <div class="control is-expanded">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select name="model" id="model-dropdown">
+                                                @if (isset($models))
+                                                    @foreach ($models as $model)
+                                                        <option value="{{ $model->id }}">{{ $model->model }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            </select>
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bx-desktop"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                @if ($errors->create->first('model'))
-                                    <small style="color: red">{{ $errors->create->first('model') }} </small>
-                                @endif
+                                <div class="control">
+                                    <button class="button is-link" id="addModelButton" type="button">
+                                        <i class="bx bx-plus"></i>
+                                    </button>
+                                </div>
                             </div>
+                            @if ($errors->create->first('model'))
+                                <small style="color: red">{{ $errors->create->first('model') }} </small>
+                            @endif
 
                             <div class="field">
                                 <label class="label" for="serial_number">Número de serie</label>
@@ -173,4 +184,5 @@
     @parent
     <script src="{{ asset('js/equipments/type.js') }}"></script>
     <script src="{{ asset('js/equipments/brand.js') }}"></script>
+    <script src="{{ asset('js/equipments/model.js') }}"></script>
 @endsection
