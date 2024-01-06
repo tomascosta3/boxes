@@ -30,6 +30,7 @@ class BrandController extends Controller
 
         // Get all updated brands after saving
         $brands = Brand::where('active', true)
+            ->where('type_id', $request->input('type_id'))
             ->orderBy('brand', 'asc')
             ->get();
 

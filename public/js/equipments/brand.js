@@ -46,27 +46,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Get the selected value from the type dropdown
         var selectedTypeId = document.getElementById('type-dropdown').value;
+        
+        // Verify if selectedTypeId has a value.
+        if (selectedTypeId !== '') {
+            // Make an AJAX request to save the new brand
+            $.ajax({
+                url: '/brands/save',
+                method: 'POST',
+                data: {brand: newBrand, type_id: selectedTypeId},
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    // Close the modal
+                    document.getElementById('addBrandModal').classList.remove('is-active');
+                    
+                    // Update the select with the updated brands
+                    updateBrandSelect(response.brands);  // Assuming the server returns the updated brands
+                },
+                error: function(error) {
+                    // Handle errors if necessary
+                    console.error(error);
+                }
+            });
+        } else {
+            // When no type is selected.
+            console.log('No se ha seleccionado ningún tipo');
+        }
 
-        // Make an AJAX request to save the new brand
-        $.ajax({
-            url: '/brands/save',
-            method: 'POST',
-            data: {brand: newBrand, type_id: selectedTypeId},
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            success: function(response) {
-                // Close the modal
-                document.getElementById('addBrandModal').classList.remove('is-active');
-
-                // Update the select with the updated brands
-                updateBrandSelect(response.brands);  // Assuming the server returns the updated brands
-            },
-            error: function(error) {
-                // Handle errors if necessary
-                console.error(error);
-            }
-        });
+        // Clean new brand input.
+        document.getElementById('newBrand').value = '';
     });
 
     // Function to update the select with new brands
