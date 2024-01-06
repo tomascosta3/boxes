@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error(error);
             }
         });
+        // Clean new type input.
+        document.getElementById('newType').value = '';
     });
 
     // Function to update the select with new types
