@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\HomeController;
@@ -91,6 +92,15 @@ Route::middleware('auth')->group(function() {
         Route::name('types.')->group(function() {
             // Save type.
             Route::post('/types/save', [TypeController::class, 'save_type'])->name('save');
+        });
+
+        // Brand routes.
+        Route::name('brands.')->group(function() {
+            // Save brand.
+            Route::post('/brands/save', [BrandController::class, 'save_brand'])->name('save');
+
+            // Get brand's type.
+            Route::get('/brands/get-by-type/{id}', [BrandController::class, 'get_brands_by_type'])->name('get-by-type');
         });
     });
 });

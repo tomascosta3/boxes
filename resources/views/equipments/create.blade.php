@@ -11,6 +11,7 @@
 @section('main-content')
 
 @include('equipments.modals.create_type')
+@include('equipments.modals.create_brand')
 
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
@@ -64,27 +65,37 @@
                                     </button>
                                 </div>
                             </div>
+                            @if ($errors->create->first('type'))
+                                <small style="color: red">{{ $errors->create->first('type') }} </small>
+                            @endif
 
-                            <div class="field">
-                                <label class="label" for="brand">Marca</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <div class="select is-fullwidth">
-                                        <select name="brand" id="brand-dropdown">
-                                            @if (isset($brands))
+                            <label class="label" for="brand">Marca</label>
+                            <div class="field is-grouped">
+                                <div class="control is-expanded">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select name="brand" id="brand-dropdown">
+                                                @if (isset($brands))
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
                                                 @endforeach
                                             @endif
-                                        </select>
-                                        <span class="icon is-small is-left">
-                                            <i class="bx bx-desktop"></i>
-                                        </span>
+                                            </select>
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bx-desktop"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                @if ($errors->create->first('brand'))
-                                    <small style="color: red">{{ $errors->create->first('brand') }} </small>
-                                @endif
+                                <div class="control">
+                                    <button class="button is-link" id="addBrandButton" type="button">
+                                        <i class="bx bx-plus"></i>
+                                    </button>
+                                </div>
                             </div>
+                            @if ($errors->create->first('brand'))
+                                <small style="color: red">{{ $errors->create->first('brand') }} </small>
+                            @endif
 
                             <div class="field">
                                 <label class="label" for="model">Modelo</label>
@@ -161,4 +172,5 @@
 @section('scripts')
     @parent
     <script src="{{ asset('js/equipments/type.js') }}"></script>
+    <script src="{{ asset('js/equipments/brand.js') }}"></script>
 @endsection
