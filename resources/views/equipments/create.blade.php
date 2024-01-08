@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             @if ($errors->create->first('model'))
-                                <small style="color: red">{{ $errors->create->first('model') }} </small>
+                                <small class="mt-0" style="color: red">{{ $errors->create->first('model') }} </small>
                             @endif
 
                             <label class="label" for="serial_number">Número de serie</label>

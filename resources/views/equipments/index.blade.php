@@ -147,6 +147,8 @@
                             </div>
                         </a>
                         @endforeach
+
+                        {{ $equipments->links() }}
                     </div>
                 </div>
 

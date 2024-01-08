@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "content-hash": "a2c28fe8a7e24af3c5aa8e244e2918b4",
     "packages": [
         {
             "name": "brick/math",
@@ -3185,6 +3185,59 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "revolution/laravel-pagination-bulma",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kawax/laravel-pagination-bulma.git",
+                "reference": "340de839a09a5590298f67855b7cc90a8d6683f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kawax/laravel-pagination-bulma/zipball/340de839a09a5590298f67855b7cc90a8d6683f7",
+                "reference": "340de839a09a5590298f67855b7cc90a8d6683f7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "*",
+                "php": "^7.2||^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Revolution\\Pagination\\Bulma\\BulmaServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolution\\Pagination\\Bulma\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kawax",
+                    "email": "kawaxbiz@gmail.com"
+                }
+            ],
+            "description": "Laravel pagination template for Bulma",
+            "keywords": [
+                "bulma",
+                "laravel",
+                "pagination"
+            ],
+            "support": {
+                "issues": "https://github.com/kawax/laravel-pagination-bulma/issues",
+                "source": "https://github.com/kawax/laravel-pagination-bulma/tree/1.1.1"
+            },
+            "time": "2021-05-12T08:54:16+00:00"
         },
         {
             "name": "symfony/console",

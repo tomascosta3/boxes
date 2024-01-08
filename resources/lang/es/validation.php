@@ -158,6 +158,10 @@ return [
         'city' => '"Ciudad"',
         'province' => '"Provincia"',
         'country' => '"País"',
+        'serial_number' => '"Número de serie"',
+        'type' => '"Tipo"',
+        'brand' => '"Marca"',
+        'model' => '"Modelo"',
     ],
 
 ];

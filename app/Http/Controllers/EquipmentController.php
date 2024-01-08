@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Client;
 use App\Models\Equipment;
+use App\Models\EquipmentModel;
 use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -43,15 +46,88 @@ class EquipmentController extends Controller
      *
      * @param  string  $search
      * @param  string  $search_option
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    private function search_equipments($search, $search_option) : Collection
+    private function search_equipments($search, $search_option)
     {
         // Initialize equipments variable.
         $equipments = collect();
 
         // Search for equipments based on the specified search option.
+        if($search_option == 'type') {
+            // Search for types that match the search criteria.
+            $types = Type::where('type', 'LIKE', "%$search%")
+                ->where('active', true)
+                ->get();
 
+            // Get the IDs of the matching types.
+            $types_ids = $types->pluck('id')->toArray();
+
+            if($types_ids !== null) {
+                // Retrieve equipments based on the matching type IDs.
+                $equipments = Equipment::where('active', true)
+                    ->whereIn('type_id', $types_ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
+            }
+        } else if($search_option == 'brand') {
+            // Search for brands that match the search criteria.
+            $brands = Brand::where('brand', 'LIKE', "%$search%")
+                ->where('active', true)
+                ->get();
+
+            // Get the IDs of the matching brands.
+            $brands_ids = $brands->pluck('id')->toArray();
+
+            if($brands_ids !== null) {
+                // Retrieve equipments based on the matching brand IDs.
+                $equipments = Equipment::where('active', true)
+                    ->whereIn('brand_id', $brands_ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
+            }
+        
+        } else if($search_option == 'model') {
+            // Search for models that match the search criteria.
+            $models = EquipmentModel::where('model', 'LIKE', "%$search%")
+                ->where('active', true)
+                ->get();
+
+            // Get the IDs of the matching models.
+            $models_ids = $models->pluck('id')->toArray();
+
+            if($models_ids !== null) {
+                // Retrieve equipments based on the matching models IDs.
+                $equipments = Equipment::where('active', true)
+                    ->whereIn('model_id', $models_ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
+            }
+        
+        } else if($search_option == 'serial_number') {
+            // Search for equipments with the specified serial number.
+            $equipments = Equipment::where('serial_number', 'LIKE', "%$search%")
+                ->where('active', true)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+        
+        } else if($search_option == 'client') {
+            // Search for clients that match the search criteria.
+            $clients = Client::where('active', true)
+                ->whereRaw("CONCAT(last_name, ' ', first_name) LIKE ?", ["%{$search}%"])
+                ->get();
+
+            // Get the IDs of the matching clients.
+            $clients_ids = $clients->pluck('id')->toArray();
+
+            if($clients_ids !== null) {
+                // Retrieve equipments based on the matching client IDs.
+                $equipments = Equipment::where('active', true)
+                    ->whereIn('client_id', $clients_ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
+            }
+        }
 
         return $equipments;
     }
@@ -60,14 +136,14 @@ class EquipmentController extends Controller
     /**
      * Retrieve all active equipments.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    private function get_all_active_equipments() : Collection
+    private function get_all_active_equipments()
     {
         // Retrieve all active equipments.
         return Equipment::where('active', true)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
     }
 
 
