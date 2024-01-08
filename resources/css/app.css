@@ -36,40 +36,17 @@
   --top-header-height: calc(8vh + 24px * 2);
   --main-content-height: calc(100vh - var(--top-header-height));
   --top-nav-bar-height: 60%;
+}
 
-  /* Full calendar */
-  --fc-small-font-size: .85em;
-  --fc-page-bg-color: #fff;
-  --fc-neutral-bg-color: #f5f4f8;
-  --fc-neutral-text-color: #808080;
-  --fc-border-color: var(--dark-mode-text-color);
+.pagination-link.is-current {
+  background-color: var(--dark-mode-primary-color);
+  border-color: var(--dark-mode-primary-color);
+}
 
-  --fc-button-text-color: #fff;
-  --fc-button-bg-color: var(--dark-mode-sidebar-color);
-  --fc-button-border-color: var(--dark-mode-sidebar-color);
-  --fc-button-hover-bg-color: var(--dark-mode-primary-color);
-  --fc-button-hover-border-color: var(--dark-mode-sidebar-color);
-  --fc-button-active-bg-color: var(--dark-mode-sidebar-color);
-  --fc-button-active-border-color: var(--dark-mode-sidebar-color);
-
-  --fc-event-bg-color: #3788d8;
-  --fc-event-border-color: #3788d8;
-  --fc-event-text-color: #fff;
-  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
-
-  --fc-more-link-bg-color: #d0d0d0;
-  --fc-more-link-text-color: inherit;
-
-  --fc-event-resizer-thickness: 8px;
-  --fc-event-resizer-dot-total-width: 8px;
-  --fc-event-resizer-dot-border-width: 1px;
-
-  --fc-non-business-color: rgba(215, 215, 215, 0.3);
-  --fc-bg-event-color: rgb(143, 223, 130);
-  --fc-bg-event-opacity: 0.3;
-  --fc-highlight-color: rgba(188, 232, 241, 0.085);
-  --fc-today-bg-color: #8080801a;
-  --fc-now-indicator-color: red;
+.pagination-link {
+  background-color: var(--dark-mode-sidebar-color);
+  border-color: var(--dark-mode-sidebar-color);
+  color: var(--dark-mode-text-color);
 }
 
 div.no-scrollbar::-webkit-scrollbar {
