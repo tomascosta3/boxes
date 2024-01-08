@@ -16,25 +16,25 @@ class BrandController extends Controller
      */
     public function save_brand(Request $request)
     {
-        // Validate the request (customize as per your needs)
+        // Validate the request (customize as per your needs).
         $request->validate([
             'brand' => ['required'],
             'type_id' => ['required']
         ]);
 
-        // Save the new brand to the database
+        // Save the new brand to the database.
         $new_brand = Brand::create([
             'type_id' => $request->input('type_id'),
             'brand' => $request->input('brand')
         ]);
 
-        // Get all updated brands after saving
+        // Get updated brands after saving that belong to type_id.
         $brands = Brand::where('active', true)
             ->where('type_id', $request->input('type_id'))
             ->orderBy('brand', 'asc')
             ->get();
 
-        // Return a JSON response with the updated brands
+        // Return a JSON response with the updated brands.
         return response()->json(['brands' => $brands]);
     }
 
@@ -48,7 +48,7 @@ class BrandController extends Controller
     public function get_brands_by_type($id)
     {
         try {
-            // Get all updated brands after saving
+            // Get all updated brands after saving.
             $brands = Brand::where('active', true)
                 ->where('type_id', $id)
                 ->orderBy('brand', 'asc')
@@ -56,7 +56,7 @@ class BrandController extends Controller
 
             return response()->json(['brands' => $brands]);
         } catch (\Exception $e) {
-            // Handle internal server error
+            // Handle internal server error.
             return response()->json(['error' => 'Internal server error'], 500);
         }
     }
