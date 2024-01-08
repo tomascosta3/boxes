@@ -41,7 +41,7 @@
             <div class="columns is-centered is-vcentered">
                 <div class="column is-5">
                     <div class="box user-create-scrollable">
-                        <form action="#" method="post">
+                        <form action="{{ route('equipments.store') }}" method="post">
                             @csrf
 
                             <label class="label" for="type">Tipo</label>
@@ -145,6 +145,29 @@
                                     <small style="color: red">{{ $errors->create->first('serial_number') }} </small>
                                 @endif
                             </div>
+
+                            <label class="label" for="client">Cliente</label>
+                            <div class="field is-grouped">
+                                <div class="control is-expanded">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select name="client" id="client-dropdown">
+                                                @if (isset($clients))
+                                                    @foreach ($clients as $client)
+                                                        <option value="{{ $client->id }}">{{ $client->last_name . ' ' . $client->first_name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bx-user"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($errors->create->first('client'))
+                                <small style="color: red">{{ $errors->create->first('client') }} </small>
+                            @endif
 
                             <div class="field">
                                 <label class="label" for="observations">Observaciones:</label>

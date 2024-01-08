@@ -85,8 +85,11 @@ Route::middleware('auth')->group(function() {
 
         // Equipments routes.
         Route::name('equipments.')->group(function () {
-            // Create client.
+            // Create equipment.
             Route::get('/equipments/create', [EquipmentController::class, 'create'])->name('create');
+
+            // Store equipment.
+            Route::post('/equipments/store', [EquipmentController::class, 'store'])->name('store');
         });
 
         // Types routes.

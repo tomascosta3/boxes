@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Equipment;
 use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -80,7 +82,69 @@ class EquipmentController extends Controller
             ->orderBy('type', 'asc')
             ->get();
 
+        // Retrieve all active clients from database.
+        $clients = Client::where('active', true)
+            ->orderBy('last_name', 'asc')
+            ->get();
+
         // Pass the active types to the equipment creation view.
-        return view('equipments.create')->with(['types' => $types]);
+        return view('equipments.create')
+            ->with(['types' => $types])
+            ->with(['clients' => $clients]);
+    }
+
+
+    /**
+     * Store a new equipment based on the provided request data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        // Validate form inputs. If there is an error, return back with the errors.
+        $validated = $request->validateWithBag('create', [
+            'type' => ['required'],
+            'brand' => ['required'],
+            'model' => ['required'],
+            'serial_number' => ['required'],
+            'client' => ['required'],
+            'observations' => ['nullable'],
+        ]);
+
+        // Create a new equipment with the provided data.
+        $equipment = $this->create_equipment($request);
+
+        // Check if the equipment was created successfully.
+        if (!$equipment->id) {
+            // If creation fails, flash an error message.
+            session()->flash('problem', 'No se pudo crear el equipo');
+        } else {
+            // Flash a success message.
+            session()->flash('success', 'Equipo creado correctamente');
+        }
+
+        // Redirect to the equipment creation route.
+        return to_route('equipments.create');
+    }
+
+
+    /**
+     * Create a new equipment with the provided request data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\Equipment
+     */
+    private function create_equipment(Request $request) : Equipment
+    {
+        return Equipment::create([
+            'client_id' => $request->input('client'),
+            'type_id' => $request->input('type'),
+            'brand_id' => $request->input('brand'),
+            'model_id' => $request->input('model'),
+            'serial_number' => $request->input('serial_number'),
+            'observations' => $request->input('observations'),
+            'created_by' => auth()->user()->id,
+        ]);
     }
 }
