@@ -16,6 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('addTypeModal').classList.remove('is-active');
     });
 
+
+    // When the document is ready, execute the following code.
+    $(document).ready(function() {
+        // Get the HTML element for the 'type-dropdown' select.
+        var selectTypeDropdown = document.getElementById('type-dropdown');
+
+        // Check if the 'type-dropdown' select is empty (has no options).
+        var typesEmpty = selectTypeDropdown.options.length === 0;
+
+        // Disable or enable the 'type-dropdown' select based on whether it's empty or not.
+        $('#type-dropdown').prop('disabled', typesEmpty);
+
+        // Disable the 'addBrandButton' button if the 'type-dropdown' select is empty.
+        $('#addBrandButton').prop('disabled', typesEmpty);
+    });
+
+
     // Event listener for the button that saves the new type
     document.getElementById('saveTypeButton').addEventListener('click', function() {
         // Get the CSRF token from the meta tag

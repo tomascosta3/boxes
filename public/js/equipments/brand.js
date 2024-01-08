@@ -103,16 +103,21 @@ document.addEventListener('DOMContentLoaded', function() {
         var select = document.getElementById('brand-dropdown');
         select.innerHTML = '';  // Clear existing options
 
-        // Add new options
-        brands.forEach(function(brand) {
-            var option = document.createElement('option');
-            option.value = brand.id;
-            option.text = brand.brand;
-            select.appendChild(option);
-        });
+        var brandsEmpty = !brands || brands.length == 0;
+
+        if(!brandsEmpty) {
+            // Add new options
+            brands.forEach(function(brand) {
+                var option = document.createElement('option');
+                option.value = brand.id;
+                option.text = brand.brand;
+                select.appendChild(option);
+            });
+        }
         
         // Disable or enable the brand dropdown based on whether brands are empty
-        var brandsEmpty = brands.length == 0;
         $('#brand-dropdown').prop('disabled', brandsEmpty);
+        // Disable or enable add model button.
+        $('#addModelButton').prop('disabled', brandsEmpty);
     }
 });
