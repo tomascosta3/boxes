@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for change in the type dropdown
     document.getElementById('type-dropdown').addEventListener('change', function() {
-        console.log('type select change, from brand js');
         // Get the selected value from the type dropdown
         var selectedTypeId = this.value;
 

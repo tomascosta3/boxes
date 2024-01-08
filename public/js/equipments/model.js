@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for change in the brand dropdown.
     document.getElementById('brand-dropdown').addEventListener('change', function() {
-        console.log('brand select change, from model js');
         // Get the selected value from the brand dropdown.
         var selectedBrandId = this.value;
 
