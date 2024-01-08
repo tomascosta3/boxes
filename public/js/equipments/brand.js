@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
                 // Update the brand dropdown with the obtained options
                 updateBrandSelect(response.brands);
+
+                // Generate change event to trigger models update.
+                generateBrandChangeEvent();
             },
             error: function(error) {
                 // Handle errors if necessary
