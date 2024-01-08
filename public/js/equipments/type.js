@@ -70,12 +70,22 @@ document.addEventListener('DOMContentLoaded', function() {
         var select = document.getElementById('type-dropdown');
         select.innerHTML = '';  // Clear existing options
 
-        // Add new options
-        types.forEach(function(type) {
-            var option = document.createElement('option');
-            option.value = type.id;
-            option.text = type.type;
-            select.appendChild(option);
-        });
+        var typesEmpty = !types || types.length == 0;
+
+        if(!typesEmpty) {
+            // Add new options
+            types.forEach(function(type) {
+                var option = document.createElement('option');
+                option.value = type.id;
+                option.text = type.type;
+                select.appendChild(option);
+            });
+        }
+
+        // Disable or enable the 'type-dropdown' select based on whether it's empty or not.
+        $('#type-dropdown').prop('disabled', typesEmpty);
+
+        // Disable the 'addBrandButton' button if the 'type-dropdown' select is empty.
+        $('#addBrandButton').prop('disabled', typesEmpty);
     }
 });
