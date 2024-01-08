@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Update the select with the updated types
                 updateTypeSelect(response.types);  // Assuming the server returns the updated types
+
+                // Generate change event to trigger brands update.
+                generateTypeChangeEvent();
             },
             error: function(error) {
                 // Handle errors if necessary
@@ -87,5 +90,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Disable the 'addBrandButton' button if the 'type-dropdown' select is empty.
         $('#addBrandButton').prop('disabled', typesEmpty);
+    }
+
+
+    /**
+     * Function to generate and trigger a 'change' event on the type dropdown.
+     * This function is designed to simulate a user-initiated change on the type dropdown.
+     */
+    function generateTypeChangeEvent() {
+        // Get the type dropdown element
+        var typeDropdown = document.getElementById('type-dropdown');
+    
+        // Get the current value of the type dropdown
+        var typeValue = typeDropdown.value;
+    
+        // Create a new 'change' event
+        var changeEvent = new Event('change');
+    
+        // Set the value and trigger the 'change' event
+        typeDropdown.value = typeValue;
+        typeDropdown.dispatchEvent(changeEvent);
     }
 });
