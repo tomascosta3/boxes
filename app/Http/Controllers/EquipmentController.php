@@ -159,7 +159,7 @@ class EquipmentController extends Controller
     {
         do {
             // Generate serial number.
-            $serial_number = Str::random(20);
+            $serial_number = strtoupper(Str::random(15));
         } while (Equipment::where('serial_number', $serial_number)->exists());
 
         // Return a JSON response with the updated types
