@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateModelSelect(response.models);
             },
             error: function(error) {
+                // Update model dropdown with null to empty it.
+                updateModelSelect(null);
+
                 // Handle errors if necessary.
                 console.error(error);
             }
