@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for change in the type dropdown
     document.getElementById('type-dropdown').addEventListener('change', function() {
+        console.log('type select change, from brand js');
         // Get the selected value from the type dropdown
         var selectedTypeId = this.value;
 
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
                 // Update the brand dropdown with the retrieved options
                 updateBrandSelect(response.brands);
+
+                // Generate change event to trigger models update.
+                generateBrandChangeEvent();
             },
             error: function(error) {
                 // Handle errors if necessary
@@ -114,10 +118,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 select.appendChild(option);
             });
         }
-        
-        // Disable or enable the brand dropdown based on whether brands are empty
+
+        // Disable or enable the brand dropdown based on whether brands are empty.
         $('#brand-dropdown').prop('disabled', brandsEmpty);
         // Disable or enable add model button.
         $('#addModelButton').prop('disabled', brandsEmpty);
+    }
+
+
+    /**
+     * Function to generate and trigger a 'change' event on the brand dropdown.
+     * This function is designed to simulate a user-initiated change on the brand dropdown.
+     */
+    function generateBrandChangeEvent() {
+        // Get the brand dropdown element
+        var brandDropdown = document.getElementById('brand-dropdown');
+    
+        // Get the current value of the brand dropdown
+        var brandValue = brandDropdown.value;
+    
+        // Create a new 'change' event
+        var changeEvent = new Event('change');
+    
+        // Set the value and trigger the 'change' event
+        brandDropdown.value = brandValue;
+        brandDropdown.dispatchEvent(changeEvent);
     }
 });
