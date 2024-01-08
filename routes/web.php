@@ -90,6 +90,9 @@ Route::middleware('auth')->group(function() {
 
             // Store equipment.
             Route::post('/equipments/store', [EquipmentController::class, 'store'])->name('store');
+
+            // Generate serial number.
+            Route::get('/equipments/serial-number', [EquipmentController::class, 'generate_unique_serial_number'])->name('serial-number');
         });
 
         // Types routes.

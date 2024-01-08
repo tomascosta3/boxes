@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EquipmentController extends Controller
 {
@@ -146,5 +147,22 @@ class EquipmentController extends Controller
             'observations' => $request->input('observations'),
             'created_by' => auth()->user()->id,
         ]);
+    }
+
+
+    /**
+     * Generate unique serial number.
+     *
+     * @return string Unique serial number.
+     */
+    public function generate_unique_serial_number()
+    {
+        do {
+            // Generate serial number.
+            $serial_number = Str::random(20);
+        } while (Equipment::where('serial_number', $serial_number)->exists());
+
+        // Return a JSON response with the updated types
+        return response()->json(['serialNumber' => $serial_number]);
     }
 }

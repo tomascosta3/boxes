@@ -129,22 +129,30 @@
                                 <small style="color: red">{{ $errors->create->first('model') }} </small>
                             @endif
 
-                            <div class="field">
-                                <label class="label" for="serial_number">Número de serie</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="serial_number" id="serial_number" placeholder="Ingrese aquí el número de serie o genere uno">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bx-barcode"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
+                            <label class="label" for="serial_number">Número de serie</label>
+                            <div class="field is-grouped">
+                                <div class="control is-expanded">
+                                    <div class="control has-icons-left has-icons-right">
+                                        <div class="is-fullwidth">
+                                            <input class="input" type="text" name="serial_number" id="serial_number" placeholder="Ingrese aquí el número de serie o genere uno">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bx-barcode"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                @if ($errors->create->first('serial_number'))
-                                    <small style="color: red">{{ $errors->create->first('serial_number') }} </small>
-                                @endif
+                                <div class="control">
+                                    <button class="button is-link" id="generateSerialNumberButton" type="button">
+                                        Generar
+                                    </button>
+                                </div>
                             </div>
+                            @if ($errors->create->first('serial_number'))
+                                <small style="color: red">{{ $errors->create->first('serial_number') }} </small>
+                            @endif
 
                             <label class="label" for="client">Cliente</label>
                             <div class="field is-grouped">
@@ -208,4 +216,5 @@
     <script src="{{ asset('js/equipments/type.js') }}"></script>
     <script src="{{ asset('js/equipments/brand.js') }}"></script>
     <script src="{{ asset('js/equipments/model.js') }}"></script>
+    <script src="{{ asset('js/equipments/serial_number.js') }}"></script>
 @endsection
