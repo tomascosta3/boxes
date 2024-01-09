@@ -19,9 +19,11 @@
     @endif
 
     <h1>Webcam Photo Capture</h1>
+
+    <button id="camera-btn">Abrir camara</button>
     
     <!-- Video element to display the camera feed -->
-    <video id="camera-feed" width="640" height="480" autoplay></video>
+    <video id="camera-feed" width="640" height="480"></video>
 
     <!-- Button to capture a photo -->
     <button id="capture-btn">Capture Photo</button>
@@ -38,6 +40,7 @@
             const canvas = document.getElementById('photo-canvas');
             const photoInput = document.getElementById('photo-input');
             const captureBtn = document.getElementById('capture-btn');
+            const cameraBtn = document.getElementById('camera-btn');
 
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
@@ -50,6 +53,10 @@
             } else {
                 console.error('getUserMedia is not supported on this browser');
             }
+
+            cameraBtn.addEventListener('click', function() {
+                video.autoplay = true;
+            });
 
             captureBtn.addEventListener('click', function() {
                 if (video.srcObject) {
