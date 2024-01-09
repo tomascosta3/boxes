@@ -21,7 +21,7 @@
     <h1>Webcam Photo Capture</h1>
     
     <!-- Video element to display the camera feed -->
-    <video id="camera-feed" width="640" height="480" autoplay></video>
+    <video id="camera-feed" width="640" height="480"></video>
 
     <!-- Button to capture a photo -->
     <button id="capture-btn">Capture Photo</button>
