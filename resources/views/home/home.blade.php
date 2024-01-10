@@ -20,8 +20,8 @@
 
     <h1>Webcam Photo Capture</h1>
 
-    <!-- Agrega un botón con un ID, por ejemplo, 'agregar-foto-btn' -->
-    <button id="agregar-foto-btn">Agregar Camara</button>
+    <!-- Video element to display the camera feed -->
+    <video id="camera-feed" width="640" height="480" autoplay></video>
 
     <!-- Button to capture a photo -->
     <button id="capture-btn">Capture Photo</button>
@@ -38,8 +38,6 @@
             const canvas = document.getElementById('photo-canvas');
             const photoInput = document.getElementById('photo-input');
             const captureBtn = document.getElementById('capture-btn');
-            const cameraBtn = document.getElementById('camera-btn');
-
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
                     .then(function(stream) {
@@ -51,11 +49,6 @@
             } else {
                 console.error('getUserMedia is not supported on this browser');
             }
-
-            cameraBtn.addEventListener('click', function() {
-                video.autoplay = true;
-            });
-
             captureBtn.addEventListener('click', function() {
                 if (video.srcObject) {
                     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -65,36 +58,7 @@
                     console.error('Camera not available or permission denied');
                 }
             });
-
-            // Manejador de clic en el botón
-            document.getElementById('agregar-foto-btn').addEventListener('click', function() {
-                // Crear el elemento de video
-                var video = document.createElement('video');
-                video.id = 'camera-feed';
-                video.width = 640;
-                video.height = 480;
-
-                // Agregar el atributo autoplay
-                video.setAttribute('autoplay', '');
-
-                // Agregar el video al cuerpo del documento (o a otro elemento según tu estructura)
-                document.body.appendChild(video);
-
-                // Obtener el stream y asignarlo al video
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function(stream) {
-                            video.srcObject = stream;
-                        })
-                        .catch(function(error) {
-                            console.error('Error accessing camera:', error.name, error.message);
-                        });
-                } else {
-                    console.error('getUserMedia is not supported on this browser');
-                }
-            });
         });
-
     </script>
 
 @endsection
