@@ -6,6 +6,29 @@
 
 @section('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <style>
+        .large-modal {
+            margin: 0 !important;
+            width: 60% !important;
+            height: 70% !important;
+        }
+
+        .video-camera {
+            width: 100%;
+            height: 95%;
+        }
+
+        .photo {
+            width: 30%;
+            height: 100%;
+        }
+
+        .photo-container {
+            overflow-y: auto !important;
+            max-height: 48vh;
+        }
+    </style>
 @endsection
 
 @section('main-content')
@@ -13,6 +36,7 @@
 @include('equipments.modals.create_type')
 @include('equipments.modals.create_brand')
 @include('equipments.modals.create_model')
+@include('equipments.modals.photos')
 
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
@@ -196,6 +220,9 @@
                                         </a>
                                     </div>
                                     <div class="control">
+                                        <button class="button" type="button" id="addPhotoModal">Agregar fotos</button>
+                                    </div>
+                                    <div class="control">
                                         <button type="submit" class="button is-link">Crear equipo</button>
                                     </div>
                                 </div>
@@ -217,4 +244,5 @@
     <script src="{{ asset('js/equipments/brand.js') }}"></script>
     <script src="{{ asset('js/equipments/model.js') }}"></script>
     <script src="{{ asset('js/equipments/serial_number.js') }}"></script>
+    <script src="{{ asset('js/equipments/photos.js') }}"></script>
 @endsection
