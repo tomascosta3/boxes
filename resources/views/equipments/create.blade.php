@@ -21,11 +21,24 @@
 
         .photo {
             width: 100%;
+            max-width: 100%;
         }
 
         .photos-container {
             overflow-y: auto !important;
             max-height: 48vh;
+        }
+
+        .photo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .delete {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 5px;
         }
     </style>
 @endsection
