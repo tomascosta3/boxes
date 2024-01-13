@@ -20,11 +20,10 @@
         }
 
         .photo {
-            width: 30%;
-            height: 100%;
+            width: 100%;
         }
 
-        .photo-container {
+        .photos-container {
             overflow-y: auto !important;
             max-height: 48vh;
         }

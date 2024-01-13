@@ -19,7 +19,18 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="photo-container has-text-centered no-scrollbar" id="photo-canvas-container"></div>
+                    <div id="photo-canvas-container"></div>
+
+
+                    <div class="columns photos-container no-scrollbar">
+                        <div class="column" id="photos-1">
+
+                        </div>
+                        <div class="column" id="photos-2">
+
+                        </div>
+                    </div>
+
                     <!-- Input field to store the base64-encoded image data -->
                     <input type="hidden" id="photo-input" name="photo">
                 </div>
