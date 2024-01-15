@@ -7,40 +7,7 @@
 @section('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <style>
-        .large-modal {
-            margin: 0 !important;
-            width: 60% !important;
-            height: 70% !important;
-        }
-
-        .video-camera {
-            width: 100%;
-            height: 95%;
-        }
-
-        .photo {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .photos-container {
-            overflow-y: auto !important;
-            max-height: 48vh;
-        }
-
-        .photo-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .delete {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/equipments/photo_modal.css') }}">
 @endsection
 
 @section('main-content')
