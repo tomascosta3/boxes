@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Client;
 use App\Models\Equipment;
 use App\Models\EquipmentModel;
+use App\Models\Image;
 use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -214,7 +215,7 @@ class EquipmentController extends Controller
      */
     private function create_equipment(Request $request) : Equipment
     {
-        return Equipment::create([
+        $equipment = Equipment::create([
             'client_id' => $request->input('client'),
             'type_id' => $request->input('type'),
             'brand_id' => $request->input('brand'),
@@ -223,6 +224,49 @@ class EquipmentController extends Controller
             'observations' => $request->input('observations'),
             'created_by' => auth()->user()->id,
         ]);
+
+        $this->create_images($equipment, $request);
+
+        return $equipment;
+    }
+
+
+    private function create_images(Equipment $equipment, Request $request) {
+        // Obtiene la imagen en base64 desde la solicitud
+        $images = $request->input('images');
+
+        foreach($images as $imgBase64) {
+            
+            // Elimina el encabezado de tipo y espacios en blanco
+            $img = str_replace('data:image/png;base64,', '', $imgBase64);
+            $img = str_replace(' ', '+', $img);
+    
+            // Decodifica los datos base64
+            $data = base64_decode($img);
+    
+            // Ruta donde se guardarán las imágenes
+            $uploadDir = public_path('storage/equipments/');
+    
+            // Asegúrate de que el directorio exista, si no, créalo
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+    
+            // Nombre único para el archivo
+            $filename = 'equipment_' . $equipment->id . '_' . Str::uuid() . '.png';
+    
+            // Ruta completa del archivo
+            $filePath = $uploadDir . $filename;
+    
+            // Guarda la imagen en el servidor
+            $success = file_put_contents($filePath, $data);
+
+            Image::create([
+                'equipment_id' => $equipment->id,
+                'path' => 'equipments/' . $filename,
+                'created_by' => auth()->user()->id,
+            ]);
+        }
     }
 
 

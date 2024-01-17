@@ -8,6 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('css/equipments/photo_modal.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 @endsection
 
 @section('main-content')
@@ -44,7 +46,7 @@
             <div class="columns is-centered is-vcentered">
                 <div class="column is-5">
                     <div class="box user-create-scrollable">
-                        <form action="{{ route('equipments.store') }}" method="post">
+                        <form action="{{ route('equipments.store') }}" id="equipment-form" method="post">
                             @csrf
 
                             <label class="label" for="type">Tipo</label>

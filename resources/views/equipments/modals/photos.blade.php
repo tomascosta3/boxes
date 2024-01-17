@@ -39,6 +39,7 @@
         </section>
         <footer class="modal-card-foot is-justify-content-center">
             <button class="button" id="cancelPhotoModal">Cancelar</button>
+            <button class="button is-success" id="savePhotos">Guardar fotos</button>
         </footer>
     </div>
 </div>
