@@ -86,4 +86,29 @@ class Equipment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+    /**
+     * Relationship: One-to-Many
+     *
+     * Defines a one-to-many relationship where an Equipment has many images.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+
+    /**
+     * Get all active images associated with this equipment.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function active_images()
+    {
+        return $this->images()->where('active', true)->get();
+    }
+
 }

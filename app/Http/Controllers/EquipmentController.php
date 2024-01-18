@@ -272,7 +272,7 @@ class EquipmentController extends Controller
                 // Create a record in the Image model.
                 Image::create([
                     'equipment_id' => $equipment->id,
-                    'path' => 'equipments/' . $filename,
+                    'path' => 'storage/equipments/' . $filename,
                     'created_by' => auth()->user()->id,
                 ]);
             }
@@ -295,5 +295,30 @@ class EquipmentController extends Controller
 
         // Return a JSON response with the updated types
         return response()->json(['serialNumber' => $serial_number]);
+    }
+
+
+    /**
+     * Display the details of a specific equipment.
+     *
+     * @param int $id The ID of the equipment.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show($id)
+    {
+        // Find the equipment by ID.
+        $equipment = Equipment::find($id);
+
+        // If the equipment doesn't exist, show an error message.
+        if (!$equipment) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el equipo');
+
+            // Redirect to the equipments index route.
+            return to_route('equipments');
+        }
+
+        // Return the equipments view with the equipment's data.
+        return view('equipments.show')->with(['equipment' => $equipment]);
     }
 }

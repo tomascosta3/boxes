@@ -125,7 +125,7 @@
             
                         {{-- Equipment list --}}
                         @foreach ($equipments as $equipment)
-                        <a href="#">
+                        <a href="{{ route('equipments.show', ['id' => $equipment->id]) }}">
                             <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
                                     <div class="column">

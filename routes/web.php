@@ -93,6 +93,9 @@ Route::middleware('auth')->group(function() {
 
             // Generate serial number.
             Route::get('/equipments/serial-number', [EquipmentController::class, 'generate_unique_serial_number'])->name('serial-number');
+
+            // Equipment view.
+            Route::get('/equipments/{id}', [EquipmentController::class, 'show'])->name('show');
         });
 
         // Types routes.
