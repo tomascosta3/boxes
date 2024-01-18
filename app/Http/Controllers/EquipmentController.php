@@ -231,43 +231,54 @@ class EquipmentController extends Controller
     }
 
 
+    /**
+     * Create images and associate them with equipment.
+     *
+     * @param \App\Models\Equipment $equipment
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \App\Models\Equipment
+     */
     private function create_images(Equipment $equipment, Request $request) {
-        // Obtiene la imagen en base64 desde la solicitud
+        // Get images from the request.
         $images = $request->input('images');
 
-        foreach($images as $imgBase64) {
-            
-            // Elimina el encabezado de tipo y espacios en blanco
-            $img = str_replace('data:image/png;base64,', '', $imgBase64);
-            $img = str_replace(' ', '+', $img);
+        if($images) {
+            foreach ($images as $imgBase64) {
+                // Remove type header and blank spaces.
+                $img = str_replace('data:image/png;base64,', '', $imgBase64);
+                $img = str_replace(' ', '+', $img);
     
-            // Decodifica los datos base64
-            $data = base64_decode($img);
+                // Decode base64 data.
+                $data = base64_decode($img);
     
-            // Ruta donde se guardarán las imágenes
-            $uploadDir = public_path('storage/equipments/');
+                // Path where images will be saved.
+                $uploadDir = public_path('storage/equipments/');
     
-            // Asegúrate de que el directorio exista, si no, créalo
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
+                // Ensure the directory exists, if not, create it.
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+    
+                // Generate a unique filename for the image.
+                $filename = 'equipment_' . $equipment->id . '_' . Str::uuid() . '.png';
+    
+                // Full path to the file.
+                $filePath = $uploadDir . $filename;
+    
+                // Save the image on the server.
+                $success = file_put_contents($filePath, $data);
+    
+                // Create a record in the Image model.
+                Image::create([
+                    'equipment_id' => $equipment->id,
+                    'path' => 'equipments/' . $filename,
+                    'created_by' => auth()->user()->id,
+                ]);
             }
-    
-            // Nombre único para el archivo
-            $filename = 'equipment_' . $equipment->id . '_' . Str::uuid() . '.png';
-    
-            // Ruta completa del archivo
-            $filePath = $uploadDir . $filename;
-    
-            // Guarda la imagen en el servidor
-            $success = file_put_contents($filePath, $data);
-
-            Image::create([
-                'equipment_id' => $equipment->id,
-                'path' => 'equipments/' . $filename,
-                'created_by' => auth()->user()->id,
-            ]);
         }
     }
+
 
 
     /**
