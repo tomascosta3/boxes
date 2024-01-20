@@ -194,7 +194,7 @@ class EquipmentController extends Controller
         $equipment = $this->create_equipment($request);
 
         // Check if the equipment was created successfully.
-        if (!$equipment->id) {
+        if (!$equipment || !$equipment->id) {
             // If creation fails, flash an error message.
             session()->flash('problem', 'No se pudo crear el equipo');
         } else {
@@ -213,8 +213,16 @@ class EquipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \App\Models\Equipment
      */
-    private function create_equipment(Request $request) : Equipment
+    private function create_equipment(Request $request) : ?Equipment
     {
+        // Verify if serial number is already in database.
+        $existing_equipment = Equipment::where('serial_number', $request->input('serial_number'))->first();
+
+        if ($existing_equipment) {
+            // If exists, return null.
+            return null;
+        }
+
         $equipment = Equipment::create([
             'client_id' => $request->input('client'),
             'type_id' => $request->input('type'),
