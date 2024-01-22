@@ -11,6 +11,7 @@ use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -328,5 +329,41 @@ class EquipmentController extends Controller
 
         // Return the equipments view with the equipment's data.
         return view('equipments.show')->with(['equipment' => $equipment]);
+    }
+
+
+    /**
+     * Soft delete a equipment by setting the 'active' field to false.
+     * 
+     * @param int $id The ID of the client to be soft deleted.
+     * @return \Illuminate\Http\RedirectResponse A redirect response after soft deleting the client.
+     */
+    public function delete($id): RedirectResponse
+    {
+        try {
+            // Find the equipment or throw an exception.
+            $equipment = Equipment::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el equipo seleccionado');
+            return to_route('equipments');
+        }
+
+        // Soft delete the client by setting 'active' field to false.
+        $equipment->update(['active' => false]);
+
+        // Get equipment's active images.
+        $images = $equipment->active_images();
+
+        // Soft delete each image.
+        foreach($images as $image) {
+            $image->update(['active' => false]);
+        } 
+
+        // Flash a success message for the session.
+        session()->flash('success', ['Equipo eliminado.']);
+
+        // Redirect to the client index router.
+        return to_route('equipments');
     }
 }

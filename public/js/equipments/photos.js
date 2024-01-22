@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Determine the container with fewer photos.
             const targetContainer = container1.children.length <= container2.children.length ? container1 : container2;
-            console.log(targetContainer);
+
             // Move the container to the target column.
             targetContainer.appendChild(container);
         });

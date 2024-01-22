@@ -10,6 +10,9 @@
 
 @section('main-content')
 
+{{-- Delete confirmation modal --}}
+@include('equipments.modals.delete')
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -201,4 +204,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    @parent
+    <script src="{{ asset('js/equipments/delete_modal.js') }}"></script>
 @endsection
