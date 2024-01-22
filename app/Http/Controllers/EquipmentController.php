@@ -327,8 +327,13 @@ class EquipmentController extends Controller
             return to_route('equipments');
         }
 
+        // Get all active types.
+        $types = Type::where('active', true)->get();
+
         // Return the equipments view with the equipment's data.
-        return view('equipments.show')->with(['equipment' => $equipment]);
+        return view('equipments.show')
+            ->with(['equipment' => $equipment])
+            ->with(['types' => $types]);
     }
 
 

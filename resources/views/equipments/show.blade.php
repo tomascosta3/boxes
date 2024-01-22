@@ -13,6 +13,8 @@
 {{-- Delete confirmation modal --}}
 @include('equipments.modals.delete')
 
+@include('equipments.modals.change_type')
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -58,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link" type="button">
+                                    <button class="button is-link" type="button" id="changeTypeButton">
                                         Cambiar
                                     </button>
                                 </div>
@@ -66,6 +68,7 @@
                             @if ($errors->edit->first('type'))
                                 <small style="color: red">{{ $errors->edit->first('type') }} </small>
                             @endif
+                            <input type="hidden" id="selectedTypeId" name="selected_type_id">
 
                             <label class="label" for="brand">Marca</label>
                             <div class="field is-grouped">
@@ -209,4 +212,5 @@
 @section('scripts')
     @parent
     <script src="{{ asset('js/equipments/delete_modal.js') }}"></script>
+    <script src="{{ asset('js/equipments/change_type.js') }}"></script>
 @endsection
