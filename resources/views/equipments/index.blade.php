@@ -9,6 +9,26 @@
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
 
+            @if (session('success') != null)
+            <div class="columns is-centered is-vcentered">
+                <div class="column is-two-fifths">
+                    <div class="notification is-success">
+                        <p class="has-text-centered">{{ session('success') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if (session('problem') != null)
+            <div class="columns is-centered is-vcentered">
+                <div class="column is-two-fifths">
+                    <div class="notification is-danger">
+                        <p class="has-text-centered">{{ session('problem') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="columns is-vcentered is-centered">
 
                 <div class="column is-9">
