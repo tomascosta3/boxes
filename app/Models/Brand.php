@@ -27,7 +27,18 @@ class Brand extends Model
      */
     public function models()
     {
-        return $this->hasMany(Model::class);
+        return $this->hasMany(EquipmentModel::class);
+    }
+
+
+    /**
+     * Get all active models associated with this brand.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function active_models()
+    {
+        return $this->models()->where('active', true)->get();
     }
 
 

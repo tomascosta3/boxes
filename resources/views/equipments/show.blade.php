@@ -13,7 +13,10 @@
 {{-- Delete confirmation modal --}}
 @include('equipments.modals.delete')
 
-@include('equipments.modals.change_type')
+@include('equipments.modals.create_type')
+@include('equipments.modals.create_brand')
+@include('equipments.modals.create_model')
+@include('equipments.modals.photos')
 
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
@@ -51,8 +54,18 @@
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
                                     <div class="control has-icons-left">
-                                        <div class="is-fullwidth">
-                                            <input class="input" type="text" name="type" id="type" value="{{ $equipment->type->type }}" readonly>
+                                        <div class="select is-fullwidth">
+                                            <select name="type" id="type-dropdown">
+                                                @if (isset($types))
+                                                    @foreach ($types as $type)
+                                                        <option value="{{ $type->id }}"
+                                                            @if ($type->id == $equipment->type_id)
+                                                                selected
+                                                            @endif
+                                                        >{{ $type->type }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-desktop"></i>
                                             </span>
@@ -60,22 +73,31 @@
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link" type="button" id="changeTypeButton">
-                                        Cambiar
+                                    <button class="button is-link" id="addTypeButton" type="button">
+                                        <i class="bx bx-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             @if ($errors->edit->first('type'))
                                 <small style="color: red">{{ $errors->edit->first('type') }} </small>
                             @endif
-                            <input type="hidden" id="selectedTypeId" name="selected_type_id">
 
                             <label class="label" for="brand">Marca</label>
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
                                     <div class="control has-icons-left">
-                                        <div class="is-fullwidth">
-                                            <input class="input" type="text" name="brand" id="brand" value="{{ $equipment->brand->brand }}" readonly>
+                                        <div class="select is-fullwidth">
+                                            <select name="brand" id="brand-dropdown">
+                                                @if (isset($brands))
+                                                    @foreach ($brands as $brand)
+                                                        <option value="{{ $brand->id }}"
+                                                            @if ($brand->id == $equipment->brand_id)
+                                                                selected
+                                                            @endif
+                                                        >{{ $brand->brand }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-desktop"></i>
                                             </span>
@@ -83,8 +105,8 @@
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link" type="button">
-                                        Cambiar
+                                    <button class="button is-link" id="addBrandButton" type="button">
+                                        <i class="bx bx-plus"></i>
                                     </button>
                                 </div>
                             </div>
@@ -96,8 +118,19 @@
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
                                     <div class="control has-icons-left">
-                                        <div class="is-fullwidth">
-                                            <input class="input" type="text" name="model" id="model" value="{{ $equipment->model->model }}" readonly>
+                                        <div class="select is-fullwidth">
+                                            <select name="model" id="model-dropdown">
+                                                @if (isset($models))
+                                                    @foreach ($models as $model)
+                                                        <option value="{{ $model->id }}"
+                                                            @if ($model->id == $equipment->model_id)
+                                                                selected
+                                                            @endif    
+                                                        >{{ $model->model }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-desktop"></i>
                                             </span>
@@ -105,30 +138,33 @@
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link" type="button">
-                                        Cambiar
+                                    <button class="button is-link" id="addModelButton" type="button">
+                                        <i class="bx bx-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             @if ($errors->edit->first('model'))
-                                <small style="color: red">{{ $errors->edit->first('model') }} </small>
+                                <small class="mt-0" style="color: red">{{ $errors->edit->first('model') }} </small>
                             @endif
 
                             <label class="label" for="serial_number">Número de serie</label>
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
-                                    <div class="control has-icons-left">
+                                    <div class="control has-icons-left has-icons-right">
                                         <div class="is-fullwidth">
-                                            <input class="input" type="text" name="serial_number" id="serial_number" value="{{ $equipment->serial_number }}" readonly>
+                                            <input class="input" type="text" name="serial_number" id="serial_number" placeholder="Ingrese aquí el número de serie o genere uno" value="{{ $equipment->serial_number }}">
                                             <span class="icon is-small is-left">
-                                                <i class="bx bx-desktop"></i>
+                                                <i class="bx bx-barcode"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link" type="button">
-                                        Cambiar
+                                    <button class="button is-link" id="generateSerialNumberButton" type="button">
+                                        Generar
                                     </button>
                                 </div>
                             </div>
@@ -140,18 +176,23 @@
                             <div class="field is-grouped">
                                 <div class="control is-expanded">
                                     <div class="control has-icons-left">
-                                        <div class="is-fullwidth">
-                                            <input class="input" type="text" name="client" id="client" value="{{ $equipment->client->last_name . ' ' . $equipment->client->first_name }}" readonly>
+                                        <div class="select is-fullwidth">
+                                            <select name="client" id="client-dropdown">
+                                                @if (isset($clients))
+                                                    @foreach ($clients as $client)
+                                                        <option value="{{ $client->id }}"
+                                                            @if ($client->id == $equipment->client_id)
+                                                                selected
+                                                            @endif    
+                                                        >{{ $client->last_name . ' ' . $client->first_name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                             <span class="icon is-small is-left">
                                                 <i class="bx bx-user"></i>
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="control">
-                                    <button class="button is-link" type="button">
-                                        Cambiar
-                                    </button>
                                 </div>
                             </div>
                             @if ($errors->edit->first('client'))
@@ -212,5 +253,9 @@
 @section('scripts')
     @parent
     <script src="{{ asset('js/equipments/delete_modal.js') }}"></script>
-    <script src="{{ asset('js/equipments/change_type.js') }}"></script>
+    <script src="{{ asset('js/equipments/type.js') }}"></script>
+    <script src="{{ asset('js/equipments/brand.js') }}"></script>
+    <script src="{{ asset('js/equipments/model.js') }}"></script>
+    <script src="{{ asset('js/equipments/serial_number.js') }}"></script>
+    <script src="{{ asset('js/equipments/photos.js') }}"></script>
 @endsection

@@ -330,10 +330,24 @@ class EquipmentController extends Controller
         // Get all active types.
         $types = Type::where('active', true)->get();
 
+        // Get equipment type's brands.
+        $brands = $equipment->type->active_brands();
+
+        // Get equipment brand's models.
+        $models = $equipment->brand->active_models();
+
+        // Get active clients.
+        $clients = Client::where('active', true)
+            ->orderBy('last_name', 'asc')
+            ->get();
+
         // Return the equipments view with the equipment's data.
         return view('equipments.show')
             ->with(['equipment' => $equipment])
-            ->with(['types' => $types]);
+            ->with(['types' => $types])
+            ->with(['brands' => $brands])
+            ->with(['models' => $models])
+            ->with(['clients' => $clients]);
     }
 
 

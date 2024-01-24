@@ -28,4 +28,15 @@ class Type extends Model
     {
         return $this->hasMany(Brand::class);
     }
+
+
+    /**
+     * Get all active brands associated with this type.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function active_brands()
+    {
+        return $this->brands()->where('active', true)->get();
+    }
 }

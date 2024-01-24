@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener for the button that closes the modal
-    document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('closeTypeModal').addEventListener('click', function() {
         document.getElementById('addTypeModal').classList.remove('is-active');
     });
 
     // Event listener for the button that cancels and closes the modal
-    document.getElementById('cancelModal').addEventListener('click', function() {
+    document.getElementById('cancelTypeModal').addEventListener('click', function() {
         document.getElementById('addTypeModal').classList.remove('is-active');
     });
 
