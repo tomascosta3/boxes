@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'GET',
             success: function(response) {
                 // Update the model dropdown with the obtained options.
-                updateModelSelect(response.brands);
+                updateModelSelect(response.models);
             },
             error: function(error) {
                 // Handle errors if necessary.
@@ -113,12 +113,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var modelsEmpty = !models || models.length == 0;
 
+        // Get the model ID from view.
+        var equipmentModelID = window.equipmentModelID;
+
         if(!modelsEmpty) {
             // Add new options.
             models.forEach(function(model) {
                 var option = document.createElement('option');
                 option.value = model.id;
                 option.text = model.model;
+
+                // If model ID exists, show model as selected.
+                if(equipmentModelID && equipmentModelID == model.id) {
+                    option.selected = true;
+                }
+
                 select.appendChild(option);
             });
         } 

@@ -47,7 +47,7 @@
                     @endif
 
                     <div class="box has-background-light">
-                        <form action="#" method="post">
+                        <form action="{{ route('equipments.edit', ['id' => $equipment->id]) }}" method="post">
                             @csrf
 
                             <label class="label" for="type">Tipo</label>
@@ -250,10 +250,17 @@
 </div>
 @endsection
 
+@section('current-view')
+    <div id="current-view" data-view="show"></div>
+@endsection
+
 @section('scripts')
     @parent
+    <script>
+        var equipmentModelID = "{{ $equipment->model_id }}";
+    </script>
     <script src="{{ asset('js/equipments/delete_modal.js') }}"></script>
-    <script src="{{ asset('js/equipments/type.js') }}"></script>
+    <script src="{{ asset('js/equipments/type.js') }}"></>
     <script src="{{ asset('js/equipments/brand.js') }}"></script>
     <script src="{{ asset('js/equipments/model.js') }}"></script>
     <script src="{{ asset('js/equipments/serial_number.js') }}"></script>

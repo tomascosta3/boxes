@@ -97,6 +97,9 @@ Route::middleware('auth')->group(function() {
             // Equipment view.
             Route::get('/equipments/{id}', [EquipmentController::class, 'show'])->name('show');
 
+            // Edit equipment info.
+            Route::post('/equipments/edit/{id}', [EquipmentController::class, 'edit'])->name('edit');
+
             // Soft delete equipment.
             Route::get('/equipments/delete/{id}', [EquipmentController::class, 'delete'])->name('delete');
         });

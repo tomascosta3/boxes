@@ -354,7 +354,7 @@ class EquipmentController extends Controller
     /**
      * Soft delete a equipment by setting the 'active' field to false.
      * 
-     * @param int $id The ID of the client to be soft deleted.
+     * @param int $id The ID of the equipment to be soft deleted.
      * @return \Illuminate\Http\RedirectResponse A redirect response after soft deleting the client.
      */
     public function delete($id): RedirectResponse
@@ -368,7 +368,7 @@ class EquipmentController extends Controller
             return to_route('equipments');
         }
 
-        // Soft delete the client by setting 'active' field to false.
+        // Soft delete the equipment by setting 'active' field to false.
         $equipment->update(['active' => false]);
 
         // Get equipment's active images.
@@ -382,7 +382,69 @@ class EquipmentController extends Controller
         // Flash a success message for the session.
         session()->flash('success', ['Equipo eliminado.']);
 
-        // Redirect to the client index router.
+        // Redirect to the equipment index router.
         return to_route('equipments');
+    }
+
+
+    /**
+     * Edit the details of a equipment based on the provided request data.
+     *
+     * @param \Illuminate\Http\Request $request The request instance containing the form data.
+     * @param int $id The ID of the equipment to be edited.
+     * @return \Illuminate\Http\RedirectResponse A redirect response after editing the client.
+     */
+    public function edit(Request $request, $id) : RedirectResponse
+    {
+        // Validate form inputs. If there is an error, return back with the errors.
+        $validated = $request->validateWithBag('edit', [
+            'type' => ['required'],
+            'brand' => ['required'],
+            'model' => ['required'],
+            'serial_number' => ['required'],
+            'client' => ['required'],
+            'observations' => ['nullable'],
+        ]);
+
+        // Find the equipment by ID.
+        $equipment = Equipment::find($id);
+
+        // If the equipment doesn't exist, show an error message.
+        if (!$equipment) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra el equipo');
+
+            // Redirect to the equipments index route.
+            return to_route('equipments');
+        }
+
+        // Update equipment.
+        $this->update_equipment($equipment, $request);
+
+        // Flash a success message for the session.
+        session()->flash('success', 'Equipo actualizado!');
+
+        // Redirect to the equipment details page.
+        return to_route('equipments.show', ['id' => $id]);
+    }
+
+
+    /**
+     * Update the basic information of a equipment.
+     *
+     * @param \App\Models\Equipment $equipment The equipment instance.
+     * @param \Illuminate\Http\Request $request The request instance.
+     * @return void
+     */
+    private function update_equipment(Equipment $equipment, Request $request): void
+    {
+        $equipment->update([
+            'client_id' => $request->input('client'),
+            'type_id' => $request->input('type'),
+            'brand_id' => $request->input('brand'),
+            'model_id' => $request->input('model'),
+            'serial_number' => $request->input('serial_number'),
+            'observations' => $request->input('observations'),
+        ]);
     }
 }
