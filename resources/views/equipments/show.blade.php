@@ -260,9 +260,8 @@
         var equipmentModelID = "{{ $equipment->model_id }}";
     </script>
     <script src="{{ asset('js/equipments/delete_modal.js') }}"></script>
-    <script src="{{ asset('js/equipments/type.js') }}"></>
+    <script src="{{ asset('js/equipments/type.js') }}"></script>
     <script src="{{ asset('js/equipments/brand.js') }}"></script>
     <script src="{{ asset('js/equipments/model.js') }}"></script>
     <script src="{{ asset('js/equipments/serial_number.js') }}"></script>
-    <script src="{{ asset('js/equipments/photos.js') }}"></script>
 @endsection
