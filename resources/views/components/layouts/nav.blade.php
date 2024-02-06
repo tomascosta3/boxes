@@ -32,12 +32,14 @@
                 </div>
             </a>
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-file-blank nav-icon"></i>
-                    <span class="pl-3">Nueva orden</span>
+            <a href="{{ route('new-order') }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'new-order') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-file-blank nav-icon"></i>
+                        <span class="pl-3">Nueva orden</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">

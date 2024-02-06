@@ -447,4 +447,28 @@ class EquipmentController extends Controller
             'observations' => $request->input('observations'),
         ]);
     }
+
+
+    /**
+     * Get equipments that belong to the specified client id.
+     *
+     * @param int $id Client id.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get_equipments_by_client($id)
+    {
+        try {
+            // Get all updated equipments after saving.
+            $equipments = Equipment::where('active', true)
+                ->where('client_id', $id)
+                ->orderBy('updated_at', 'desc')
+                ->with('type', 'brand', 'model')
+                ->get();
+
+            return response()->json(['equipments' => $equipments]);
+        } catch (\Exception $e) {
+            // Handle internal server error.
+            return response()->json(['error' => 'Internal server error'], 500);
+        }
+    }
 }

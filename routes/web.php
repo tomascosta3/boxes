@@ -6,6 +6,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModelController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
@@ -102,6 +103,9 @@ Route::middleware('auth')->group(function() {
 
             // Soft delete equipment.
             Route::get('/equipments/delete/{id}', [EquipmentController::class, 'delete'])->name('delete');
+
+            // Get client's equipments.
+            Route::get('/equipments/get-by-client/{id}', [EquipmentController::class, 'get_equipments_by_client'])->name('get-by-client');
         });
 
         // Types routes.
@@ -127,5 +131,8 @@ Route::middleware('auth')->group(function() {
             // Get model's type.
             Route::get('/models/get-by-brand/{id}', [ModelController::class, 'get_models_by_brand'])->name('get-by-type');
         });
+
+        // New order.
+        Route::get('/new-order', [OrderController::class, 'new'])->name('new-order');
     });
 });
