@@ -1,5 +1,66 @@
 // Ensure the DOM is fully loaded before executing the script.
 document.addEventListener('DOMContentLoaded', function() {
+
+    var openCreateEquipmentModalButton = document.getElementById('create-button');
+    var closeCreateEquipmentModalButton = document.getElementById('closeCreateEquipmentModal');
+    var cancelCreateEquipmentModalButton = document.getElementById('cancelCreateEquipmentModal');
+    var createEquipmentModal = document.getElementById('createEquipmentModal');
+
+    openCreateEquipmentModalButton.addEventListener('click', function () {
+        createEquipmentModal.classList.add('is-active');
+    });
+
+    closeCreateEquipmentModalButton.addEventListener('click', function () {
+        createEquipmentModal.classList.remove('is-active');
+    });
+
+    cancelCreateEquipmentModalButton.addEventListener('click', function () {
+        createEquipmentModal.classList.remove('is-active');
+    });
+
+
+    // Obtener referencia al formulario y al botón de guardar
+    var equipmentForm = document.getElementById('equipment-form');
+    var saveEquipmentButton = document.getElementById('saveEquipmentButton');
+
+    // Agregar un event listener al botón de guardar
+    saveEquipmentButton.addEventListener('click', function (event) {
+        // Prevenir el comportamiento predeterminado del formulario (recargar la página)
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        var formData = new FormData(equipmentForm);
+
+        // Realizar la solicitud AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', equipmentForm.action, true);
+        xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}'); // Agregar token CSRF si es necesario
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // La solicitud se completó correctamente
+                    console.log('Equipo creado exitosamente');
+                    // Opcional: cerrar el modal o realizar otras acciones después de guardar
+                } else {
+                    // Ocurrió un error al guardar el equipo
+                    console.error('Error al crear el equipo');
+                    // Opcional: mostrar un mensaje de error al usuario
+                }
+            }
+        };
+        xhr.send(formData);
+
+        setTimeout(function() {
+            saveEquipmentButton.classList.add('is-loading');
+        }, 2000);
+
+        createEquipmentModal.classList.remove('is-active');
+        saveEquipmentButton.classList.remove('is-loading');
+
+        updateEquipment();
+    });
+
+
     // Wait for the document to be fully loaded.
     $(document).ready(function() {
         updateEquipment();
@@ -80,28 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
             createButton.classList.add('ml-6');
             createButtonColumn.classList.add('ml-5');
         }
-
-
-
-
-
-
-
-
-        // // Suponiendo que 'equipments' contiene la respuesta del controlador con los equipos del cliente
-        // if (equipments.length > 0) {
-        //     // Si hay equipos, mostramos la información de los equipos
-        //     document.getElementById('type').innerHTML = '<strong>TIPO:</strong> ' + equipments[0].type;
-        //     document.getElementById('brand').innerHTML = '<strong>MARCA:</strong> ' + equipments[0].brand;
-        //     document.getElementById('model').innerHTML = '<strong>MODELO:</strong> ' + equipments[0].model;
-        //     document.getElementById('serial-number').innerHTML = '<strong>N/S:</strong> ' + equipments[0].serialNumber;
-        // } else if (typeof $equipment === 'undefined' && typeof $client === 'undefined') {
-        //     // Si no hay equipos ni cliente, mostramos el mensaje "Por favor, seleccione un cliente primero"
-        //     document.getElementById('type').innerHTML = '<p class="has-text-centered">Por favor, seleccione un cliente primero</p>';
-        // } else {
-        //     // Si hay cliente pero no hay equipos, mostramos el mensaje "Por favor, seleccione un equipo"
-        //     document.getElementById('type').innerHTML = '<p class="has-text-centered">Por favor, seleccione un equipo</p>';
-        // }
 
     }
 });

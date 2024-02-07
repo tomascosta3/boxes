@@ -1,0 +1,18 @@
+.equipment-box {
+    border: 1px solid var(--dark-mode-sidebar-color);
+}
+
+.equipment-box .in-border {
+    position: absolute;
+    top: -12px;
+}
+
+.equipment-box .equipment-title {
+    background-color: #fff;
+    padding: 0 1em;
+    margin-right: 12em;
+}
+
+.equipment-button {
+    border: 1px solid var(--dark-mode-sidebar-color);
+}

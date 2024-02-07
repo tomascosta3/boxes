@@ -9,6 +9,7 @@ use App\Http\Controllers\ModelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TypeController;
+use App\Models\EquipmentModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,7 +130,7 @@ Route::middleware('auth')->group(function() {
             Route::post('/models/save', [ModelController::class, 'save_model'])->name('save');
 
             // Get model's type.
-            Route::get('/models/get-by-brand/{id}', [ModelController::class, 'get_models_by_brand'])->name('get-by-type');
+            Route::get('/models/get-by-brand/{id}', [ModelController::class, 'get_models_by_brand'])->name('get-by-brand');
         });
 
         // New order.

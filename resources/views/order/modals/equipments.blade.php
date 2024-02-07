@@ -1,9 +1,9 @@
 {{-- Type change modal --}}
-<div class="modal" id="changeTypeModal">
+<div class="modal" id="selectEquipmentModal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title has-text-centered">Cambiar tipo de equipo</p>
+            <p class="modal-card-title has-text-centered">Seleccionar equipo</p>
             <button class="delete" aria-label="close" id="closeChangeTypeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -76,7 +76,7 @@
                                 </button>
                             </div>
                             <div class="column is-1">
-                                <a href="{{ route('equipments.create') }}">
+                                <a href="#">
                                     <button class="button is-success is-pulled-right" type="button">
                                         <span class="icon">
                                             <i class="bx bx-plus"></i>

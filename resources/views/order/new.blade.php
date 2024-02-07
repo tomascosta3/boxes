@@ -5,30 +5,25 @@
 @endsection
 
 @section('style')
-<style>
-    /* Personaliza el estilo del box */
-    .equipment-box {
-        border: 1px solid var(--dark-mode-sidebar-color);
-    }
+    @parent
 
-    .equipment-box .in-border {
-        position: absolute;
-        top: -12px;
-    }
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    .equipment-box .equipment-title {
-        background-color: #fff;
-        padding: 0 1em;
-        margin-right: 12em;
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 
-    .equipment-button {
-        border: 1px solid var(--dark-mode-sidebar-color);
-    }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/equipments/photo_modal.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/orders/equipment.css') }}">
 @endsection
 
 @section('main-content')
+
+@include('order.modals.create-equipment')
+@include('equipments.modals.create_type')
+@include('equipments.modals.create_brand')
+@include('equipments.modals.create_model')
+@include('equipments.modals.photos')
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -154,4 +149,11 @@
 @section('scripts')
     @parent
     <script src="{{ asset('js/orders/equipments.js') }}"></script>
+    <script src="{{ asset('js/orders/clients.js') }}"></script>
+
+    <script src="{{ asset('js/equipments/type.js') }}"></script>
+    <script src="{{ asset('js/equipments/brand.js') }}"></script>
+    <script src="{{ asset('js/equipments/model.js') }}"></script>
+    <script src="{{ asset('js/equipments/serial_number.js') }}"></script>
+    <script src="{{ asset('js/equipments/photos.js') }}"></script>
 @endsection
