@@ -19,6 +19,7 @@
 @section('main-content')
 
 @include('order.modals.create-equipment')
+@include('order.modals.equipments')
 @include('equipments.modals.create_type')
 @include('equipments.modals.create_brand')
 @include('equipments.modals.create_model')

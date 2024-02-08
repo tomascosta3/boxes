@@ -18,6 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
         createEquipmentModal.classList.remove('is-active');
     });
 
+    var openChangeEquipmentModalButton = document.getElementById('change-button');
+    var closeChangeEquipmentModalButton = document.getElementById('closeChangeEquipmentModal');
+    var cancelChangeEquipmentModalButton = document.getElementById('cancelChangeEquipmentModal');
+    var changeEquipmentModal = document.getElementById('changeEquipmentModal');
+
+    openChangeEquipmentModalButton.addEventListener('click', function () {
+        changeEquipmentModal.classList.add('is-active');
+    });
+
+    closeChangeEquipmentModalButton.addEventListener('click', function () {
+        changeEquipmentModal.classList.remove('is-active');
+    });
+
+    cancelChangeEquipmentModalButton.addEventListener('click', function () {
+        changeEquipmentModal.classList.remove('is-active');
+    });
 
     // Obtener referencia al formulario y al botón de guardar
     var equipmentForm = document.getElementById('equipment-form');
@@ -97,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update the equipments list.
     function updateEquipmentsList(equipments) {
-        
+        populateEquipmentColumns(equipments);
     }
 
     // Function to update equipment info on form.
@@ -142,5 +158,43 @@ document.addEventListener('DOMContentLoaded', function() {
             createButtonColumn.classList.add('ml-5');
         }
 
+    }
+
+
+    // Función para crear un elemento HTML para cada equipo
+    function createEquipmentElement(equipment) {
+        const box = document.createElement('div');
+        box.classList.add('box');
+
+        const content = `
+            <p class="is-size-6	">Marca: ${equipment.brand.brand}</p>
+            <p class="is-size-6	">Modelo: ${equipment.model.model}</p>
+            <p class="is-size-6	">N/S: ${equipment.serial_number}</p>
+        `;
+        box.innerHTML = content;
+
+        return box;
+    }
+
+    // Función para agregar los elementos de equipo a las columnas
+    function populateEquipmentColumns(equipments) {
+        const columns = [
+            document.getElementById('equipment-column-1'),
+            document.getElementById('equipment-column-2'),
+            document.getElementById('equipment-column-3')
+        ];
+
+        // Limpiar el contenido de las columnas
+        columns.forEach(column => {
+            column.innerHTML = ''; // Vaciar el contenido
+        });
+
+        // Itera sobre el array de equipos y agrega cada equipo a la columna correspondiente
+        equipments.forEach((equipment, index) => {
+            const columnIndex = index % columns.length; // Calcula el índice de la columna
+            const column = columns[columnIndex];
+            const equipmentElement = createEquipmentElement(equipment);
+            column.appendChild(equipmentElement);
+        });
     }
 });
