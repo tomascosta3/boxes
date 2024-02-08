@@ -110,13 +110,23 @@
                             </div>
 
                             <div class="field">
-                                <label class="label" for="observations">Observaciones:</label>
+                                <label class="label" for="accessories">Accesorios:</label>
                                 <div class="control">
-                                    <textarea class="textarea" name="observations"></textarea>
+                                    <textarea class="textarea" name="accessories"></textarea>
                                 </div>
                                 <small>Este campo no es obligatorio</small>
-                                @if ($errors->create->first('observations'))
-                                    <small style="color: red">{{ $errors->create->first('observations') }} </small>
+                                @if ($errors->create->first('accessories'))
+                                    <small style="color: red">{{ $errors->create->first('accessories') }} </small>
+                                @endif
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="failure">Falla del equipo:</label>
+                                <div class="control">
+                                    <textarea class="textarea" name="failure"></textarea>
+                                </div>
+                                @if ($errors->create->first('failure'))
+                                    <small style="color: red">{{ $errors->create->first('failure') }} </small>
                                 @endif
                             </div>
 
@@ -126,9 +136,6 @@
                                         <a href="{{ route('equipments') }}">
                                             <button type="button" class="button is-link is-light">Volver</button>
                                         </a>
-                                    </div>
-                                    <div class="control">
-                                        <button class="button" type="button" id="addPhotoModal">Agregar fotos</button>
                                     </div>
                                     <div class="control">
                                         <button type="submit" class="button is-link">Crear equipo</button>
