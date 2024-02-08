@@ -62,7 +62,7 @@
                                             <select name="client" id="client-dropdown">
                                                 @if (isset($clients))
                                                     @foreach ($clients as $client)
-                                                        <option value="{{ $client->id }}">{{ $client->last_name . ' ' . $client->first_name }}</option>
+                                                        <option value="{{ $client->id }}">{{ $client->last_name . ' ' . $client->first_name . ' - Tel: ' . $client->phone_number }}</option>
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -133,12 +133,12 @@
                             <div class="level-item has-text-centered">
                                 <div class="field is-grouped pt-3">
                                     <div class="control">
-                                        <a href="{{ route('equipments') }}">
+                                        <a href="{{ route('home') }}">
                                             <button type="button" class="button is-link is-light">Volver</button>
                                         </a>
                                     </div>
                                     <div class="control">
-                                        <button type="submit" class="button is-link">Crear equipo</button>
+                                        <button type="submit" class="button is-link">Crear orden</button>
                                     </div>
                                 </div>
                             </div>
