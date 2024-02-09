@@ -104,10 +104,10 @@ class ClientController extends Controller
     {
         // Validate form inputs. If there is an error, return back with the errors.
         $validated = $request->validateWithBag('create', [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'phone_number' => ['required'],
-            'email' => ['required', 'email'],
+            'first_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:30'],
+            'phone_number' => ['required', 'regex:/^[0-9\W]+$/', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
         ]);
 
         // Create a new client with the provided data.
@@ -207,10 +207,10 @@ class ClientController extends Controller
     {
         // Validate form inputs. If there is an error, return back with the errors.
         $validated = $request->validateWithBag('edit', [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'phone_number' => ['required'],
-            'email' => ['required', 'email'],
+            'first_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:30'],
+            'phone_number' => ['required', 'regex:/^[0-9\W]+$/', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
         ]);
 
         // Find the client by ID.

@@ -401,7 +401,7 @@ class EquipmentController extends Controller
             'type' => ['required'],
             'brand' => ['required'],
             'model' => ['required'],
-            'serial_number' => ['required'],
+            'serial_number' => ['required', 'string', 'max:255'],
             'client' => ['required'],
             'observations' => ['nullable', 'max:65535'],
         ]);
