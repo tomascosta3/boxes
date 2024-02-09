@@ -160,19 +160,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-
-    // Función para crear un elemento HTML para cada equipo
     function createEquipmentElement(equipment) {
         const box = document.createElement('div');
-        box.classList.add('box');
+        box.classList.add('box', 'is-flex');
 
+        const columns = document.createElement('div');
+        columns.classList.add('columns', 'is-vcentered');
+    
+        // Columna para la imagen (izquierda)
+        const imageColumn = document.createElement('div');
+        imageColumn.classList.add('image-column', 'column', 'is-3'); // Añade un margen derecho opcional
+    
+        // Objeto de mapeo de tipos de equipos a nombres de imágenes
+        const imageMapping = {
+            'pc/cpu': 'pc',
+            'impresora': 'printer',
+            'router': 'router',
+            'switch': 'switch',
+            'notebook': 'notebook',
+            'cámara': 'camera',
+            'camara': 'camera',
+            'monitor': 'monitor',
+            'proyector': 'projector',
+            'ups': 'ups',
+        };
+
+        const equipmentType = equipment.type.type.toLowerCase();
+        const imageName = imageMapping[equipmentType] || 'equipment'; // Usar 'equipo' como imagen predeterminada si no se encuentra la clave
+
+        const pcImage = document.createElement('img');
+        pcImage.src = `/images/icons/${imageName}.png`;
+        pcImage.alt = `${equipmentType.charAt(0).toUpperCase() + equipmentType.slice(1)} Image`; // Capitaliza la primera letra de la palabra
+        pcImage.classList.add('equipment-image');
+        imageColumn.appendChild(pcImage);
+    
+        // Columna para la información (derecha)
+        const infoColumn = document.createElement('div');
+        infoColumn.classList.add('info-column', 'column');
+    
         const content = `
-            <p class="is-size-6	">Marca: ${equipment.brand.brand}</p>
-            <p class="is-size-6	">Modelo: ${equipment.model.model}</p>
-            <p class="is-size-6	">N/S: ${equipment.serial_number}</p>
+            <p class="is-size-6">Marca: ${equipment.brand.brand}</p>
+            <p class="is-size-6">Modelo: ${equipment.model.model}</p>
+            <p class="is-size-6">N/S: ${equipment.serial_number}</p>
         `;
-        box.innerHTML = content;
-
+        infoColumn.innerHTML = content;
+    
+        // Agrega las columnas al box
+        box.appendChild(columns);
+        columns.appendChild(imageColumn);
+        columns.appendChild(infoColumn);
+    
         return box;
     }
 
