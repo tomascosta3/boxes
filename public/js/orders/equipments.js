@@ -183,6 +183,9 @@ document.addEventListener('DOMContentLoaded', function() {
             'monitor': 'monitor',
             'proyector': 'projector',
             'ups': 'ups',
+            'dvr': 'dvr',
+            'nvr': 'dvr',
+            'xvr': 'dvr',
         };
 
         const equipmentType = equipment.type.type.toLowerCase();

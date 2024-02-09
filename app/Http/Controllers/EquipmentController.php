@@ -380,7 +380,7 @@ class EquipmentController extends Controller
         } 
 
         // Flash a success message for the session.
-        session()->flash('success', ['Equipo eliminado.']);
+        session()->flash('success', 'Equipo eliminado.');
 
         // Redirect to the equipment index router.
         return to_route('equipments');

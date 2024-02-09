@@ -115,7 +115,7 @@
                                 <div class="control">
                                     <textarea class="textarea" name="accessories"></textarea>
                                 </div>
-                                <small>Este campo no es obligatorio</small>
+                                <small>Obligatorio, en caso de no tener ningún accesorio escribir "Ninguno"</small>
                                 @if ($errors->create->first('accessories'))
                                     <small style="color: red">{{ $errors->create->first('accessories') }} </small>
                                 @endif
