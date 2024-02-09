@@ -189,6 +189,7 @@
                                 </div>
                                 <small>Este campo no es obligatorio</small>
                                 @if ($errors->create->first('observations'))
+                                    <br>
                                     <small style="color: red">{{ $errors->create->first('observations') }} </small>
                                 @endif
                             </div>

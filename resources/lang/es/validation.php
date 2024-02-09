@@ -162,6 +162,7 @@ return [
         'type' => '"Tipo"',
         'brand' => '"Marca"',
         'model' => '"Modelo"',
+        'observations' => '"Observaciones"',
     ],
 
 ];

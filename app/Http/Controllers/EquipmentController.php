@@ -188,7 +188,7 @@ class EquipmentController extends Controller
             'model' => ['required'],
             'serial_number' => ['required'],
             'client' => ['required'],
-            'observations' => ['nullable'],
+            'observations' => ['nullable', 'max:65535'],
         ]);
 
         // Create a new equipment with the provided data.
@@ -403,7 +403,7 @@ class EquipmentController extends Controller
             'model' => ['required'],
             'serial_number' => ['required'],
             'client' => ['required'],
-            'observations' => ['nullable'],
+            'observations' => ['nullable', 'max:65535'],
         ]);
 
         // Find the equipment by ID.
