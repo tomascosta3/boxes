@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener referencia al formulario y al botón de guardar
     var equipmentForm = document.getElementById('equipment-form');
     var saveEquipmentButton = document.getElementById('saveEquipmentButton');
+    var changeEquipmentButton = document.getElementById('changeEquipmentButton');
 
     // Agregar un event listener al botón de guardar
     saveEquipmentButton.addEventListener('click', function (event) {
@@ -160,9 +161,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-    function createEquipmentElement(equipment) {
+    function createEquipmentElement(equipment, selected) {
+
         const box = document.createElement('div');
-        box.classList.add('box', 'is-flex');
+        if(selected) {
+            box.classList.add('box', 'is-flex', 'selected');
+        } else {
+            box.classList.add('box', 'is-flex');
+        }
+
+        // const box = document.createElement('div');
+        // box.classList.add('box', 'is-flex');
 
         const columns = document.createElement('div');
         columns.classList.add('columns', 'is-vcentered');
@@ -202,9 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
         infoColumn.classList.add('info-column', 'column');
     
         const content = `
-            <p class="is-size-6">Marca: ${equipment.brand.brand}</p>
-            <p class="is-size-6">Modelo: ${equipment.model.model}</p>
-            <p class="is-size-6">N/S: ${equipment.serial_number}</p>
+            <p class="is-size-6 brand">Marca: ${equipment.brand.brand}</p>
+            <p class="is-size-6 model">Modelo: ${equipment.model.model}</p>
+            <p class="is-size-6 serial-number">N/S: ${equipment.serial_number}</p>
         `;
         infoColumn.innerHTML = content;
     
@@ -212,6 +221,15 @@ document.addEventListener('DOMContentLoaded', function() {
         box.appendChild(columns);
         columns.appendChild(imageColumn);
         columns.appendChild(infoColumn);
+
+        // Agregar evento click para cambiar la selección
+        box.addEventListener('click', function() {
+            const selectedBoxes = document.querySelectorAll('.box.selected');
+            selectedBoxes.forEach(function(selectedBox) {
+                selectedBox.classList.remove('selected');
+            });
+            box.classList.add('selected');
+        });
     
         return box;
     }
@@ -233,8 +251,39 @@ document.addEventListener('DOMContentLoaded', function() {
         equipments.forEach((equipment, index) => {
             const columnIndex = index % columns.length; // Calcula el índice de la columna
             const column = columns[columnIndex];
-            const equipmentElement = createEquipmentElement(equipment);
+            const equipmentElement = createEquipmentElement(equipment, equipment == equipments[0]);
             column.appendChild(equipmentElement);
         });
     }
+
+    changeEquipmentButton.addEventListener('click', function (event) {
+        // Find selected equipment.
+        const selectedEquipment = document.querySelector('.box.selected');
+    
+        // Verify if there is a equipment selected.
+        if (selectedEquipment) {
+            // Get serial number of selected equipment.
+            var serialNumber = selectedEquipment.querySelector('.serial-number').textContent;
+            serialNumber = serialNumber.replace('N/S:', '');
+            serialNumber = serialNumber.replace(' ', '');
+
+            // Make an AJAX request to get the equipments associated with the default client.
+            $.ajax({
+                url: '/equipments/get-by-serial-number/' + serialNumber.replace("N/S:%20", ""),
+                method: 'GET',
+                success: function(response) {
+                    updateEquipmentInfo(response.equipment);
+                },
+                error: function(error) {
+                    // Handle errors if necessary.
+                    console.error(error);
+                }
+            });
+
+        } else {
+            console.log("No se ha seleccionado ningún equipo.");
+        }
+
+        changeEquipmentModal.classList.remove('is-active');
+    });
 });

@@ -471,4 +471,27 @@ class EquipmentController extends Controller
             return response()->json(['error' => 'Internal server error'], 500);
         }
     }
+
+
+    /**
+     * Get equipment that has a specified serial number.
+     *
+     * @param int $serial_number String serial number of equipment.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get_by_serial_number($serial_number)
+    {
+        $equipment = Equipment::where('serial_number', $serial_number)
+            ->where('active', true)
+            ->with('type', 'brand', 'model')
+            ->get();
+
+        if ($equipment) {
+            // Equipment found, return data in JSON format.
+            return response()->json(['equipment' => $equipment]);
+        } else {
+            // Equipment not found.
+            return response()->json(['error' => 'Equipo no encontrado'], 404);
+        }
+    }
 }

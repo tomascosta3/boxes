@@ -107,6 +107,9 @@ Route::middleware('auth')->group(function() {
 
             // Get client's equipments.
             Route::get('/equipments/get-by-client/{id}', [EquipmentController::class, 'get_equipments_by_client'])->name('get-by-client');
+
+            // Get equipment that has a specific serial number.
+            Route::get('/equipments/get-by-serial-number/{serial_number}', [EquipmentController::class, 'get_by_serial_number'])->name('get-by-serial-number');
         });
 
         // Types routes.

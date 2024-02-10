@@ -25,3 +25,7 @@
 #changeEquipmentModal .modal-card{
     min-width: 60vw !important;
 }
+
+.selected {
+    border: 3px solid #50d87d !important;
+}
