@@ -126,6 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get first equipment.
             var firstEquipment = equipments[0];
 
+            // Update hidden input.
+            document.getElementById('equipment-input').value = `${firstEquipment.id}`
+
             // Update <p> values.
             document.getElementById('type').innerHTML = `<strong>TIPO:</strong> ${firstEquipment.type.type}`;
             document.getElementById('brand').style.display = 'block';

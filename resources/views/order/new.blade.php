@@ -103,6 +103,8 @@
                                         </div>
                                     </div>
                                     
+                                    <input type="hidden" name="equipment" id="equipment-input">
+
                                     <p id="type"><strong>TIPO:</strong></p>
                                     <p id="brand"><strong>MARCA:</strong></p>
                                     <p id="model"><strong>MODELO:</strong></p>
