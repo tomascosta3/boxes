@@ -1,11 +1,13 @@
 // Ensure the DOM is fully loaded before executing the script.
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Get references to various elements in the DOM.
     var openCreateEquipmentModalButton = document.getElementById('create-button');
     var closeCreateEquipmentModalButton = document.getElementById('closeCreateEquipmentModal');
     var cancelCreateEquipmentModalButton = document.getElementById('cancelCreateEquipmentModal');
     var createEquipmentModal = document.getElementById('createEquipmentModal');
 
+    // Event listeners for opening and closing the create equipment modal.
     openCreateEquipmentModalButton.addEventListener('click', function () {
         createEquipmentModal.classList.add('is-active');
     });
@@ -18,11 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
         createEquipmentModal.classList.remove('is-active');
     });
 
+    // Get references to elements in the DOM for the change equipment modal.
     var openChangeEquipmentModalButton = document.getElementById('change-button');
     var closeChangeEquipmentModalButton = document.getElementById('closeChangeEquipmentModal');
     var cancelChangeEquipmentModalButton = document.getElementById('cancelChangeEquipmentModal');
     var changeEquipmentModal = document.getElementById('changeEquipmentModal');
 
+    // Event listeners for opening and closing the change equipment modal.
     openChangeEquipmentModalButton.addEventListener('click', function () {
         changeEquipmentModal.classList.add('is-active');
     });
@@ -35,77 +39,71 @@ document.addEventListener('DOMContentLoaded', function() {
         changeEquipmentModal.classList.remove('is-active');
     });
 
-    // Obtener referencia al formulario y al botón de guardar
+    // Get references to the equipment form and buttons.
     var equipmentForm = document.getElementById('equipment-form');
     var saveEquipmentButton = document.getElementById('saveEquipmentButton');
     var changeEquipmentButton = document.getElementById('changeEquipmentButton');
 
-    // Agregar un event listener al botón de guardar
+    // Event listener for saving equipment data.
     saveEquipmentButton.addEventListener('click', function (event) {
-        // Prevenir el comportamiento predeterminado del formulario (recargar la página)
+        // Prevent default form submission behavior.
         event.preventDefault();
 
-        // Obtener los datos del formulario
+        // Get form data.
         var formData = new FormData(equipmentForm);
 
-        // Realizar la solicitud AJAX
+        // Send AJAX request to save equipment data.
         var xhr = new XMLHttpRequest();
         xhr.open('POST', equipmentForm.action, true);
-        xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}'); // Agregar token CSRF si es necesario
+        xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}'); // Add CSRF token if needed.
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                    // La solicitud se completó correctamente
                     console.log('Equipo creado exitosamente');
-                    // Opcional: cerrar el modal o realizar otras acciones después de guardar
                 } else {
-                    // Ocurrió un error al guardar el equipo
                     console.error('Error al crear el equipo');
-                    // Opcional: mostrar un mensaje de error al usuario
                 }
             }
         };
         xhr.send(formData);
 
+        // Show loading state for 2 seconds.
         setTimeout(function() {
             saveEquipmentButton.classList.add('is-loading');
         }, 2000);
 
+        // Hide the create equipment modal.
         createEquipmentModal.classList.remove('is-active');
         saveEquipmentButton.classList.remove('is-loading');
 
+        // Update equipment information.
         updateEquipment();
     });
 
 
-    // Wait for the document to be fully loaded.
+    // Update equipment information when the document is fully loaded.
     $(document).ready(function() {
         updateEquipment();
     });
 
 
+    // Event listener for client dropdown change.
     document.getElementById('client-dropdown').addEventListener('change', function() {
         updateEquipment();
     });
 
-    
-    function updateEquipment() {
-        // Get the value of the client selected by default in the dropdown.
-        var defaultClientId = $('#client-dropdown').val();
 
-        // Make an AJAX request to get the equipments associated with the default client.
+    // Function to update equipment list.
+    function updateEquipment() {
+        var defaultClientId = $('#client-dropdown').val();
         $.ajax({
             url: '/equipments/get-by-client/' + defaultClientId,
             method: 'GET',
             success: function(response) {
-
                 updateEquipmentInfo(response.equipments);
-                
-                // Update the equipments modal with the obtained options.
                 updateEquipmentsList(response.equipments);
             },
             error: function(error) {
-                // Handle errors if necessary
                 console.error(error);
             }
         });
@@ -117,9 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
         populateEquipmentColumns(equipments);
     }
 
-    // Function to update equipment info on form.
+    // Function to update equipment information on form.
     function updateEquipmentInfo(equipments) {
-
         var changeButton = document.getElementById('change-button');
         var createButton = document.getElementById('create-button');
         var createButtonColumn = document.getElementById('create-button-column');
@@ -161,26 +158,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+
+    // Function to create an equipment element.
     function createEquipmentElement(equipment, selected) {
 
+        // Create a div element for the equipment.
         const box = document.createElement('div');
+
+        // Add classes to the box based on selection status.
         if(selected) {
             box.classList.add('box', 'is-flex', 'selected');
         } else {
             box.classList.add('box', 'is-flex');
         }
 
-        // const box = document.createElement('div');
-        // box.classList.add('box', 'is-flex');
-
+        // Create a div element for columns.
         const columns = document.createElement('div');
         columns.classList.add('columns', 'is-vcentered');
     
-        // Columna para la imagen (izquierda)
+        // Create a column for the image (left).
         const imageColumn = document.createElement('div');
-        imageColumn.classList.add('image-column', 'column', 'is-3'); // Añade un margen derecho opcional
+        imageColumn.classList.add('image-column', 'column', 'is-3');
     
-        // Objeto de mapeo de tipos de equipos a nombres de imágenes
+        // Mapping object for equipment types to image names.
         const imageMapping = {
             'pc/cpu': 'pc',
             'impresora': 'printer',
@@ -197,19 +197,24 @@ document.addEventListener('DOMContentLoaded', function() {
             'xvr': 'dvr',
         };
 
+        // Get lowercase equipment type.
         const equipmentType = equipment.type.type.toLowerCase();
-        const imageName = imageMapping[equipmentType] || 'equipment'; // Usar 'equipo' como imagen predeterminada si no se encuentra la clave
 
+        // Get image name based on type, or default to 'equipment'.
+        const imageName = imageMapping[equipmentType] || 'equipment';
+
+        // Create an img element for the equipment image.
         const pcImage = document.createElement('img');
         pcImage.src = `/images/icons/${imageName}.png`;
         pcImage.alt = `${equipmentType.charAt(0).toUpperCase() + equipmentType.slice(1)} Image`; // Capitaliza la primera letra de la palabra
         pcImage.classList.add('equipment-image');
         imageColumn.appendChild(pcImage);
     
-        // Columna para la información (derecha)
+        // Create a column for information (right).
         const infoColumn = document.createElement('div');
         infoColumn.classList.add('info-column', 'column');
     
+        // HTML content for equipment information.
         const content = `
             <p class="is-size-6 brand">Marca: ${equipment.brand.brand}</p>
             <p class="is-size-6 model">Modelo: ${equipment.model.model}</p>
@@ -217,12 +222,12 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         infoColumn.innerHTML = content;
     
-        // Agrega las columnas al box
+        // Append columns to the box.
         box.appendChild(columns);
         columns.appendChild(imageColumn);
         columns.appendChild(infoColumn);
 
-        // Agregar evento click para cambiar la selección
+        // Add click event to change selection.
         box.addEventListener('click', function() {
             const selectedBoxes = document.querySelectorAll('.box.selected');
             selectedBoxes.forEach(function(selectedBox) {
@@ -234,40 +239,42 @@ document.addEventListener('DOMContentLoaded', function() {
         return box;
     }
 
-    // Función para agregar los elementos de equipo a las columnas
+    // Function to populate equipment elements into columns.
     function populateEquipmentColumns(equipments) {
+        // Get columns by their IDs.
         const columns = [
             document.getElementById('equipment-column-1'),
             document.getElementById('equipment-column-2'),
             document.getElementById('equipment-column-3')
         ];
 
-        // Limpiar el contenido de las columnas
+        // Clear the content of columns.
         columns.forEach(column => {
-            column.innerHTML = ''; // Vaciar el contenido
+            column.innerHTML = '';
         });
 
-        // Itera sobre el array de equipos y agrega cada equipo a la columna correspondiente
+        // Iterate through equipments and add each to the corresponding column.
         equipments.forEach((equipment, index) => {
-            const columnIndex = index % columns.length; // Calcula el índice de la columna
+            const columnIndex = index % columns.length;
             const column = columns[columnIndex];
             const equipmentElement = createEquipmentElement(equipment, equipment == equipments[0]);
             column.appendChild(equipmentElement);
         });
     }
 
+    // Event listener for the change equipment button.
     changeEquipmentButton.addEventListener('click', function (event) {
         // Find selected equipment.
         const selectedEquipment = document.querySelector('.box.selected');
     
-        // Verify if there is a equipment selected.
+        // Check if equipment is selected.
         if (selectedEquipment) {
             // Get serial number of selected equipment.
             var serialNumber = selectedEquipment.querySelector('.serial-number').textContent;
             serialNumber = serialNumber.replace('N/S:', '');
             serialNumber = serialNumber.replace(' ', '');
 
-            // Make an AJAX request to get the equipments associated with the default client.
+            // Make an AJAX request to get equipment associated with the serial number.
             $.ajax({
                 url: '/equipments/get-by-serial-number/' + serialNumber.replace("N/S:%20", ""),
                 method: 'GET',
@@ -284,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("No se ha seleccionado ningún equipo.");
         }
 
+        // Close the change equipment modal.
         changeEquipmentModal.classList.remove('is-active');
     });
 });
