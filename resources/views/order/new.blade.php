@@ -52,7 +52,7 @@
             <div class="columns is-centered is-vcentered">
                 <div class="column is-5">
                     <div class="box user-create-scrollable">
-                        <form action="#" id="new-order-form" method="post">
+                        <form action="{{ route('new-order.store') }}" id="new-order-form" method="post">
                             @csrf
 
                             <label class="label" for="client">Cliente</label>

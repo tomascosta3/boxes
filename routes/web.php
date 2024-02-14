@@ -138,5 +138,8 @@ Route::middleware('auth')->group(function() {
 
         // New order.
         Route::get('/new-order', [OrderController::class, 'new'])->name('new-order');
+
+        // Create new order.
+        Route::post('/new-order', [OrderController::class, 'store'])->name('new-order.store');
     });
 });
