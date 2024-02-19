@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('binnacle_id');
+            $table->foreign('binnacle_id')->references('id')->on('binnacles')->onDelete('cascade');
             $table->text('message');
             $table->boolean('active')->default(true);
             $table->boolean('private')->default(false);

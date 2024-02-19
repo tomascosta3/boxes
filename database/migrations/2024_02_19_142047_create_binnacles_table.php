@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('binnacles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('message_id');
-            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
+            $table->unsignedBigInteger('repair_id');
+            $table->foreign('repair_id')->references('id')->on('repairs')->onDelete('cascade');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

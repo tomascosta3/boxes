@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedBigInteger('binnacle_id');
-            $table->foreign('binnacle_id')->references('id')->on('binnacles')->onDelete('cascade');
             $table->string('status', 30)->default('without checking');
             $table->text('conclusion');
             $table->boolean('active')->default(true);
