@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->string('status', 30)->default('without checking');
-            $table->text('conclusion');
+            $table->text('conclusion')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

@@ -111,4 +111,16 @@ class Equipment extends Model
         return $this->images()->where('active', true)->get();
     }
 
+
+    /**
+     * Relationship: One-to-Many
+     *
+     * Defines a one-to-many relationship where an Equipment has many orders.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

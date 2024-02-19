@@ -59,4 +59,17 @@ class Order extends Model
     {
         return $this->belongsTo(Equipment::class);
     }
+
+
+    /**
+     * Relationship: One-to-One
+     *
+     * Define a one-to-one relationship where an Order has one Repair.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function repair()
+    {
+        return $this->hasOne(Repair::class);
+    }
 }

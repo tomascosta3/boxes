@@ -27,11 +27,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE orders AUTO_INCREMENT = 6290");
-
-        DB::unprepared('CREATE TRIGGER SetOrderNumber BEFORE INSERT ON orders FOR EACH ROW BEGIN
-                            SET NEW.number = (SELECT IFNULL(MAX(number), 6289) + 1 FROM orders);
-                        END');
+        DB::unprepared('CREATE TRIGGER SetOrderNumber BEFORE INSERT ON orders FOR EACH ROW
+        BEGIN
+            SET NEW.number = (SELECT IFNULL(MAX(number), 6289) + 1 FROM orders);
+        END');
     }
 
     /**
