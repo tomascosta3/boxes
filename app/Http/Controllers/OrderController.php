@@ -111,6 +111,7 @@ class OrderController extends Controller
         // Create a new repair associated with the order.
         return Repair::create([
             'order_id' => $order_id,
+            'technician_id'=> null,
         ]);
     }
 

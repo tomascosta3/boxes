@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\TypeController;
 use App\Models\EquipmentModel;
 use Illuminate\Support\Facades\Route;
@@ -141,5 +142,13 @@ Route::middleware('auth')->group(function() {
 
         // Create new order.
         Route::post('/new-order', [OrderController::class, 'store'])->name('new-order.store');
+
+        // Repairs index.
+        Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+
+        // Repairs routes.
+        Route::name('repairs.')->group(function () {
+            
+        });
     });
 });

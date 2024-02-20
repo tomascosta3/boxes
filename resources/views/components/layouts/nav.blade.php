@@ -41,12 +41,14 @@
                 </div>
             </a>
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-spreadsheet nav-icon"></i>
-                    <span class="pl-3">Reparaciones</span>
+            <a href="{{ route('repairs') }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'repairs') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-spreadsheet nav-icon"></i>
+                        <span class="pl-3">Reparaciones</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             <hr class="centered">
 

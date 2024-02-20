@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->unsignedBigInteger('technician_id')->nullable();
+            $table->foreign('technician_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('status', 30)->default('without checking');
             $table->text('conclusion')->nullable();
             $table->boolean('active')->default(true);
