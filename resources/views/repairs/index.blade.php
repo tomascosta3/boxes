@@ -43,26 +43,31 @@
                                             <div class="control">
                                                 <div class="select">
                                                     <select name="search_option" id="search_option">
-                                                        <option value="name"
-                                                        @if (session('search_option') == "name")
+                                                        <option value="order"
+                                                        @if (session('search_option') == "order")
                                                             selected
                                                         @endif
-                                                        >Nombre</option>
-                                                        <option value="phone_number"
-                                                        @if (session('search_option') == "phone_number")
+                                                        >Orden</option>
+                                                        <option value="type"
+                                                        @if (session('search_option') == "type")
                                                             selected
                                                         @endif
-                                                        >Teléfono</option>
-                                                        <option value="email"
-                                                        @if (session('search_option') == "email")
+                                                        >Tipo de equipo</option>
+                                                        <option value="client"
+                                                        @if (session('search_option') == "client")
                                                             selected
                                                         @endif
-                                                        >Correo</option>
-                                                        <option value="company"
-                                                        @if (session('search_option') == "company")
+                                                        >Cliente</option>
+                                                        <option value="status"
+                                                        @if (session('search_option') == "status")
                                                             selected
                                                         @endif
-                                                        >Empresa</option>
+                                                        >Estado</option>
+                                                        <option value="technician"
+                                                        @if (session('search_option') == "technician")
+                                                            selected
+                                                        @endif
+                                                        >Técnico</option>
                                                     </select>
                                                 </div>
                                             </div>
