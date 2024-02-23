@@ -58,16 +58,51 @@
                                                             selected
                                                         @endif
                                                         >Cliente</option>
-                                                        <option value="status"
-                                                        @if (session('search_option') == "status")
-                                                            selected
-                                                        @endif
-                                                        >Estado</option>
                                                         <option value="technician"
                                                         @if (session('search_option') == "technician")
                                                             selected
                                                         @endif
                                                         >Técnico</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-2">
+                                        <div class="field">
+                                            <div class="control">
+                                                <div class="select">
+                                                    <select name="status_filter" id="status_filter">
+                                                        <option value="all"
+                                                        @if (session('search_option') == "all")
+                                                            selected
+                                                        @endif
+                                                        >Todos</option>
+                                                        <option value="without checking"
+                                                        @if (session('search_option') == "without checking")
+                                                            selected
+                                                        @endif
+                                                        >Sin revisar</option>
+                                                        <option value="in progress"
+                                                        @if (session('search_option') == "in progress")
+                                                            selected
+                                                        @endif
+                                                        >En progreso</option>
+                                                        <option value="waiting"
+                                                        @if (session('search_option') == "waiting")
+                                                            selected
+                                                        @endif
+                                                        >En espera</option>
+                                                        <option value="completed"
+                                                        @if (session('search_option') == "completed")
+                                                            selected
+                                                        @endif
+                                                        >Completado</option>
+                                                        <option value="delivered"
+                                                        @if (session('search_option') == "delivered")
+                                                            selected
+                                                        @endif
+                                                        >Entregado</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -79,15 +114,6 @@
                                                 <i class="bx bx-search-alt-2"></i>
                                             </span>
                                         </button>
-                                    </div>
-                                    <div class="column is-1">
-                                        <a href="#">
-                                            <button class="button is-success is-pulled-right" type="button">
-                                                <span class="icon">
-                                                    <i class="bx bx-plus"></i>
-                                                </span>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -138,7 +164,7 @@
                                         <p class="is-clipped">{{ $repair->order->client->last_name . ' ' . $repair->order->client->first_name }}</p>
                                     </div>
                                     <div class="column is-2">
-                                        <p class="is-clipped">
+                                        <p class="is-clipped repair-status">
                                             {{ $repair->get_spanish_status() }}
                                         </p>
                                     </div>
@@ -164,4 +190,10 @@
     </div>
 </div>   
 
+@endsection
+
+@section('scripts')
+    @parent
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/repairs/index.js') }}"></script>
 @endsection
