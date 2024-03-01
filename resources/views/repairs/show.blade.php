@@ -30,6 +30,7 @@
             padding: 0 1em;
             margin-right: 12em;
             border-radius: 10px;
+            border: 1px solid #b5b5b5;
         }
 
         .header-box {
@@ -107,7 +108,7 @@
                                             <div class="in-border">
                                                 <div class="columns is-flex is-justify-content-space-between">
                                                     <div class="column">
-                                                        <p class="item-title">Cliente</p>
+                                                        <p class="item-title">CLIENTE</p>
                                                     </div>
                                                 </div>
                                             </div>
