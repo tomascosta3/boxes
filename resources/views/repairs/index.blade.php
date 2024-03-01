@@ -151,7 +151,7 @@
             
                         {{-- Repair list --}}
                         @foreach ($repairs as $repair)
-                        <a href="#">
+                        <a href="{{ route('repairs.show', ['id' => $repair->id]) }}">
                             <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
                                     <div class="column is-2">

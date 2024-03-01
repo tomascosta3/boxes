@@ -148,7 +148,8 @@ Route::middleware('auth')->group(function() {
 
         // Repairs routes.
         Route::name('repairs.')->group(function () {
-            
+            // Equipment view.
+            Route::get('/repairs/{id}', [RepairController::class, 'show'])->name('show');
         });
     });
 });

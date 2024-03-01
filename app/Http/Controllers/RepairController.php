@@ -165,4 +165,29 @@ class RepairController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
     }
+
+
+    /**
+     * Display the details of a specific repair.
+     *
+     * @param int $id The ID of the repair.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show($id)
+    {
+        // Find the repair by ID.
+        $repair = Repair::find($id);
+
+        // If the repair doesn't exist, show an error message.
+        if (!$repair) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra la reparación');
+
+            // Redirect to the repairs index route.
+            return to_route('repairs');
+        }
+
+        // Return the repairs view with the repair's data.
+        return view('repairs.show')->with(['repair' => $repair]);
+    }
 }
