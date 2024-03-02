@@ -1,0 +1,38 @@
+.text-username {
+    display: inline;
+    font-size: 0.8rem;
+}
+
+.text-date {
+    display: inline;
+    font-size: 0.8rem;
+}
+
+.item-box {
+    border: 1px solid #b5b5b5;
+}
+
+.item-box .in-border {
+    position: absolute;
+    top: -12px;
+}
+
+.item-box .item-title {
+    background-color: #fff;
+    padding: 0 1em;
+    margin-right: 12em;
+    border-radius: 10px;
+    border: 1px solid #b5b5b5;
+}
+
+.header-box {
+    background-color: var(--dark-mode-sidebar-color);
+}
+
+.header-box p {
+    color: var(--dark-mode-text-color);
+}
+
+.send-button {
+    width: 50px;
+}

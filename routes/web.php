@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
@@ -151,5 +152,7 @@ Route::middleware('auth')->group(function() {
             // Equipment view.
             Route::get('/repairs/{id}', [RepairController::class, 'show'])->name('show');
         });
+
+        Route::post('/save-message', [MessageController::class, 'save_message'])->name('save-message');
     });
 });

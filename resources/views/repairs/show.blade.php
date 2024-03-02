@@ -5,46 +5,13 @@
 @endsection
 
 @section('style')
-    <style>
-        .text-username {
-            display: inline;
-            font-size: 0.8rem;
-        }
+    @parent
 
-        .text-date {
-            display: inline;
-            font-size: 0.8rem;
-        }
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        .item-box {
-            border: 1px solid #b5b5b5;
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 
-        .item-box .in-border {
-            position: absolute;
-            top: -12px;
-        }
-
-        .item-box .item-title {
-            background-color: #fff;
-            padding: 0 1em;
-            margin-right: 12em;
-            border-radius: 10px;
-            border: 1px solid #b5b5b5;
-        }
-
-        .header-box {
-            background-color: var(--dark-mode-sidebar-color);
-        }
-
-        .header-box p {
-            color: var(--dark-mode-text-color);
-        }
-
-        .send-button {
-            width: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/repairs/rapair.css') }}">
 @endsection
 
 @section('main-content')
@@ -177,21 +144,22 @@
                                             </div>
                                             
                                             <div class="box mb-1 is-shadowless messages">
-                                                @foreach ($repair->binnacles as $binnacle)
-                                                    @foreach ($binnacle->messages as $message)
+                                                @if ($repair->binnacle)
+                                                    @foreach ($repair->binnacle->messages as $message)
                                                     <div class="box p-2 is-shadowless message">
-                                                        <p class="text-message">aaaaaaaaaaaaaa</p>
-                                                        <p class="text-username">aaaaaaaa</p>
-                                                        <p class="text-date">aaaaa</p>
+                                                        <p class="text-message">{{ $message->message }}</p>
+                                                        <p class="text-username">{{ $message->user->last_name . ' ' . $message->user->first_name }}</p>
+                                                        <p class="text-date">{{ $message->created_at }}</p>
                                                     </div>
                                                     @endforeach
-                                                @endforeach
+                                                @endif
                                             </div>
+                                            <input type="hidden" name="binnacle-id" id="binnacle-id" value="{{ $repair->binnacle->id }}">
                                             <div class="new-message">
                                                 <textarea name="new-message" id="new-message" class="textarea"></textarea>
                                             </div>
                                             <div class="message-buttons is-flex is-justify-content-flex-end mt-2">
-                                                <button class="button send-button">Enviar</button>
+                                                <button class="button send-button" type="button" id="send-button">Enviar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -215,4 +183,5 @@
 
 @section('scripts')
     @parent
+    <script src="{{ asset('js/repairs/repair.js') }}"></script>
 @endsection

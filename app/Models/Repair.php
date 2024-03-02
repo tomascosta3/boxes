@@ -32,6 +32,18 @@ class Repair extends Model
         return $this->hasMany(Binnacle::class)->where('active', true);
     }
 
+    /**
+     * Relationship: One-to-One.
+     * 
+     * Define a one-to-one relationship where a Repair has one Binnacle.
+     * Only includes the first Binnacle that is active (where the 'active' column value is true).
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function binnacle()
+    {
+        return $this->hasOne(Binnacle::class)->where('active', true)->orderBy('created_at', 'asc');
+    }
 
     /**
      * Relationship: Many-to-One.
@@ -88,6 +100,8 @@ class Repair extends Model
                 return 'Completado';
             case 'delivered':
                 return 'Entregado';
+            case 'waiting':
+                return 'En espera';
             default:
                 // If no translation is available, return '-'.
                 return '-';

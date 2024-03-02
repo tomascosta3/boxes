@@ -13,6 +13,7 @@ class Message extends Model
 
     protected $fillable = [
         'user_id',
+        'binnacle_id',
         'message',
         'active',
         'private',
