@@ -143,17 +143,8 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="box mb-1 is-shadowless messages">
-                                                @if ($repair->binnacle)
-                                                    @foreach ($repair->binnacle->messages as $message)
-                                                    <div class="box p-2 is-shadowless message">
-                                                        <p class="text-message">{{ $message->message }}</p>
-                                                        <p class="text-username">{{ $message->user->last_name . ' ' . $message->user->first_name }}</p>
-                                                        <p class="text-date">{{ $message->created_at }}</p>
-                                                    </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
+                                            <div class="box mb-1 p-0 is-shadowless messages"></div>
+                                            
                                             <input type="hidden" name="binnacle-id" id="binnacle-id" value="{{ $repair->binnacle->id }}">
                                             <div class="new-message">
                                                 <textarea name="new-message" id="new-message" class="textarea"></textarea>

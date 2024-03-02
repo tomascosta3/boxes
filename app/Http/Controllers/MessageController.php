@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class MessageController extends Controller
 {
+    // Method to save a new message.
     public function save_message(Request $request)
     {
         // Validate the request.
@@ -16,23 +17,42 @@ class MessageController extends Controller
             'binnacle' => ['required'],
         ]);
 
+        // Create a new message.
         $new_message = Message::create([
             'user_id' => auth()->user()->id,
             'binnacle_id' => $request->input('binnacle'),
             'message' => $request->input('message'),
         ]);
 
-        // Obtener los mensajes actualizados
-        $messages = Message::where('active' , true)
+        // Get the updated messages.
+        $messages = Message::where('active', true)
             ->where('binnacle_id', $new_message->binnacle_id)    
             ->orderBy('created_at', 'desc')
             ->get();
 
+        // Prepare the response.
         $response = ['messages' => $messages];
 
-        Log::debug($response);
-
-        // Devolver los mensajes actualizados como respuesta
+        // Return the response as JSON.
         return response()->json($response);
+    }
+
+    // Method to get messages by binnacle ID.
+    public function get_messages($id)
+    {
+        try {
+            // Get the messages of the binnacle.
+            $messages = Message::where('active', true)
+                ->where('binnacle_id', $id)    
+                ->orderBy('created_at', 'asc')
+                ->with('user')
+                ->get();
+
+            // Return the messages as JSON.
+            return response()->json(['messages' => $messages]);
+        } catch (\Exception $e) {
+            // Handle internal server error.
+            return response()->json(['error' => 'Internal server error'], 500);
+        }
     }
 }

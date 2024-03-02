@@ -36,3 +36,14 @@
 .send-button {
     width: 50px;
 }
+
+.messages {
+    overflow-y: auto;
+    max-height: 300px;
+    -ms-overflow-style: none;
+    scrollbar-width: none
+}
+
+.messages::-webkit-scrollbar {
+    display: none;
+}

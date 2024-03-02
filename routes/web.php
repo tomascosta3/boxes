@@ -13,6 +13,7 @@ use App\Http\Controllers\RepairController;
 use App\Http\Controllers\TypeController;
 use App\Models\EquipmentModel;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Translation\MessageCatalogue;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,6 +154,13 @@ Route::middleware('auth')->group(function() {
             Route::get('/repairs/{id}', [RepairController::class, 'show'])->name('show');
         });
 
-        Route::post('/save-message', [MessageController::class, 'save_message'])->name('save-message');
+        // Messages routes.
+        Route::name('messages.')->group(function () {
+            // Save new message.
+            Route::post('/save-message', [MessageController::class, 'save_message'])->name('save-message');
+
+            // Get messages of specific binnacle.
+            Route::get('/get-messages/{id}', [MessageController::class, 'get_messages'])->name('get-messages');
+        });
     });
 });
