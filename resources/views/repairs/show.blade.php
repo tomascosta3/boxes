@@ -144,10 +144,10 @@
                                             </div>
                                             
                                             <div class="box mb-1 p-0 is-shadowless messages"></div>
-                                            
+
                                             <input type="hidden" name="binnacle-id" id="binnacle-id" value="{{ $repair->binnacle->id }}">
                                             <div class="new-message">
-                                                <textarea name="new-message" id="new-message" class="textarea"></textarea>
+                                                <textarea name="new-message" id="new-message" class="textarea new-message-text"></textarea>
                                             </div>
                                             <div class="message-buttons is-flex is-justify-content-flex-end mt-2">
                                                 <button class="button send-button" type="button" id="send-button">Enviar</button>
