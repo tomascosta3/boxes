@@ -85,6 +85,22 @@
                                             <p id="phone-number"><strong>Teléfono: </strong>{{ $repair->order->client->phone_number }}</p>
                                         </div>
                                     </div>
+
+                                    <div class="container">
+                                        <div class="box item-box mt-5 mb-4 is-shadowless" id="equipment-box">
+                                            <div class="in-border">
+                                                <div class="columns is-flex is-justify-content-space-between">
+                                                    <div class="column">
+                                                        <p class="item-title">INFORME CLIENTE</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="client-report-container">
+                                                <textarea name="client-report" id="client-report" class="textarea client-report has-fixed-size" rows="8"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="column">
                                     <div class="container">
@@ -147,7 +163,7 @@
 
                                             <input type="hidden" name="binnacle-id" id="binnacle-id" value="{{ $repair->binnacle->id }}">
                                             <div class="new-message">
-                                                <textarea name="new-message" id="new-message" class="textarea new-message-text"></textarea>
+                                                <textarea name="new-message" id="new-message" class="textarea new-message-text has-fixed-size"></textarea>
                                             </div>
                                             <div class="message-buttons is-flex is-justify-content-flex-end mt-2">
                                                 <button class="button send-button" type="button" id="send-button">Enviar</button>

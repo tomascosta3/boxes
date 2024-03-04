@@ -1,3 +1,8 @@
+.input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus {
+    border-color: var(--dark-mode-sidebar-color);
+    box-shadow: 0 0 0 0.125em var(--dark-mode-body-color);
+}
+
 .text-username {
     display: inline;
     font-size: 0.8rem;
