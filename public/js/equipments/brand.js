@@ -3,7 +3,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listener for the button that opens the modal
     document.getElementById('addBrandButton').addEventListener('click', function() {
+        // Show the modal.
         document.getElementById('addBrandModal').classList.add('is-active');
+
+        // Focus on the newBrandInput when the modal opens.
+        var newBrandInput = document.getElementById('newBrand');
+        newBrandInput.focus();
+    });
+
+    // Event listener for detecting Enter key press in the newBrandInput.
+    document.getElementById('newBrand').addEventListener('keydown', function(event) {
+        // Check if the Enter key (keyCode 13) is pressed.
+        if (event.keyCode === 13) {
+            // Prevent the default action of the Enter key (form submission).
+            event.preventDefault();
+            
+            // Simulate a click on the saveBrandButton when Enter is pressed.
+            document.getElementById('saveBrandButton').click();
+        }
     });
 
     // Event listener for the button that closes the modal

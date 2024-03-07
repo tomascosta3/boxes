@@ -2,7 +2,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Event listener for the button that opens the modal.
     document.getElementById('addTypeButton').addEventListener('click', function() {
+        // Show the modal.
         document.getElementById('addTypeModal').classList.add('is-active');
+        
+        // Focus on the newTypeInput when the modal opens.
+        var newTypeInput = document.getElementById('newType');
+        newTypeInput.focus();
+    });
+
+    // Event listener for detecting Enter key press in the newTypeInput.
+    document.getElementById('newType').addEventListener('keydown', function(event) {
+        // Check if the Enter key (keyCode 13) is pressed.
+        if (event.keyCode === 13) {
+            // Prevent the default action of the Enter key (form submission).
+            event.preventDefault();
+            
+            // Simulate a click on the saveTypeButton when Enter is pressed.
+            document.getElementById('saveTypeButton').click();
+        }
     });
 
     // Event listener for the button that closes the modal.
