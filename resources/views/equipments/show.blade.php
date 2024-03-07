@@ -245,6 +245,32 @@
                     @endforeach
                 </div>
                 @endif
+                
+                @if (!$equipment->orders->isEmpty())
+                <div class="column is-3">
+                    <div class="box has-background-light">
+                        <div class="box is-shadowless p-2 mb-3 order-title">
+                            <p class="has-text-centered title is-5">Ordenes</p>
+                        </div>
+                        <div class="container orders-list">
+                            @foreach ($equipment->orders as $order)
+                                <a href="{{ route('repairs.show', ['id' => $order->repair->id]) }}">
+                                    <div class="box is-shadowless py-3 mb-2">
+                                        <div class="columns">
+                                            <div class="column is-4 py-1">
+                                                <p>{{ $order->number }}</p>
+                                            </div>
+                                            <div class="column py-1">
+                                                <p>{{ $order->repair->get_spanish_status() }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
 
             </div>
         </div>
