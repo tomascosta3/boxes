@@ -18,6 +18,7 @@
 
 @section('main-content')
 
+@include('order.modals.create-client')
 @include('order.modals.create-equipment')
 @include('order.modals.equipments')
 @include('equipments.modals.create_type')
