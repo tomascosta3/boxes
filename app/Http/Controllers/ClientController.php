@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -151,6 +152,39 @@ class ClientController extends Controller
     }
 
     /**
+     * Store a new client based on the provided request data and return client data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_and_return_client_data(Request $request): JsonResponse
+    {
+        // Validate form inputs. If there is an error, return back with the errors.
+        $validated = $request->validateWithBag('create', [
+            'first_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:30'],
+            'phone_number' => ['required', 'regex:/^[0-9\W]+$/', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+        ]);
+
+        // Create a new client with the provided data.
+        $client = $this->create_client($request);
+
+        // Check if the client is subscribed and update client type accordingly.
+        $this->update_client_type($client, $request);
+
+        // Check if the client was created successfully.
+        if (!$client->id) {
+            // If creation fails, return error message.
+            return response()->json(['error' => 'No se pudo crear el cliente'], 500);
+        }
+
+        // Return client data.
+        return response()->json(['client' => $client]);
+    }
+
+
+    /**
      * Check if the client is subscribed and update client type accordingly.
      *
      * @param  \App\Models\Client  $client
@@ -289,4 +323,29 @@ class ClientController extends Controller
         return to_route('clients');
     }
 
+    /**
+     * Retrieve all active clients from the database and return them in a format that JavaScript can read.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get_clients(): JsonResponse
+    {
+        // Retrieve all active clients from the database.
+        $clients = Client::where('active', true)
+            ->orderBy('last_name', 'asc')
+            ->get();
+
+        // Format the clients' data into an associative array.
+        $formatted_clients = $clients->map(function ($client) {
+            return [
+                'id' => $client->id,
+                'first_name' => $client->first_name,
+                'last_name' => $client->last_name,
+                'phone_number' => $client->phone_number,
+            ];
+        });
+
+        // Return the clients' data in JSON format
+        return response()->json(['clients' => $formatted_clients]);
+    }
 }

@@ -7,7 +7,7 @@
             <button class="delete" aria-label="close" id="closeClientModal"></button>
         </header>
         <section class="modal-card-body">
-            <form action="{{ route('clients.store') }}" method="post">
+            <form action="{{ route('clients.store-and-return-client-data') }}" id="client-form" method="post">
                 @csrf
 
                 <div class="columns">

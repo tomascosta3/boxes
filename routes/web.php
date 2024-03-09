@@ -69,11 +69,16 @@ Route::middleware('auth')->group(function() {
         // Clients routes.
         Route::name('clients.')->group(function () {
 
+            Route::get('/clients/get-formatted', [ClientController::class, 'get_clients'])->name('get-formatted');
+
             // Create client.
             Route::get('/clients/create', [ClientController::class, 'create'])->name('create');
 
             // Client store.
             Route::post('/clients/store', [ClientController::class, 'store'])->name('store');
+
+            // Client store and return client data.
+            Route::post('/clients/store-and-return', [ClientController::class, 'store_and_return_client_data'])->name('store-and-return-client-data');
 
             // Client view.
             Route::get('/clients/{id}', [ClientController::class, 'show'])->name('show');
