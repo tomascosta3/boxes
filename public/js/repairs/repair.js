@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Build the HTML for the message.
             const messageHTML = `
-                <div class="box p-2 mb-2 is-shadowless message">
+                <div class="box p-2 mb-2 mr-2 is-shadowless message">
                     <p class="text-message">${message.message}</p>
                     <p class="text-username">${message.user.last_name} ${message.user.first_name} -</p>
                     <p class="text-date">${date} ${time}</p>
