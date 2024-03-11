@@ -255,7 +255,7 @@
                         <div class="container orders-list">
                             @foreach ($equipment->orders as $order)
                                 <a href="{{ route('repairs.show', ['id' => $order->repair->id]) }}">
-                                    <div class="box is-shadowless py-3 mb-2">
+                                    <div class="box is-shadowless py-3 mb-2 order">
                                         <div class="columns">
                                             <div class="column is-4 py-1">
                                                 <p>{{ $order->number }}</p>

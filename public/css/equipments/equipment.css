@@ -21,3 +21,7 @@
 .orders-list::-webkit-scrollbar {
     display: none;
 }
+
+.order:hover {
+    border: solid 1px var(--dark-mode-sidebar-color);
+}
