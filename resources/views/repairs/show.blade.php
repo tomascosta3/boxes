@@ -172,7 +172,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="columns">
                                 aca va información de entrega, cambio de estado, cambio de técnico, informe técnico
                                 en caso que se tenga que brindar al cliente

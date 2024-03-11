@@ -95,5 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>`;
             messagesDiv.insertAdjacentHTML('beforeend', messageHTML);
         });
+
+        // Scroll to the bottom of the message div.
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 });
