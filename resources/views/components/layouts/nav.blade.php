@@ -1,5 +1,16 @@
 @extends('components.layouts.app')
 
+@section('style')
+    @parent
+
+    <style>
+        #searchInput {
+            width: 55%;
+        }
+    </style>
+
+@endsection
+
 @section('content')
 <div class="main-page">
     <div class="columns full-height">
@@ -24,10 +35,10 @@
             </a>
 
             <a href="#">
-                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'users') ? 'active' : '' }}">
+                <div id="searchBox" class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'users') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-search-alt-2 nav-icon"></i>
-                        <span class="pl-3">Buscar</span>
+                        <span class="pl-3">Buscar orden</span>
                     </div>
                 </div>
             </a>
