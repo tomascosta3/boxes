@@ -45,10 +45,4 @@
 .messages {
     overflow-y: auto;
     max-height: 300px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.messages::-webkit-scrollbar {
-    display: none;
 }
