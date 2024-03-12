@@ -12,7 +12,7 @@
         }
 
         #searchInput {
-            width: 55%;
+            width: 70%;
             border: none;
         }
 

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="pl-5 has-text-centered is-flex is-align-items-center">
                 <i class="bx bx-search-alt-2 nav-icon"></i>
                 <input type="text" id="searchInput" name="orderNumber" class="input is-small ml-2" placeholder="Escribe aquí...">
-                <button id="searchButton" class="button is-small ml-1">></button>
+                <button id="searchButton" class="button is-small ml-1" style="display: none;">></button>
             </div>
         `;
 
@@ -96,6 +96,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Remove the overlay element from its parent node, effectively removing it from the DOM.
                         overlay.parentNode.removeChild(overlay);
                     });
+
+                    // Event listener for the document.
+                    document.addEventListener('click', function(event) {
+                        // Error message div.
+                        var errorMessage = document.getElementById('error-message');
+                        
+                        if(errorMessage) {
+                            // Check if the click occurred outside the error box.
+                            if (!errorMessage.contains(event.target)) {                        
+                                closeErrorButton.click();
+                            }
+                        }
+                    });
                 }
             })
             .catch(error => {
@@ -103,24 +116,28 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Add an event listener for the Enter key to trigger the search
+        // Add an event listener for the Enter key to trigger the search.
         document.getElementById('searchInput').addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
+                // Trigger the click event on the search button.
                 document.getElementById('searchButton').click();
+
+                // Restore the original content of the search box.
+                restoreSearchBoxContent();
             }
         });
     });
 
-    // Event listener for the document
+    // Event listener for the document.
     document.addEventListener('click', function(event) {
-        // Check if the click occurred outside the search box
+        // Check if the click occurred outside the search box.
         if (!searchBox.contains(event.target)) {
-            // Restore the original content of the search box
+            // Restore the original content of the search box.
             restoreSearchBoxContent();
         }
     });
 
-    // Restore the original content of the search box
+    // Restore the original content of the search box.
     function restoreSearchBoxContent() {
         searchBox.innerHTML = `
             <div class="pl-5 has-text-centered is-flex is-align-items-center">
