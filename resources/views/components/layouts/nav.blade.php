@@ -34,8 +34,38 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            height: 25%;
+            width: 25%;
+            background-color: #d8d3e6;
         }
 
+        #button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75%;
+        }
+
+        .message-box {
+            min-width: 40%;
+            max-width: 90%;
+            min-height: 50%;
+        }
+
+        #closeErrorButton {
+            width: 40%;
+            border-radius: 20px;
+            height: 2rem;
+        }
+
+        #closeErrorButton:focus {
+            border: none;
+        }
     </style>
 
 @endsection

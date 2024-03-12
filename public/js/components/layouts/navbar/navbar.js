@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = '/repairs/' + data.repairs[0].id;
                 } else {
                     // If the order does not exist, show a message in the middle of the screen.
-                    showErrorModal();
+                    showErrorModal(searchedOrder);
 
                     var closeErrorButton = document.getElementById('closeErrorButton');
 
@@ -148,16 +148,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to show error modal.
-    function showErrorModal() {
+    function showErrorModal(searchedOrder) {
         // Create overlay div and error message.
         var overlay = document.createElement('div');
         overlay.id = 'overlay';
-        
+
         var errorMessage = document.createElement('div');
         errorMessage.id = 'error-message';
+        errorMessage.class = 'box';
         errorMessage.innerHTML = `
-            <p>The order does not exist.</p>
-            <button id="closeErrorButton">Close</button>
+            <div class="message-container">
+                <div class="box message-box">
+                    <p class="has-text-centered">
+                        La orden ingresada "${searchedOrder}" no existe
+                    </p>
+                    <p class="has-text-centered">
+                        En caso de algún error contacte a soporte
+                    </p>
+                </div>
+            </div>
+            <button 
+                class="button" 
+                type="button" 
+                id="closeErrorButton"
+            >Cerrar</button>
         `;
         
         // Append error message to overlay.
