@@ -3,10 +3,39 @@
 @section('style')
     @parent
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
+        .input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus {
+            border-color: var(--dark-mode-sidebar-color);
+            box-shadow: 0 0 0 0.125em var(--dark-mode-body-color);
+        }
+
         #searchInput {
             width: 55%;
+            border: none;
         }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #error-message {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
     </style>
 
 @endsection

@@ -55,30 +55,52 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBox.innerHTML = `
             <div class="pl-5 has-text-centered is-flex is-align-items-center">
                 <i class="bx bx-search-alt-2 nav-icon"></i>
-                <input type="text" id="searchInput" class="input is-small ml-2" placeholder="Escribe aquí...">
-                <button id="searchButton" class="button is-small">></button>
+                <input type="text" id="searchInput" name="orderNumber" class="input is-small ml-2" placeholder="Escribe aquí...">
+                <button id="searchButton" class="button is-small ml-1">></button>
             </div>
         `;
 
         // Focus on the input field when the search box is clicked.
         document.getElementById('searchInput').focus();
 
-        // Add an event listener to the search button
+        // Add an event listener to the search button.
         document.getElementById('searchButton').addEventListener('click', function() {
-            // Get the value from the input field
-            const searchTerm = document.getElementById('searchInput').value;
+            // Get the value from the input field.
+            const searchedOrder = document.getElementById('searchInput').value;
 
-            // Perform your search logic here, such as making an AJAX request to your controller
-            // Example:
-            // fetch('/search/' + searchTerm)
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         // Handle the search results
-            //     })
-            //     .catch(error => {
-            //         console.error('Error:', error);
-            //     });
-            console.log('Search term:', searchTerm);
+            // Send a POST request to the server with the search term.            // fetch('/search/' + searchTerm)
+            fetch('/repairs/quick-search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ searchedOrder: searchedOrder })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Check if the search was successful.
+                if (data.repairs.length !== 0) {
+                    // If the order exists, redirect to another route.
+                    window.location.href = '/repairs/' + data.repairs[0].id;
+                } else {
+                    // If the order does not exist, show a message in the middle of the screen.
+                    showErrorModal();
+
+                    var closeErrorButton = document.getElementById('closeErrorButton');
+
+                    // Add an event listener to the element with the ID 'closeErrorButton'.
+                    closeErrorButton.addEventListener('click', function() {
+                        var overlay = document.getElementById('overlay');
+                        
+                        // Remove the overlay element from its parent node, effectively removing it from the DOM.
+                        overlay.parentNode.removeChild(overlay);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
 
         // Add an event listener for the Enter key to trigger the search
@@ -106,5 +128,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="pl-3">Buscar orden</span>
             </div>
         `;
+    }
+
+    // Function to show error modal.
+    function showErrorModal() {
+        // Create overlay div and error message.
+        var overlay = document.createElement('div');
+        overlay.id = 'overlay';
+        
+        var errorMessage = document.createElement('div');
+        errorMessage.id = 'error-message';
+        errorMessage.innerHTML = `
+            <p>The order does not exist.</p>
+            <button id="closeErrorButton">Close</button>
+        `;
+        
+        // Append error message to overlay.
+        overlay.appendChild(errorMessage);
+        
+        // Append overlay to the body of the page.
+        document.body.appendChild(overlay);
     }
 });

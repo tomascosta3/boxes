@@ -190,4 +190,37 @@ class RepairController extends Controller
         // Return the repairs view with the repair's data.
         return view('repairs.show')->with(['repair' => $repair]);
     }
+
+
+    /**
+     * Search for repair associated with a specific order number.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function quick_search(Request $request)
+    {
+        // Initialize repairs variable.
+        $repairs = collect();
+
+        // Get search parameters from the request.
+        $order_number = $request->input('searchedOrder');
+        
+        // Search for the order that matches the search criteria.
+        $order = Order::where('number', $order_number)
+            ->where('active', true)
+            ->first();
+
+        if ($order !== null) {
+            // Retrieve repairs based on the matching order number.
+            $repairs = Repair::where('active', true)
+                ->where('order_id', $order->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        // Return JSON response with repairs data.
+        return response()->json(['repairs' => $repairs]);
+    }
+
 }
