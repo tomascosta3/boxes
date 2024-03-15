@@ -63,3 +63,27 @@
 ::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+.delivered-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.delivered-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}

@@ -45,7 +45,7 @@
                 <div class="column is-12">    
 
                     <div class="box has-background-light">
-                        <form action="#" method="post">
+                        <form action="{{ route('repairs.update', ['id' => $repair->id]) }}" method="post">
                             @csrf
 
                             <div class="box is-shadowless mb-3 p-2 header-box">
@@ -99,6 +99,9 @@
                                             <div class="client-report-container">
                                                 <textarea name="client-report" id="client-report" class="textarea client-report has-fixed-size" rows="8"></textarea>
                                             </div>
+                                            @if ($errors->update->first('client-report'))
+                                                <small style="color: red">{{ $errors->update->first('client-report') }} </small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -173,10 +176,133 @@
                                 </div>
                             </div>
                             <div class="columns">
-                                aca va información de entrega, cambio de estado, cambio de técnico, informe técnico
-                                en caso que se tenga que brindar al cliente
+                                {{-- aca va información de entrega, cambio de estado, cambio de técnico, informe técnico
+                                en caso que se tenga que brindar al cliente --}}
+
+                                <div class="column is-3">
+                                    <div class="container">
+                                        <div class="box item-box mt-5 mb-4 is-shadowless" id="status-box">
+                                            <div class="in-border">
+                                                <div class="columns is-flex is-justify-content-space-between">
+                                                    <div class="column">
+                                                        <p class="item-title">TÉCNICO</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="field is-grouped">
+                                                <div class="control is-expanded">
+                                                    <div class="control has-icons-left">
+                                                        <div class="select is-fullwidth">
+                                                            <select name="technician" id="technician-dropdown">
+                                                                @if (isset($technicians))
+                                                                    @foreach ($technicians as $technician)
+                                                                        <option value="{{ $technician->id }}"
+                                                                            @if (isset($repair->technician_id) && $repair->technician_id == $technician->id)
+                                                                                selected
+                                                                            @endif    
+                                                                        >{{ $technician->last_name . ' ' . $technician->first_name }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                                    <option value="none"
+                                                                    @if (!isset($repair->technician_id))
+                                                                        selected
+                                                                    @endif
+                                                                    >Ninguno</option>
+                                                            </select>
+                                                            <span class="icon is-small is-left">
+                                                                <i class="bx bx-user"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if ($errors->create->first('client'))
+                                                <small style="color: red">{{ $errors->create->first('client') }} </small>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="container">
+                                        <div class="box item-box mt-5 mb-4 is-shadowless" id="status-box">
+                                            <div class="in-border">
+                                                <div class="columns is-flex is-justify-content-space-between">
+                                                    <div class="column">
+                                                        <p class="item-title">ESTADO</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="columns">
+                                                <div class="column">
+                                                    <div class="align-center mb-2">
+                                                        <label for="unchecked">
+                                                            <input type="checkbox" name="status" id="unchecked" value="without checking"
+                                                            @if ($repair->status == 'without checking')
+                                                                checked
+                                                            @endif
+                                                            >
+                                                            Sin revisar
+                                                        </label>
+                                                    </div>
+                                                    <div class="align-center">
+                                                        <label for="inprogress">
+                                                            <input type="checkbox" name="status" id="inprogress" value="in progress"
+                                                            @if ($repair->status == 'in progress')
+                                                                checked
+                                                            @endif
+                                                            >
+                                                            En progreso
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="column">
+                                                    <div class="align-center mb-2">
+                                                        <label for="completed">
+                                                            <input type="checkbox" name="status" id="completed" value="completed"
+                                                            @if ($repair->status == 'completed')
+                                                                checked
+                                                            @endif
+                                                            >
+                                                            Completado
+                                                        </label>
+                                                    </div>
+                                                    <div class="align-center">
+                                                        <label for="waiting">
+                                                            <input type="checkbox" name="status" id="waiting" value="waiting"
+                                                            @if ($repair->status == 'waiting')
+                                                                checked
+                                                            @endif
+                                                            >
+                                                            En espera
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="column is-7 delivered-box">
+                                                    <div class="delivered-status">
+                                                        <p id="delivered-date">No fue entregado, sigue en el taller</p>
+                                                        <button class="button is-success" type="button">ENTREGAR</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-2 center-content">
+                                    <button class="button is-info" type="submit">
+                                        <span class="icon is-small">
+                                            <i class="bx bx-save"></i>
+                                        </span>
+                                        <span>Guardar</span>
+                                    </button>
+                                </div>
+
                             </div>
-    
+
                         </form>
                     </div>
 

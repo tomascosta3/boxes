@@ -187,8 +187,14 @@ class RepairController extends Controller
             return to_route('repairs');
         }
 
+        // Get all active technicians.
+        $technicians = User::where('active', true)
+            ->get();
+
         // Return the repairs view with the repair's data.
-        return view('repairs.show')->with(['repair' => $repair]);
+        return view('repairs.show')
+            ->with(['repair' => $repair])
+            ->with(['technicians' => $technicians]);
     }
 
 
@@ -223,4 +229,41 @@ class RepairController extends Controller
         return response()->json(['repairs' => $repairs]);
     }
 
+
+    /**
+     * 
+     */
+    public function update(Request $request, $id)
+    {
+        // Validate form inputs. If there is an error, return back with the errors.
+        $validated = $request->validateWithBag('update', [
+            'client-report' => ['nullable', 'max:65535'],
+        ]);
+
+        // Get repair.
+        $repair = Repair::where('id', $id)
+            ->where('active', true)
+            ->first();
+       
+        // If the repair doesn't exist, show an error message.
+        if (!$repair) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra la reparación');
+
+            // Redirect to the repairs index route.
+            return to_route('repairs');
+        }
+
+        // Update status if changed.
+        if($request->input('status') && $repair->status !== $request->input('status')) {
+            $repair->update(['status' => $request->input('status')]);
+        }
+
+        // Update client report if changed.
+        if($request->input('client-report') && $repair->conclusion !== $request->input('client-report')) {
+            $repair->update(['conclusion' => $request->input('client-report')]);
+        }
+
+        return to_route('repairs.show', ['id' => $id]);
+    }
 }

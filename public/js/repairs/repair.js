@@ -99,4 +99,19 @@ document.addEventListener("DOMContentLoaded", function() {
         // Scroll to the bottom of the message div.
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
+
+    // Get all checkbox elements.
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // Add change event listener to each checkbox.
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Uncheck other checkboxes.
+            checkboxes.forEach(function(cb) {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+        });
+    });
 });
