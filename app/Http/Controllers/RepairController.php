@@ -294,4 +294,38 @@ class RepairController extends Controller
             }
         }
     }
+
+
+    /**
+     * Mark the repair as delivered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deliver(Request $request)
+    {
+
+        // Get search parameters from the request.
+        $repair_id = $request->input('repairId');
+
+        // Find the repair by its ID.
+        $repair = Repair::find($repair_id);
+
+        // If the repair doesn't exist, return an error response.
+        if (!$repair) {
+            return response()->json(['error' => 'The repair does not exist.'], 404);
+        }
+
+        // Update the status of the repair to 'delivered' and set the delivery date.
+        $repair->update([
+            'status' => 'delivered',
+            'delivery_date' => now(),
+        ]);
+
+        // Return a success response.
+        return response()->json([
+            'deliveryDate' => $repair->delivery_formatted_date(),
+            'deliveryTime' => $repair->delivery_formatted_time(),
+        ], 200);
+    }
 }

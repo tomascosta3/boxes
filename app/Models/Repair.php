@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,7 @@ class Repair extends Model
         'technician_id',
         'status',
         'conclusion',
+        'delivery_date',
         'active',
     ];
 
@@ -106,5 +108,35 @@ class Repair extends Model
                 // If no translation is available, return '-'.
                 return '-';
         }
+    }
+
+
+    /**
+     * Get the formatted delivery date attribute.
+     *
+     * @return string
+     */
+    public function delivery_formatted_date()
+    {
+        // Get the delivery date.
+        $deliveryDate = $this->attributes['delivery_date'];
+
+        // Format the date using Carbon.
+        return Carbon::parse($deliveryDate)->format('d/m/Y');
+    }
+
+
+    /**
+     * Get the formatted delivery time attribute.
+     *
+     * @return string
+     */
+    public function delivery_formatted_time()
+    {
+        // Get the delivery date.
+        $deliveryDate = $this->attributes['delivery_date'];
+
+        // Format the time using Carbon.
+        return Carbon::parse($deliveryDate)->format('H:i');
     }
 }

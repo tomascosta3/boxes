@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get the value from the input field.
             const searchedOrder = document.getElementById('searchInput').value;
 
-            // Send a POST request to the server with the search term.            // fetch('/search/' + searchTerm)
+            // Send a POST request to the server with the search term.
             fetch('/repairs/quick-search', {
                 method: 'POST',
                 headers: {

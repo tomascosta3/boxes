@@ -114,4 +114,55 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+
+    // Get reference to the deliver button.
+    const deliverButton = document.getElementById('deliverButton');
+
+    if(deliverButton) {
+
+        // Add click event listener to the deliver button.
+        deliverButton.addEventListener('click', function() {
+            // Get reference to the "Completed" checkbox
+            const completedCheckbox = document.getElementById('completed');
+    
+            // Check if the "Completed" checkbox is checked.
+            if (completedCheckbox.checked) {
+                // Get the repair ID from the "data-repair-id" attribute of the button
+                const repairId = deliverButton.dataset.repairId;
+    
+                // Perform a POST request to the server.
+                fetch('/repairs/equipment/deliver', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ repairId: repairId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Change delivery info text.
+                    deliveryText = document.getElementById('delivered-date');
+                    deliveryText.textContent = 'Equipo ENTREGADO el día ' + data.deliveryDate + ' a las ' + data.deliveryTime + 'hs';
+    
+                    // Hide deliver button.
+                    deliverButton.style.display = 'none';
+
+                    // Disable all checkboxes and uncheck them if checked.
+                    checkboxes.forEach(function(cb) {
+                        cb.disabled = true;
+                        if (cb.checked) {
+                            cb.checked = false;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                // Show an error message indicating that the "Completed" checkbox must be checked
+                console.log('You must mark the repair as completed before delivering it.');
+            }
+        });
+    }
 });

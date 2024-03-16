@@ -176,8 +176,6 @@
                                 </div>
                             </div>
                             <div class="columns">
-                                {{-- aca va información de entrega, cambio de estado, cambio de técnico, informe técnico
-                                en caso que se tenga que brindar al cliente --}}
 
                                 <div class="column is-3">
                                     <div class="container">
@@ -238,20 +236,28 @@
                                             <div class="columns">
                                                 <div class="column">
                                                     <div class="align-center mb-2">
-                                                        <label for="unchecked">
+                                                        <label class="checkbox" for="unchecked">
                                                             <input type="checkbox" name="status" id="unchecked" value="without checking"
                                                             @if ($repair->status == 'without checking')
                                                                 checked
+                                                            @else
+                                                                @if ($repair->status == 'delivered')
+                                                                    disabled
+                                                                @endif
                                                             @endif
                                                             >
                                                             Sin revisar
                                                         </label>
                                                     </div>
                                                     <div class="align-center">
-                                                        <label for="inprogress">
+                                                        <label class="checkbox" for="inprogress">
                                                             <input type="checkbox" name="status" id="inprogress" value="in progress"
                                                             @if ($repair->status == 'in progress')
                                                                 checked
+                                                            @else
+                                                                @if ($repair->status == 'delivered')
+                                                                    disabled
+                                                                @endif
                                                             @endif
                                                             >
                                                             En progreso
@@ -260,20 +266,28 @@
                                                 </div>
                                                 <div class="column">
                                                     <div class="align-center mb-2">
-                                                        <label for="completed">
+                                                        <label class="checkbox" for="completed">
                                                             <input type="checkbox" name="status" id="completed" value="completed"
                                                             @if ($repair->status == 'completed')
                                                                 checked
+                                                            @else
+                                                                @if ($repair->status == 'delivered')
+                                                                    disabled
+                                                                @endif
                                                             @endif
                                                             >
                                                             Completado
                                                         </label>
                                                     </div>
                                                     <div class="align-center">
-                                                        <label for="waiting">
+                                                        <label class="checkbox" for="waiting">
                                                             <input type="checkbox" name="status" id="waiting" value="waiting"
                                                             @if ($repair->status == 'waiting')
                                                                 checked
+                                                            @else
+                                                                @if ($repair->status == 'delivered')
+                                                                    disabled
+                                                                @endif
                                                             @endif
                                                             >
                                                             En espera
@@ -282,8 +296,12 @@
                                                 </div>
                                                 <div class="column is-7 delivered-box">
                                                     <div class="delivered-status">
-                                                        <p id="delivered-date">No fue entregado, sigue en el taller</p>
-                                                        <button class="button is-success" type="button">ENTREGAR</button>
+                                                        @if ($repair->status !== 'delivered')
+                                                            <p id="delivered-date">No fue entregado, sigue en el taller</p>
+                                                            <button class="button is-success" type="button" id="deliverButton" data-repair-id="{{ $repair->id }}">ENTREGAR</button>
+                                                        @else
+                                                            <p id="delivered-date">Equipo ENTREGADO el día {{ $repair->delivery_formatted_date() }} a las {{ $repair->delivery_formatted_time() }}hs</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

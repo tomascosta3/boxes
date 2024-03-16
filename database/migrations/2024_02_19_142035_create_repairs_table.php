@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('technician_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('status', 30)->default('without checking');
             $table->text('conclusion')->nullable();
+            $table->timestamp('delivery_date')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

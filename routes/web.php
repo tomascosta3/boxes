@@ -163,6 +163,9 @@ Route::middleware('auth')->group(function() {
 
             // Edit repair.
             Route::post('/repairs/edit/{id}', [RepairController::class, 'edit'])->name('edit');
+
+            // Deliver equipment.
+            Route::post('/repairs/equipment/deliver', [RepairController::class, 'deliver'])->name('deliver');
         });
 
         // Messages routes.
