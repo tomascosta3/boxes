@@ -45,7 +45,7 @@
                 <div class="column is-12">    
 
                     <div class="box has-background-light">
-                        <form action="{{ route('repairs.update', ['id' => $repair->id]) }}" method="post">
+                        <form action="{{ route('repairs.edit', ['id' => $repair->id]) }}" method="post">
                             @csrf
 
                             <div class="box is-shadowless mb-3 p-2 header-box">
@@ -97,10 +97,10 @@
                                             </div>
                                             
                                             <div class="client-report-container">
-                                                <textarea name="client-report" id="client-report" class="textarea client-report has-fixed-size" rows="8"></textarea>
+                                                <textarea name="client-report" id="client-report" class="textarea client-report has-fixed-size" rows="8">{{ $repair->conclusion }}</textarea>
                                             </div>
-                                            @if ($errors->update->first('client-report'))
-                                                <small style="color: red">{{ $errors->update->first('client-report') }} </small>
+                                            @if ($errors->edit->first('client-report'))
+                                                <small style="color: red">{{ $errors->edit->first('client-report') }} </small>
                                             @endif
                                         </div>
                                     </div>

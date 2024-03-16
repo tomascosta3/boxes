@@ -161,8 +161,8 @@ Route::middleware('auth')->group(function() {
             // Search repair.
             Route::post('/repairs/quick-search', [RepairController::class, 'quick_search'])->name('quick-search');
 
-            // Update repair.
-            Route::post('/repairs/update/{id}', [RepairController::class, 'update'])->name('update');
+            // Edit repair.
+            Route::post('/repairs/edit/{id}', [RepairController::class, 'edit'])->name('edit');
         });
 
         // Messages routes.

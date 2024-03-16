@@ -10,6 +10,7 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class RepairController extends Controller
@@ -231,20 +232,22 @@ class RepairController extends Controller
 
 
     /**
-     * 
+     * Edit the details of a repair based on the provided request data.
+     *
+     * @param \Illuminate\Http\Request $request The request instance containing the form data.
+     * @param int $id The ID of the repair to be edited.
+     * @return \Illuminate\Http\RedirectResponse A redirect response after editing the repair.
      */
-    public function update(Request $request, $id)
+    public function edit(Request $request, $id) : RedirectResponse
     {
         // Validate form inputs. If there is an error, return back with the errors.
-        $validated = $request->validateWithBag('update', [
+        $validated = $request->validateWithBag('edit', [
             'client-report' => ['nullable', 'max:65535'],
         ]);
 
-        // Get repair.
-        $repair = Repair::where('id', $id)
-            ->where('active', true)
-            ->first();
-       
+        // Find the repair by ID.
+        $repair = Repair::find($id);
+
         // If the repair doesn't exist, show an error message.
         if (!$repair) {
             // Flash an error message for the session.
@@ -254,16 +257,41 @@ class RepairController extends Controller
             return to_route('repairs');
         }
 
+        // Update repair.
+        $this->update_repair($repair, $request);
+
+        // Redirect to the equipment details page.
+        return to_route('repairs.show', ['id' => $id]);
+    }
+
+
+    /**
+     * Update the basic information of a repair.
+     *
+     * @param \App\Models\Repair $repair The repair instance.
+     * @param \Illuminate\Http\Request $request The request instance.
+     * @return void
+     */
+    private function update_repair(Repair $repair, Request $request): void
+    {
         // Update status if changed.
         if($request->input('status') && $repair->status !== $request->input('status')) {
             $repair->update(['status' => $request->input('status')]);
         }
 
         // Update client report if changed.
-        if($request->input('client-report') && $repair->conclusion !== $request->input('client-report')) {
+        if($repair->conclusion !== $request->input('client-report')) {
             $repair->update(['conclusion' => $request->input('client-report')]);
         }
-
-        return to_route('repairs.show', ['id' => $id]);
+        
+        // Update technician if changed.
+        if($request->input('technician') && $repair->technician_id !== $request->input('technician')) {
+            // If there is none technician, assign null technician ID.
+            if ($request->input('technician') == 'none') {
+                $repair->update(['technician_id' => null]);
+            } else {
+                $repair->update(['technician_id' => $request->input('technician')]);
+            }
+        }
     }
 }
