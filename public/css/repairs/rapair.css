@@ -75,6 +75,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .center-content {
@@ -86,4 +87,10 @@
 .align-center {
     display: flex;
     align-items: center;
+}
+
+.error-div {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
 }

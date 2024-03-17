@@ -294,7 +294,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="column is-7 delivered-box">
+                                                <div class="column is-7 delivered-box" id="deliveredBox">
                                                     <div class="delivered-status">
                                                         @if ($repair->status !== 'delivered')
                                                             <p id="delivered-date">No fue entregado, sigue en el taller</p>

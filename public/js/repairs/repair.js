@@ -160,8 +160,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.error('Error:', error);
                 });
             } else {
-                // Show an error message indicating that the "Completed" checkbox must be checked
-                console.log('You must mark the repair as completed before delivering it.');
+                // Create new div.
+                const errorDiv = document.createElement('div');
+                errorDiv.classList.add('error-div');
+                document.getElementById('deliveredBox').appendChild(errorDiv);
+
+                // Show error message.
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Para entregar el equipo tiene que estar completado!';
+                errorMessage.style.color = 'red';
+                errorDiv.appendChild(errorMessage);
+
+                // Remove error message after 3 seconds.
+                setTimeout(() => {
+                    errorMessage.remove();
+                    errorDiv.remove();
+                }, 4000);
             }
         });
     }
