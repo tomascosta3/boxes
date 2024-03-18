@@ -86,13 +86,26 @@ document.addEventListener("DOMContentLoaded", function() {
             const seconds = messageDate.getSeconds().toString().padStart(2, '0');
             const time = `${hours}:${minutes}:${seconds}`;
 
-            // Build the HTML for the message.
-            const messageHTML = `
-                <div class="box p-2 mb-2 mr-2 is-shadowless message">
-                    <p class="text-message">${message.message}</p>
-                    <p class="text-username">${message.user.last_name} ${message.user.first_name} -</p>
-                    <p class="text-date">${date} ${time}</p>
-                </div>`;
+            var messageHTML = ``;
+
+            if (message.user) {
+                // Build the HTML for the message.
+                messageHTML = `
+                    <div class="box p-2 mb-2 mr-2 is-shadowless message">
+                        <p class="text-message">${message.message}</p>
+                        <p class="text-username">${message.user.last_name} ${message.user.first_name} -</p>
+                        <p class="text-date">${date} ${time}</p>
+                    </div>`;
+            } else {
+                messageHTML = `
+                    <div class="system-message-container">
+                        <div class="box p-2 mb-2 mr-2 is-shadowless system-message">
+                            <p class="text-message">${message.message}</p>
+                            <p class="text-date">${date} ${time}</p>
+                        </div>
+                    </div>`;
+            }
+
             messagesDiv.insertAdjacentHTML('beforeend', messageHTML);
         });
 

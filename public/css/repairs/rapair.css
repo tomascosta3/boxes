@@ -94,3 +94,15 @@
     display: flex;
     justify-content: center;
 }
+
+.system-message-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.system-message {
+    max-width: 90%;
+    background-color: #828181;
+    color: white;
+}

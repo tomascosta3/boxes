@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Equipment;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\Repair;
 use App\Models\Type;
@@ -276,7 +277,9 @@ class RepairController extends Controller
     {
         // Update status if changed.
         if($request->input('status') && $repair->status !== $request->input('status')) {
+            $old_status = $repair->get_spanish_status();
             $repair->update(['status' => $request->input('status')]);
+            $this->status_changed_message($repair, $request, $old_status);
         }
 
         // Update client report if changed.
@@ -327,5 +330,30 @@ class RepairController extends Controller
             'deliveryDate' => $repair->delivery_formatted_date(),
             'deliveryTime' => $repair->delivery_formatted_time(),
         ], 200);
+    }
+
+
+    /**
+     * 
+     */
+    private function status_changed_message(Repair $repair, Request $request, $old_status)
+    {
+        $message = auth()->user()->last_name . ' ' . auth()->user()->first_name . ' cambió el estado de la reparación de "'
+            . $old_status . '" a "' . $repair->get_spanish_status() . '"';
+
+        // Create a new message.
+        $new_message = Message::create([
+            'binnacle_id' => $request->input('binnacle-id'),
+            'message' => $message,
+        ]);
+    }
+
+
+    /**
+     * 
+     */
+    private function technician_changed_messaged(Repair $repair, $new_technician)
+    {
+
     }
 }
