@@ -101,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="system-message-container">
                         <div class="box p-2 mb-2 mr-2 is-shadowless system-message">
                             <p class="text-system-message">${message.message}</p>
-                            <p class="text-date">${date} ${time}</p>
                         </div>
                     </div>`;
             }

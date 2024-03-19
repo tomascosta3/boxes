@@ -279,6 +279,7 @@ class RepairController extends Controller
         if($request->input('status') && $repair->status !== $request->input('status')) {
             $old_status = $repair->get_spanish_status();
             $repair->update(['status' => $request->input('status')]);
+            // Save change as a system message in binnacle.
             $this->status_changed_message($repair, $request, $old_status);
         }
 
@@ -295,6 +296,8 @@ class RepairController extends Controller
             } else {
                 $repair->update(['technician_id' => $request->input('technician')]);
             }
+            // Save change as a system message in binnacle.
+            $this->technician_changed_message($request);
         }
     }
 
@@ -334,12 +337,17 @@ class RepairController extends Controller
 
 
     /**
-     * 
+     * Generate a message when the status of a repair is changed.
+     *
+     * @param  \App\Models\Repair  $repair
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $old_status
+     * @return void
      */
     private function status_changed_message(Repair $repair, Request $request, $old_status)
     {
-        $message = auth()->user()->last_name . ' ' . auth()->user()->first_name . ' cambió el estado de la reparación de "'
-            . $old_status . '" a "' . $repair->get_spanish_status() . '"';
+        $message = auth()->user()->last_name . ' ' . auth()->user()->first_name . ' changed the status of the repair from "'
+            . $old_status . '" to "' . $repair->get_spanish_status() . '"';
 
         // Create a new message.
         $new_message = Message::create([
@@ -348,12 +356,28 @@ class RepairController extends Controller
         ]);
     }
 
-
     /**
-     * 
+     * Generate a message when the technician of a repair is changed.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
      */
-    private function technician_changed_messaged(Repair $repair, $new_technician)
+    private function technician_changed_message(Request $request)
     {
+        $message = '';
+        $new_technician = $request->input('technician');
 
+        if ($new_technician == 'none') {
+            $message = 'Técnico asignado -> Ninguno.';
+        } else {
+            $technician = User::find($new_technician);
+            $message = 'Técnico asignado -> ' . $technician->last_name . ' ' . $technician->first_name . '.';
+        }
+
+        // Create a new message.
+        $new_message = Message::create([
+            'binnacle_id' => $request->input('binnacle-id'),
+            'message' => $message,
+        ]);
     }
 }
