@@ -78,10 +78,11 @@
     flex-wrap: wrap;
 }
 
-.center-content {
+.buttons-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
 }
 
 .align-center {

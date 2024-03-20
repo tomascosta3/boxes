@@ -380,4 +380,32 @@ class RepairController extends Controller
             'message' => $message,
         ]);
     }
+
+
+    /**
+     * 
+     */
+    public function print($id)
+    {
+        // Find the repair by ID.
+        $repair = Repair::find($id);
+
+        // If the repair doesn't exist, show an error message.
+        if (!$repair) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra la reparación');
+
+            // Redirect to the repairs index route.
+            return to_route('repairs');
+        }
+
+        // Get all active technicians.
+        $technicians = User::where('active', true)
+            ->get();
+
+        // Return the repairs view with the repair's data.
+        return view('repairs.print')
+            ->with(['repair' => $repair])
+            ->with(['technicians' => $technicians]);
+    }
 }

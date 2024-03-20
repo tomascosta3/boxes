@@ -158,6 +158,9 @@ Route::middleware('auth')->group(function() {
             // Equipment view.
             Route::get('/repairs/{id}', [RepairController::class, 'show'])->name('show');
 
+            // Print repair.
+            Route::get('/repairs/{id}/print', [RepairController::class, 'print'])->name('print');
+
             // Search repair.
             Route::post('/repairs/quick-search', [RepairController::class, 'quick_search'])->name('quick-search');
 

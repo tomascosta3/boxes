@@ -310,7 +310,13 @@
                                     </div>
                                 </div>
 
-                                <div class="column is-2 center-content">
+                                <div class="column is-2 buttons-container">
+                                    <button class="button is-primary" type="button" id="printButton">
+                                        <span class="icon is-small">
+                                            <i class="bx bx-printer"></i>
+                                        </span>
+                                        <span>Imprimir</span>
+                                    </button>
                                     <button class="button is-info" type="submit">
                                         <span class="icon is-small">
                                             <i class="bx bx-save"></i>
