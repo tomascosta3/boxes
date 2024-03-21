@@ -289,7 +289,7 @@ class RepairController extends Controller
         }
         
         // Update technician if changed.
-        if($request->input('technician') && $repair->technician_id !== $request->input('technician')) {
+        if($request->input('technician') && $repair->technician_id != $request->input('technician')) {
             // If there is none technician, assign null technician ID.
             if ($request->input('technician') == 'none') {
                 $repair->update(['technician_id' => null]);
