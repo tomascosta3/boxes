@@ -193,22 +193,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.getElementById('printButton').addEventListener('click', function() {
-        // Obtener el ID de la reparación de la URL actual
-        var repairId = window.location.pathname.split('/').pop(); // Obtener el último segmento de la URL
+        // Get the repair ID from the current URL.
+        var repairId = window.location.pathname.split('/').pop(); // Get the last segment of the URL
 
-        // Crear un iframe
+        // Create an iframe.
         var iframe = document.createElement('iframe');
-        // Ocultar el iframe
+
+        // Hide the iframe.
         iframe.style.display = 'none';
-        // Establecer la URL de la vista que deseas imprimir
+
+        // Set the URL of the view you want to print.
         iframe.src = '/repairs/' + repairId + '/print';
-        // Agregar el iframe al cuerpo del documento
+
+        // Add the iframe to the document body.
         document.body.appendChild(iframe);
-        // Imprimir el contenido del iframe
+
+        // Print the content of the iframe.
         iframe.contentWindow.print();
-        // Eliminar el iframe después de la impresión
+        
+        // Remove the iframe after printing.
         setTimeout(function() {
             document.body.removeChild(iframe);
-        }, 1000); // Tiempo de espera para asegurarse de que la impresión se haya completado
+        }, 1000); // Wait time to ensure printing is completed.
     });
 });
