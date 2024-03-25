@@ -348,8 +348,8 @@ class RepairController extends Controller
      */
     private function status_changed_message(Repair $repair, Request $request, $old_status)
     {
-        $message = auth()->user()->last_name . ' ' . auth()->user()->first_name . ' changed the status of the repair from "'
-            . $old_status . '" to "' . $repair->get_spanish_status() . '"';
+        $message = auth()->user()->last_name . ' ' . auth()->user()->first_name . ' cambió el estado de "'
+            . $old_status . '" a "' . $repair->get_spanish_status() . '"';
 
         // Create a new message.
         $new_message = Message::create([
