@@ -48,11 +48,11 @@
                         <form action="{{ route('repairs.edit', ['id' => $repair->id]) }}" method="post">
                             @csrf
 
-                            <div class="box is-shadowless mb-3 p-2 header-box">
+                            <div class="box is-shadowless mb-3 p-2 categories">
                                 <div class="columns">
-                                    <div class="column is-1 column-title">
+                                    <div class="column is-1 column-title is-justify-content-flex-start">
                                         <a href="{{ route('repairs') }}">
-                                            <button class="button is-small" type="button">Volver</button>
+                                            <button class="button is-small is-rounded" type="button">Volver</button>
                                         </a>
                                     </div>
                                     <div class="column column-title">
@@ -70,9 +70,9 @@
                                             @endif
                                         </p>
                                     </div>
-                                    <div class="column is-1 column-title">
+                                    <div class="column is-1 column-title is-justify-content-flex-end">
                                         <a href="{{ route('orders.show', ['id' => $repair->order->number]) }}">
-                                            <button class="button is-small" type="button">Ver orden</button>
+                                            <button class="button is-small is-rounded" type="button">Ver orden</button>
                                         </a>
                                     </div>
                                 </div>

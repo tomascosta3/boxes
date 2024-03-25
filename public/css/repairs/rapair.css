@@ -30,10 +30,6 @@
     border: 1px solid #b5b5b5;
 }
 
-.header-box {
-    background-color: var(--dark-mode-sidebar-color);
-}
-
 .header-box p {
     color: var(--dark-mode-text-color);
 }
