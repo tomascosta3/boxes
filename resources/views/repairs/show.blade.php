@@ -50,13 +50,18 @@
 
                             <div class="box is-shadowless mb-3 p-2 header-box">
                                 <div class="columns">
-                                    <div class="column has">
+                                    <div class="column is-1 column-title">
+                                        <a href="{{ route('repairs') }}">
+                                            <button class="button is-small" type="button">Volver</button>
+                                        </a>
+                                    </div>
+                                    <div class="column column-title">
                                         <p class="has-text-centered">N° de orden: {{ $repair->order->number }}</p>
                                     </div>
-                                    <div class="column">
+                                    <div class="column column-title">
                                         <p class="has-text-centered">Fecha de ingreso: {{ $repair->order->created_at }}</p>
                                     </div>
-                                    <div class="column">
+                                    <div class="column column-title">
                                         <p class="has-text-centered">Técnico asignado: 
                                             @if ($repair->technician_id == null)
                                                 Ninguno
@@ -64,6 +69,11 @@
                                                 {{ $repair->technician->last_name . ' ' . $repair->technician->first_name }}
                                             @endif
                                         </p>
+                                    </div>
+                                    <div class="column is-1 column-title">
+                                        <a href="{{ route('orders.show', ['id' => $repair->order->number]) }}">
+                                            <button class="button is-small" type="button">Ver orden</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

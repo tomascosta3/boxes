@@ -164,4 +164,56 @@ class OrderController extends Controller
 
         return $open_repairs;
     }
+
+
+    /**
+     * Display the details of a specific order.
+     *
+     * @param int $order_number The number of the order.
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show($order_number)
+    {
+        // Find the order by number.
+        $order = Order::where('active', true)
+            ->where('number', $order_number)
+            ->first();
+
+        // If the order doesn't exist, show an error message.
+        if (!$order) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra la orden');
+
+            // Redirect to the repairs index route.
+            return to_route('repairs');
+        }
+
+        // Return the order view with the order's data.
+        return view('order.show')
+            ->with(['order' => $order]);
+    }
+
+
+    /**
+     * 
+     */
+    public function print($number)
+    {
+        // Find the order by number.
+        $order = Order::where('active', true)
+            ->where('number', $number)
+            ->first();
+
+        // If the order doesn't exist, show an error message.
+        if (!$order) {
+            // Flash an error message for the session.
+            session()->flash('problem', 'No se encuentra la orden');
+
+            // Redirect to the repairs index route.
+            return to_route('repairs');
+        }
+
+        // Return the orders view with the order's data.
+        return view('order.print')
+            ->with(['order' => $order]);    }
 }

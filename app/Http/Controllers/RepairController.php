@@ -291,13 +291,15 @@ class RepairController extends Controller
         // Update technician if changed.
         if($request->input('technician') && $repair->technician_id != $request->input('technician')) {
             // If there is none technician, assign null technician ID.
-            if ($request->input('technician') == 'none') {
+            if ($request->input('technician') == 'none' && $repair->technician_id !== null) {
                 $repair->update(['technician_id' => null]);
-            } else {
+                // Save change as a system message in binnacle.
+                $this->technician_changed_message($request);
+            } else if($request->input('technician') !== 'none'){
                 $repair->update(['technician_id' => $request->input('technician')]);
+                // Save change as a system message in binnacle.
+                $this->technician_changed_message($request);
             }
-            // Save change as a system message in binnacle.
-            $this->technician_changed_message($request);
         }
     }
 

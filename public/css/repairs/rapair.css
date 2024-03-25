@@ -115,3 +115,9 @@
 .text-system-date {
     font-size: 0.7rem;
 }
+
+.column-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

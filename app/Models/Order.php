@@ -72,4 +72,28 @@ class Order extends Model
     {
         return $this->hasOne(Repair::class);
     }
+
+
+    /**
+     * Relationship: Many-to-One
+     *
+     * Define a many-to-one relationship where an Order belongs to a specific Technician.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function technician()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    /**
+     * Get the formatted creation date and time.
+     *
+     * @return string
+     */
+    public function formatted_creation_date_time()
+    {
+        return $this->created_at->format('H:i\h\s d/m/Y');
+    }
 }

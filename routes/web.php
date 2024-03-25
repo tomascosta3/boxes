@@ -150,6 +150,15 @@ Route::middleware('auth')->group(function() {
         // Create new order.
         Route::post('/new-order', [OrderController::class, 'store'])->name('new-order.store');
 
+        // Repairs routes.
+        Route::name('orders.')->group(function () {
+            // Show order.
+            Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show');
+
+            // Print order.
+            Route::get('/orders/{number}/print', [OrderController::class, 'print'])->name('print');
+        });
+
         // Repairs index.
         Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
 
