@@ -153,7 +153,7 @@ Route::middleware('auth')->group(function() {
         // Repairs routes.
         Route::name('orders.')->group(function () {
             // Show order.
-            Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show');
+            Route::get('/orders/{order_number}', [OrderController::class, 'show'])->name('show');
 
             // Print order.
             Route::get('/orders/{number}/print', [OrderController::class, 'print'])->name('print');

@@ -74,6 +74,10 @@ class OrderController extends Controller
             }
 
             session()->flash('success', 'La nueva orden fue creada correctamente');
+
+            $order_aux = Order::find($order->id);
+
+            return redirect()->route('orders.show', ['order_number' => $order_aux->number]);
         }
 
         // Redirect to the new order route.
@@ -195,7 +199,10 @@ class OrderController extends Controller
 
 
     /**
-     * 
+     * Print the order with the given number.
+     *
+     * @param  int  $number The order number.
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse The orders view or a redirect response.
      */
     public function print($number)
     {
@@ -210,10 +217,11 @@ class OrderController extends Controller
             session()->flash('problem', 'No se encuentra la orden');
 
             // Redirect to the repairs index route.
-            return to_route('repairs');
+            return redirect()->route('repairs');
         }
 
         // Return the orders view with the order's data.
         return view('order.print')
-            ->with(['order' => $order]);    }
+            ->with(['order' => $order]);    
+    }
 }

@@ -71,7 +71,7 @@
                                         </p>
                                     </div>
                                     <div class="column is-1 column-title is-justify-content-flex-end">
-                                        <a href="{{ route('orders.show', ['id' => $repair->order->number]) }}">
+                                        <a href="{{ route('orders.show', ['order_number' => $repair->order->number]) }}">
                                             <button class="button is-small is-rounded" type="button">Ver orden</button>
                                         </a>
                                     </div>
