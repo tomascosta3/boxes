@@ -101,7 +101,7 @@
                                             <div class="in-border">
                                                 <div class="columns is-flex is-justify-content-space-between">
                                                     <div class="column">
-                                                        <p class="item-title">INFORME CLIENTE</p>
+                                                        <p class="item-title">INFORME TÉCNICO</p>
                                                     </div>
                                                 </div>
                                             </div>

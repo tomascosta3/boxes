@@ -79,7 +79,7 @@ class OrderController extends Controller
 
             $order_aux = Order::find($order->id);
 
-            Mail::to($order_aux->client->email)->send(new OrderShipped($order_aux));
+            Mail::to($order_aux->client->email)->queue(new OrderShipped($order_aux));
 
             return redirect()->route('orders.show', ['order_number' => $order_aux->number]);
         }
