@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderShipped;
 use App\Models\Binnacle;
 use App\Models\Client;
 use App\Models\Equipment;
@@ -11,6 +12,7 @@ use App\Models\Type;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PhpParser\Node\Expr\Cast\Bool_;
 
 class OrderController extends Controller
@@ -76,6 +78,8 @@ class OrderController extends Controller
             session()->flash('success', 'La nueva orden fue creada correctamente');
 
             $order_aux = Order::find($order->id);
+
+            Mail::to($order_aux->client->email)->send(new OrderShipped($order_aux));
 
             return redirect()->route('orders.show', ['order_number' => $order_aux->number]);
         }

@@ -182,6 +182,9 @@
                         </a>
                         @endforeach
                     </div>
+
+                    {{ $repairs->links() }}
+
                 </div>
 
             </div>
