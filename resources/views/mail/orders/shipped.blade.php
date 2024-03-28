@@ -22,7 +22,7 @@ Accesorios del equipo:<br>
 Falla que presenta el equipo:<br>
 {{ $order->failure }}
 
-Ante cualquier consulta o duda no dude en comunicarse con los técnicos al número +542324545171 y referirse a la orden de reparación número #{{ $order->number }}.
+Ante cualquier duda o consulta no dude en comunicarse con los técnicos al número +542324545171 y referirse a la orden de reparación número #{{ $order->number }}.
 
 Desde ya muchas gracias,<br>
 Solido Connecting Solutions.
